@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cinema;
+package model;
 
+import model.Assento;
 import java.util.List;
 
 /**
@@ -14,6 +15,6 @@ import java.util.List;
 public class Sala {
     
     private int numero;
-    private List<Assento> assento;
+    private Assento assento;
     
 }
