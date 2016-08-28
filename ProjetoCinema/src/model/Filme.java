@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
 /**
@@ -11,29 +7,35 @@ package model;
  */
 public class Filme {
     
+    private static int CODIGO_GERADO = 1;
     private int codigo;
-    private String nome;
+    private String titulo;
     private Genero genero;
     private String sinopse;
 
-    public Filme(int codigo, String nome, Genero genero, String sinopse) {
-        this.codigo = codigo;
-        this.nome = nome;
+    public Filme(String titulo, Genero genero, String sinopse) {
+        this.codigo = gerarCodigo();
+        this.titulo = titulo;
         this.genero = genero;
         this.sinopse = sinopse;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public Genero getGenero() {
         return genero;
     }
+    
+    public int getCodigo() {
+        return this.codigo;
+    }
+    
 
     public void setGenero(Genero genero) {
         this.genero = genero;
@@ -47,6 +49,8 @@ public class Filme {
         this.sinopse = sinopse;
     }
     
-    
+     private int gerarCodigo() {
+        return (CODIGO_GERADO++);
+    }
     
 }
