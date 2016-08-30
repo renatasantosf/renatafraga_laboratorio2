@@ -48,5 +48,11 @@ public class RepositorioFilme {
         return false;
     }*/
     
-    
+    public void removerFilme(String nome) {
+       for(int i=0;i<filmes.size();i++) {
+           if(filmes.get(i).getTitulo().equals(nome)) {
+               filmes.remove(i);
+           } 
+       }
+    }
 }
