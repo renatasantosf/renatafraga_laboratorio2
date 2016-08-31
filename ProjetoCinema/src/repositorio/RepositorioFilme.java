@@ -31,16 +31,13 @@ public class RepositorioFilme {
     }
     
     public Filme buscarFilme(String titulo) {
-        if(filmes.isEmpty()) {
-            return null;
-        } else {
             for (Filme filme : filmes) {
                 if (filme.getTitulo().equalsIgnoreCase(titulo)) {
                     return filme;
                 }
             }
-        return null;
-        }
+            return null;
+            
     }
     
     public boolean filmeExiste(String titulo) {

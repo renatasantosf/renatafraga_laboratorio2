@@ -8,6 +8,7 @@ package view;
 
 import model.Filme;
 import repositorio.RepositorioFilme;
+import repositorio.RepositorioGenero;
 import sun.applet.Main;
 import util.Console;
 import view.menu.MainMenu;
@@ -19,9 +20,11 @@ import view.menu.MainMenu;
 public class MainUI {
     
     private RepositorioFilme listaFilmes;
+    private RepositorioGenero listaGeneros;
     
     public MainUI() {
         listaFilmes = new RepositorioFilme();
+        listaGeneros = new RepositorioGenero();
     }
     
     public void executar() {
@@ -32,7 +35,7 @@ public class MainUI {
             opcao = Console.scanInt("Digite a opção desejada: ");
             switch(opcao) {
                 case MainMenu.OP_FILME:
-                    new FilmeUI(listaFilmes).iniciar();
+                    new FilmeUI(listaFilmes,listaGeneros).iniciar();
                     break;
                 case MainMenu.SAIR:
                     System.out.println("Tchau!");

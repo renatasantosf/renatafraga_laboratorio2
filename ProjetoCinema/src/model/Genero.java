@@ -9,14 +9,15 @@ package model;
  *
  * @authors Diego e Renata
  */
-class Genero {
+public class Genero {
     
+    private static int CODIGO_GERADO = 0;
     private int codigo;
     private String nome;
     private String descricao;
 
-    public Genero(int codigo, String nome, String descricao) {
-        this.codigo = codigo;
+    public Genero(String nome, String descricao) {
+        this.codigo = gerarCodigo();
         this.nome = nome;
         this.descricao = descricao;
     }
@@ -37,5 +38,13 @@ class Genero {
         this.descricao = descricao;
     }
     
+    private int gerarCodigo() {
+        return (CODIGO_GERADO++);
+    }
+
+    @Override
+    public String toString() {
+        return "Genero{" + "codigo=" + codigo + ", nome=" + nome + ", descricao=" + descricao + '}';
+    }
     
 }

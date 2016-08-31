@@ -10,10 +10,10 @@ public class Filme {
     private static int CODIGO_GERADO = 1;
     private int codigo;
     private String titulo;
-    private String genero;
+    private Genero genero;
     private String sinopse;
 
-    public Filme(String titulo, String genero, String sinopse) {
+    public Filme(String titulo, Genero genero, String sinopse) {
         this.codigo = gerarCodigo();
         this.titulo = titulo;
         this.genero = genero;
@@ -28,7 +28,7 @@ public class Filme {
         this.titulo = titulo;
     }
 
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
     
@@ -37,7 +37,7 @@ public class Filme {
     }
     
 
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
 
