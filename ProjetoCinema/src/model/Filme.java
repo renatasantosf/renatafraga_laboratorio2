@@ -10,10 +10,10 @@ public class Filme {
     private static int CODIGO_GERADO = 1;
     private int codigo;
     private String titulo;
-    private Genero genero;
+    private String genero;
     private String sinopse;
 
-    public Filme(String titulo, Genero genero, String sinopse) {
+    public Filme(String titulo, String genero, String sinopse) {
         this.codigo = gerarCodigo();
         this.titulo = titulo;
         this.genero = genero;
@@ -28,7 +28,7 @@ public class Filme {
         this.titulo = titulo;
     }
 
-    public Genero getGenero() {
+    public String getGenero() {
         return genero;
     }
     
@@ -37,7 +37,7 @@ public class Filme {
     }
     
 
-    public void setGenero(Genero genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 
@@ -52,5 +52,12 @@ public class Filme {
      private int gerarCodigo() {
         return (CODIGO_GERADO++);
     }
+
+    @Override
+    public String toString() {
+        return "Código: " + codigo + "\nTítulo: " + titulo + "\nGênero: " + genero +
+                "\nSinopse: " + sinopse;
+    }
+    
     
 }

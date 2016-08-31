@@ -21,11 +21,10 @@ import repositorio.RepositorioGenero;
 public class FilmeUI {
     
     private RepositorioFilme listaFilmes;
-    private RepositorioGenero listaGeneros;
     
-    public FilmeUI(RepositorioFilme listaF, RepositorioGenero listaG ) {
+    public FilmeUI(RepositorioFilme listaF) {
         this.listaFilmes = listaF;
-        this.listaGeneros = listaG;
+       
     }
     
    //TODO: menu em outra classe
@@ -44,6 +43,7 @@ public class FilmeUI {
                     listarFilmes();
                     break;
                 case FilmeMenu.OP_BUSCARNOME:
+                    buscarFilme();
                     break;
                 case FilmeMenu.OP_BUSCARGENERO:
                     break;
@@ -62,14 +62,12 @@ public class FilmeUI {
 
     private void cadastrarFilme() {
       String titulo = Console.scanString("Título do filme: ");
-      if(listaFilmes.buscarFilme(titulo)) {
+      if(listaFilmes.filmeExiste(titulo)) {
           System.out.println("Este filme já foi cadastrado.");
       } else {
-          
           String genero = Console.scanString("Gênero: ");
           String sinopse = Console.scanString("Sinopse: ");
-          
-        
+          listaFilmes.addFilme(new Filme(titulo,genero,sinopse));
       }
       
     }
@@ -78,8 +76,8 @@ public class FilmeUI {
         if(listaFilmes.getFilmes().isEmpty()) {
             System.out.println("Não há filmes cadastrados.");
         } else {
-            for (Filme filme : listaFilmes.getFilmes()) {
-                System.out.println(filme.getCodigo());
+            for (Filme filmes : listaFilmes.getFilmes()) {
+                System.out.println(filmes);
             }
         }
     }
@@ -89,18 +87,22 @@ public class FilmeUI {
        if(listaFilmes.getFilmes().isEmpty()) {
             System.out.println("Não há filmes cadastrados.");
         } else {
-            System.out.println("Opções: ");
+           
             for (Filme filme : listaFilmes.getFilmes()) {
                 System.out.println(filme.getTitulo());
             }
-            String nome = Console.scanString("Nome do filme que deseja remover: ");
-            for (Filme filme: listaFilmes.getFilmes()) {
-                if(filme.getTitulo().equals(nome)) {
-                    listaFilmes.removerFilme(nome);
-                }
-            }
+            
+            String titulo = Console.scanString("Título que deseja remover: ");
+            listaFilmes.removerFilme(titulo);
         }
     }
 
+    private void buscarFilme() {
+       String titulo = Console.scanString("Título: ");
+       listaFilmes.buscarFilme(titulo);
+    }
+
+    
+    
    
     }

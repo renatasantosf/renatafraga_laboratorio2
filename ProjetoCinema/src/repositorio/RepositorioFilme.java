@@ -16,6 +16,7 @@ import model.Filme;
 public class RepositorioFilme {
     
     private List<Filme> filmes;
+  
     
     public RepositorioFilme() {
         filmes = new ArrayList<>();
@@ -29,30 +30,52 @@ public class RepositorioFilme {
         return filmes;
     }
     
-    public boolean buscarFilme(String titulo) {
-        for (Filme filme : filmes) {
-            if (filme.getTitulo().equals(titulo)) {
-                return true;
+    public Filme buscarFilme(String titulo) {
+        if(filmes.isEmpty()) {
+            return null;
+        } else {
+            for (Filme filme : filmes) {
+                if (filme.getTitulo().equalsIgnoreCase(titulo)) {
+                    return filme;
+                }
+            }
+        return null;
+        }
+    }
+    
+    public boolean filmeExiste(String titulo) {
+        if(filmes.isEmpty()) {
+            return false;
+        } else {
+            for(Filme filme: filmes) {
+                if(filme.getTitulo().equalsIgnoreCase(titulo)) {
+                    return true;
+                } 
             }
         }
         return false;
     }
     
-    //TODO:
-   /** public boolean buscarFilmePorGenero(String nome) {
-        for(Filme filme :filmes) {
-            if (filme.getGenero().equals(nome)) {
-                return true;
+    
+ /*  public Filme buscarFilmePorGenero(String nome) {
+      
+        for(int i=0;i<filmes.size();i++) {
+            if () {
+               
             }
         }
-        return false;
+        
     }*/
     
-    public void removerFilme(String nome) {
+    public void removerFilme(String titulo) {
        for(int i=0;i<filmes.size();i++) {
-           if(filmes.get(i).getTitulo().equals(nome)) {
+           if(filmes.get(i).getTitulo().equals(titulo)) {
                filmes.remove(i);
-           } 
+               break;
+           } else {
+               System.out.println("Título inválido.");
+               break;
+           }
        }
     }
 }
