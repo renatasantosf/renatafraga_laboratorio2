@@ -11,8 +11,35 @@ package model;
  */
 public class Assento {
     
-    private String identificao;
+    private static int CODIGO_GERADO = 1;
+    private int identificacao;
     private boolean liberada;
+    
+    
+    public Assento() {
+        this.identificacao = gerarCodigo();
+        this.liberada = false;
+    }
+
+   
+
+    public int getIdentificacao() {
+        return identificacao;
+    }
+
+   
+    public boolean isLiberada() {
+        return liberada;
+    }
+
+    public void setLiberada(boolean liberada) {
+        this.liberada = liberada;
+    }
+
+    
+    private int gerarCodigo() {
+        return (CODIGO_GERADO++);
+    }
     
     
 }

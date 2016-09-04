@@ -7,6 +7,7 @@ package model;
 
 import model.Assento;
 import java.util.List;
+import repositorio.RepositorioAssento;
 
 /**
  *
@@ -15,6 +16,7 @@ import java.util.List;
 public class Sala {
     
     private int numero;
-    private Assento assento;
+    private RepositorioAssento assentos;
+    
     
 }
