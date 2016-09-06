@@ -15,8 +15,30 @@ import repositorio.RepositorioAssento;
  */
 public class Sala {
     
+    private static int CODIGO_GERADO = 1;
     private int numero;
-    private RepositorioAssento assentos;
+    private Assento assento;
+
+    
+    public Sala(int numero) {
+        this.numero = numero;
+            
+    }
+    
+    
+    
+    public int getNumero() {
+        return numero;
+    }
+    
+    public Assento Assento() {
+        return this.assento;
+    }
+    
+    public int gerarCodigo() {
+        return (CODIGO_GERADO++);
+    }
+    
     
     
 }

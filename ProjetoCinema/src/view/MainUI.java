@@ -9,7 +9,8 @@ package view;
 import model.Filme;
 import repositorio.RepositorioFilme;
 import repositorio.RepositorioGenero;
-import sun.applet.Main;
+import repositorio.RepositorioSala;
+
 import util.Console;
 import view.menu.MainMenu;
 
@@ -21,10 +22,12 @@ public class MainUI {
     
     private RepositorioFilme listaFilmes;
     private RepositorioGenero listaGeneros;
+    private RepositorioSala listaSala;
     
     public MainUI() {
         listaFilmes = new RepositorioFilme();
         listaGeneros = new RepositorioGenero();
+        listaSala = new RepositorioSala();
     }
     
     public void executar() {
@@ -37,6 +40,8 @@ public class MainUI {
                 case MainMenu.OP_FILME:
                     new FilmeUI(listaFilmes,listaGeneros).iniciar();
                     break;
+                case MainMenu.OP_SALA:
+                    new SalaUI(listaSala).iniciar();
                 case MainMenu.SAIR:
                     System.out.println("Tchau!");
                     break;

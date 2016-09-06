@@ -22,14 +22,17 @@ public class RepositorioAssento {
     }
     
     public boolean addAssento(Assento assento) {
-        return (assentos.add(assento));
+          for(int i=0;i<49;i++) {
+              return (assentos.add(assento));
+          }
+          return (assentos.add(assento));
     }
     
     public List<Assento> getAssentos() {
         return assentos;
     }
     
-    public Assento buscarAssento(int id) {
+    /*public Assento buscarAssento(int id) {
             for (Assento assento : assentos) {
                 if (assento.getIdentificacao()==id) {
                     return assento;
@@ -37,9 +40,9 @@ public class RepositorioAssento {
             }
             return null;
             
-    }
+    }*/
     
-    public boolean filmeAssento(int id) {
+   /* public boolean existeAssento(int id) {
         if(assentos.isEmpty()) {
             return false;
         } else {
@@ -50,20 +53,11 @@ public class RepositorioAssento {
             }
         }
         return false;
-    }
-    
-    
- /*  public Filme buscarFilmePorGenero(String nome) {
-      
-        for(int i=0;i<filmes.size();i++) {
-            if () {
-               
-            }
-        }
-        
     }*/
     
-    public void removerAssento(int id) {
+   
+    
+   /* public void removerAssento(int id) {
        for(int i=0;i<assentos.size();i++) {
            if(assentos.get(i).getIdentificacao()==id) {
                assentos.remove(i);
@@ -73,6 +67,6 @@ public class RepositorioAssento {
                break;
            }
        }
-    }
+    }*/
     
 }
