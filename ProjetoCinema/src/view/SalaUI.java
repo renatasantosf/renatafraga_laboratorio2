@@ -34,7 +34,7 @@ public class SalaUI {
 
             switch(opcao) {
                 case SalaMenu.OPCADASTRAR_SALA:
-                     cadastrarSala();
+                        listaSalas.addSala(new Sala());
                     break;
                 case SalaMenu.OPREMOVER_SALA:
                      removerSala();
@@ -43,7 +43,7 @@ public class SalaUI {
                     listarSalas();
                     break;
                 case SalaMenu.OPPESQUISAR_LIBERADAS:
-                    //pesquisarLiberadas();
+                    listaSalas.listarAssentos();
                     break;
                 case SalaMenu.OPPESQUISAR_OCUPADAS:
                     pesquisarOcupadas();
@@ -55,41 +55,14 @@ public class SalaUI {
         }
     }
 
-    private void cadastrarSala() {
-        int id = Console.scanInt("Digite a identificação da sala: ");
-        if(listaSalas.getSala().isEmpty()) {
-            listaSalas.addSala(new Sala(id));
-        } else {
-                for(int i=0;i<listaSalas.getSala().size();i++) {
-                if(listaSalas.getSala().get(i).getNumero()==id){
-                    System.out.println("Este número já existe.");
-                    break;
-                } else {
-                    listaSalas.addSala(new Sala(id));
-                }
-            }
-        }
-    }
+    
 
     private void removerSala() {
      
         
     }
 
-   /* private void pesquisarLiberadas() {
-      int id_sala = Console.scanInt("Digite o nº da sala que deseja buscar:");
-        for (int i = 0; i < listaSalas.getSala().size(); i++) {
-           if(listaSalas.getSala().get(i).getNumero()==id_sala) {
-               System.out.println("Assentos Liberados: ");
-               for(int j=0;j < listaSalas.getRepAssentos().getAssentos().size(); j++) {
-                   if(listaSalas.getRepAssentos().getAssentos().get(i).isLiberada()) {
-                       System.out.println(listaSalas.getRepAssentos().getAssentos().get(i).getIdentificacao());
-                   }
-               }
-           }    
-            
-        }
-    }*/
+    
 
     private void pesquisarOcupadas() {
         

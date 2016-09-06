@@ -22,10 +22,7 @@ public class RepositorioAssento {
     }
     
     public boolean addAssento(Assento assento) {
-          for(int i=0;i<49;i++) {
-              return (assentos.add(assento));
-          }
-          return (assentos.add(assento));
+        return (assentos.add(assento));      
     }
     
     public List<Assento> getAssentos() {

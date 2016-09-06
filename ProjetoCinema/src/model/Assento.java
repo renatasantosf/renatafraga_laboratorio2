@@ -28,7 +28,7 @@ public class Assento {
     }
 
    
-    public boolean isLiberada() {
+    public boolean getLiberada() {
         return liberada;
     }
 

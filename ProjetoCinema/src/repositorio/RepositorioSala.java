@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Assento;
 import model.Sala;
+import util.Console;
 
 /**
  *
@@ -17,11 +18,14 @@ public class RepositorioSala {
     
     public RepositorioSala() {
        salas = new ArrayList<>();
+       repAssentos = new RepositorioAssento();
        
     }
     
     public boolean addSala(Sala sala) {
-        repAssentos.addAssento(new Assento());
+        for(int i=0;i<40;i++) {
+            repAssentos.addAssento(new Assento());
+        }
         return (salas.add(sala));
         
     }
@@ -57,7 +61,17 @@ public class RepositorioSala {
         return false;
     }
     
-   
+   public void pesquisarLiberadas() {
+        int id_sala = Console.scanInt("Digite o nº da sala que deseja buscar:");
+        if(existeSala(id_sala)) {
+            System.out.println("Assentos liberados:");
+            for(int i=0;i<repAssentos.getAssentos().size();i++) {
+                if(!repAssentos.getAssentos().get(i).getLiberada()) {
+                    System.out.println(repAssentos.getAssentos().get(i).getIdentificacao());
+                }
+            }
+        }
+    }
     
     public void removerSala(int numero) {
        for(int i=0;i<salas.size();i++) {
@@ -69,5 +83,11 @@ public class RepositorioSala {
                break;
            }
        }
+    }
+    
+    public void listarAssentos() {
+        for(int i=0;i<50;i++) {
+            System.out.println(repAssentos.getAssentos().get(i).getIdentificacao());
+        }
     }
 }
