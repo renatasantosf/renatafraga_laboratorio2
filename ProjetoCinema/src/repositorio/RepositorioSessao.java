@@ -13,12 +13,12 @@ import model.Secao;
  *
  * @author renat
  */
-public class RepositorioSecao {
+public class RepositorioSessao {
     
     private List<Secao> secoes;
     
     
-    public RepositorioSecao() {
+    public RepositorioSessao() {
         secoes = new ArrayList<>();
     }
 

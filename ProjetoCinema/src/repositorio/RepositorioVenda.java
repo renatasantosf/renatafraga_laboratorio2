@@ -57,6 +57,7 @@ public class RepositorioVenda {
         for(int i=0;i<vendas.size();i++) {
            if(vendas.get(i).getCodigoVenda()==codigo) {
                vendas.remove(i);
+               
                break;
            } else {
                System.out.println("Código inválido!");

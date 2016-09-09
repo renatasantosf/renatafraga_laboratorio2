@@ -15,12 +15,12 @@ import view.menu.SecaoMenu;
  *
  * @author 631510049
  */
-public class SecaoUI {
+public class SessaoUI {
     
     private RepositorioSala listaSalas;
     private RepositorioFilme listaFilmes;
     
-    public SecaoUI(RepositorioSala rs, RepositorioFilme rf) {
+    public SessaoUI(RepositorioSala rs, RepositorioFilme rf) {
         listaSalas = rs;
         listaFilmes = rf;
     }

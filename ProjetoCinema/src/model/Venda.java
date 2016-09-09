@@ -47,9 +47,18 @@ public class Venda {
         }
     }
     
+    public void devolverIngresso() {
+        if(quantidadeAssento<50) {
+            quantidadeAssento++;
+        } else {
+            System.out.println("Está sessão está livre.");
+        }
+    }
+    
     public int gerarCodigo() {
         return (CODIGO_GERADO++);
     }
+    
     
     
 }
