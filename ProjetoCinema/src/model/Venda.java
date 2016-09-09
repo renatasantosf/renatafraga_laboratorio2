@@ -11,11 +11,45 @@ package model;
  */
 public class Venda {
     
+    private static int CODIGO_GERADO = 1;
     private int codigoVenda;
-    //TODO:
     private Secao secao;
-    private int quantidadeAssento;
+    private static int quantidadeAssento;
+
+    public Venda(Secao secao) {
+        this.codigoVenda = gerarCodigo();
+        this.secao = secao;
+        quantidadeAssento = 50;
+        
+    }
+
+    public static int getCODIGO_GERADO() {
+        return CODIGO_GERADO;
+    }
+
+    public int getCodigoVenda() {
+        return codigoVenda;
+    }
+
+    public Secao getSecao() {
+        return secao;
+    }
+
+    public static int getQuantidadeAssento() {
+        return quantidadeAssento;
+    }
     
+    public void venderIngresso() {
+        if(quantidadeAssento>0) {
+            quantidadeAssento--;
+        } else {
+            System.out.println("Ingressos esgostados!");
+        }
+    }
+    
+    public int gerarCodigo() {
+        return (CODIGO_GERADO++);
+    }
     
     
 }

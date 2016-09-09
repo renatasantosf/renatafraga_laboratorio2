@@ -12,16 +12,20 @@ import java.time.LocalDate;
  * @author renat
  */
 public class Secao {
+    private static int CODIGO_GERADO = 1;
     private int codigo;
     private Sala sala;
     private Filme filme;
     private LocalDate horario;
+    private int quantidade;
+ 
 
-    public Secao(int codigo, Sala sala, Filme filme, LocalDate horario) {
-        this.codigo = codigo;
+    public Secao(Sala sala, Filme filme, LocalDate horario) {
+        this.codigo = gerarCodigo();
         this.sala = sala;
         this.filme = filme;
         this.horario = horario;
+        this.quantidade = sala.getQuantidade();
     }
 
     public Sala getSala() {
@@ -51,6 +55,13 @@ public class Secao {
         this.horario = horario;
     }
     
+    public int getQuantidade() {
+        return this.quantidade;
+    }
+    
+    public int gerarCodigo() {
+        return (CODIGO_GERADO++);
+    }
     
     
 }

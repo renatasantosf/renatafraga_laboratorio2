@@ -6,7 +6,7 @@
 package view;
 
 import model.Sala;
-import repositorio.RepositorioAssento;
+
 import repositorio.RepositorioSala;
 import util.Console;
 import view.menu.SalaMenu;
@@ -34,7 +34,7 @@ public class SalaUI {
 
             switch(opcao) {
                 case SalaMenu.OPCADASTRAR_SALA:
-                        listaSalas.addSala(new Sala());
+                     cadastrarSala();
                     break;
                 case SalaMenu.OPREMOVER_SALA:
                      removerSala();
@@ -43,10 +43,10 @@ public class SalaUI {
                     listarSalas();
                     break;
                 case SalaMenu.OPPESQUISAR_LIBERADAS:
-                    listaSalas.listarAssentos();
+                    
                     break;
                 case SalaMenu.OPPESQUISAR_OCUPADAS:
-                    pesquisarOcupadas();
+                    
                     break;
                 default:
                     System.out.println("Opção inválida!");
@@ -55,21 +55,25 @@ public class SalaUI {
         }
     }
 
-    
+    private void cadastrarSala() {
+            listaSalas.addSala(new Sala());
+    }
 
     private void removerSala() {
      
         
     }
 
-    
+   
 
     private void pesquisarOcupadas() {
         
     }
 
     private void listarSalas() {
-      
+        for (int i = 0; i < listaSalas.getSalas().size(); i++) {
+            System.out.println(listaSalas.getSalas().get(i).getNumero());
+        }
     }
     
 }
