@@ -42,9 +42,8 @@ public class Genero {
         return (CODIGO_GERADO++);
     }
 
-    @Override
-    public String toString() {
-        return "Genero{" + "codigo=" + codigo + ", nome=" + nome + ", descricao=" + descricao + '}';
-    }
+   public int getCodigo() {
+       return codigo;
+   }
     
 }

@@ -30,13 +30,21 @@ public class RepositorioFilme {
         return filmes;
     }
     
-    public Filme buscarFilme(String titulo) {
-            for (Filme filme : filmes) {
-                if (filme.getTitulo().equalsIgnoreCase(titulo)) {
-                    return filme;
+    public void buscarFilme(String titulo) {
+            for (Filme filmes : filmes) {
+                if(filmes.getTitulo().equals(titulo)) {
+                    System.out.println(String.format("%-10s", "CÓDIGO") + "\t"
+                       + String.format("%-20s","TÍTULO")+"\t"+String.format("%-20s","GÊNERO")  +
+                            "\t"+ String.format("%-30s", "SINOPSE"));
+                     System.out.println(String.format("%-10s", filmes.getCodigo()) + "\t"
+                       + String.format("%-20s",filmes.getTitulo())+ "\t"+String.format("%-20s",filmes.getGenero().getNome())  +
+                            "\t"+ String.format("%-30s", filmes.getSinopse()));  
+                     break;
+                } else {
+                    System.out.println("Não há este filme cadastrado.");
                 }
             }
-            return null;
+           
             
     }
     
@@ -54,15 +62,7 @@ public class RepositorioFilme {
     }
     
     
- /*  public Filme buscarFilmePorGenero(String nome) {
-      
-        for(int i=0;i<filmes.size();i++) {
-            if () {
-               
-            }
-        }
-        
-    }*/
+
     
     public void removerFilme(String titulo) {
        for(int i=0;i<filmes.size();i++) {
