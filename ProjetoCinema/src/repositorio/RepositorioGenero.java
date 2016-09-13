@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package repositorio;
 
 import model.Genero;
@@ -51,18 +47,6 @@ public class RepositorioGenero {
         }
         return false;
     }
-    
-     
-    public void removerGenero(String nome) {
-       for (int i=0;i<generos.size();i++) {
-          if(generoExiste(nome)) {
-              generos.remove(i);
-              System.out.println("Removido com sucesso.");
-          }
-       }
-    }
-    
-      
-       
+           
     
 }

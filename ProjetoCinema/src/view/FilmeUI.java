@@ -27,6 +27,8 @@ public class FilmeUI {
        
     }
     
+    
+    
    //TODO: menu em outra classe
     
     public void iniciar() {
@@ -152,23 +154,36 @@ public class FilmeUI {
     }
 
     private void removerGenero() {
-       if(listaGeneros.getGeneros().isEmpty()) {
-           System.out.println("Não há gêneros cadastrados.");
-       } else {
-           listaGeneros.listarGeneros();
-           String nome = Console.scanString("Digite o nome do gênero que deseja remover:");
-           for(Filme filme: listaFilmes.getFilmes()) {
-               if(filme.getGenero().getNome().equals(nome)) {
-                   System.out.println("Não é possível remover gênero que esteja vinculado ao filme");
-                   break;
-               } else {
-                   listaGeneros.removerGenero(nome);
-               }
-           }
-       }
+        if(listaGeneros.getGeneros().isEmpty()) {
+            System.out.println("Não há gêneros cadastrados.");
+        } else {
+            int indice;
+            listaGeneros.listarGeneros();
+            System.out.println("Digite o nome gênero que deseja remover:");
+            String nome = Console.scanString("");           
+            for(int i=0;i<listaFilmes.getFilmes().size();i++) {
+                if(listaFilmes.getFilmes().get(i).getGenero().getNome().equals(nome)) {
+                    System.out.println("Este gênero não pode ser removido, pois está vinculado a um filme.");
+                    break;
+                } else {
+                   for(int x=0;x<listaGeneros.getGeneros().size();x++) {
+                         if(listaGeneros.getGeneros().get(x).getNome().equals(nome)) {
+                            indice = x;
+                            listaGeneros.getGeneros().remove(indice);
+                            System.out.println("Removido com sucesso!");
+                            break;
+                         } else {
+                             System.out.println("Gênero não encontrado.");
+                         }
+                            
+                       
+                   }
+                
+                }
+            }
+        }   
     }
 }
-
     
 
     

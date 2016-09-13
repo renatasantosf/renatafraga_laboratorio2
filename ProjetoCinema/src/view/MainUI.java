@@ -49,7 +49,7 @@ public class MainUI {
                 case MainMenu.OP_SALA:
                     new SalaUI(listaSala).iniciar();
                 case MainMenu.OP_SESSAO:
-                    new SessaoUI(listaSala,listaFilmes);
+                    new SessaoUI(listaSessoes);
                     break;
                 case MainMenu.OP_VENDA:
                     new VendaUI(listaVendas);

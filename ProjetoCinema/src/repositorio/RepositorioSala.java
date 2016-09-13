@@ -31,15 +31,7 @@ public class RepositorioSala {
         return salas;
     }
     
-    public Sala buscarSala(int numero) {
-            for (Sala sala: salas) {
-                if (sala.getNumero()==numero) {
-                    return sala;
-                }
-            }
-            return null;
-            
-    }
+  
     
    
     
@@ -58,15 +50,5 @@ public class RepositorioSala {
     
    
     
-    public void removerSala(int numero) {
-       for(int i=0;i<salas.size();i++) {
-           if(salas.get(i).getNumero()==numero) {
-               salas.remove(i);
-               break;
-           } else {
-               System.out.println("Título inválido.");
-               break;
-           }
-       }
-    }
+   
 }

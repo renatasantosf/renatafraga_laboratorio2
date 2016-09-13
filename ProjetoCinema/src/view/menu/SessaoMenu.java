@@ -9,11 +9,11 @@ package view.menu;
  *
  * @author 631510049
  */
-public class SecaoMenu {
-    public static final int OP_CADASTRARSECAO = 1;
-    public static final int OP_LISTARSECOES = 2;
-    public static final int OP_REMOVERSECAO = 3;
-    public static final int OP_BUSCARSECAO = 4;
+public class SessaoMenu {
+    public static final int OP_CADASTRARSESSAO = 1;
+    public static final int OP_LISTARSESSOES = 2;
+    public static final int OP_REMOVERSESSAO = 3;
+    public static final int OP_BUSCARSESSAO = 4;
     public static final int SAIR = 5;
     
     public static String getOpcoes() {

@@ -5,45 +5,51 @@
  */
 package view;
 
-import model.Secao;
+import java.text.ParseException;
+import java.util.Date;
+import model.Sala;
+import model.Sessao;
 import repositorio.RepositorioFilme;
+import repositorio.RepositorioGenero;
 import repositorio.RepositorioSala;
+import repositorio.RepositorioSessao;
 import util.Console;
-import view.menu.SecaoMenu;
+import util.DateUtil;
+import view.menu.SessaoMenu;
 
 /**
  *
  * @author 631510049
  */
 public class SessaoUI {
+     
+    private RepositorioSessao listaSessoes;
     
-    private RepositorioSala listaSalas;
-    private RepositorioFilme listaFilmes;
-    
-    public SessaoUI(RepositorioSala rs, RepositorioFilme rf) {
-        listaSalas = rs;
-        listaFilmes = rf;
+    public SessaoUI(RepositorioSessao rs) {
+       listaSessoes = rs;
     }
     
     
     public void iniciar() {
         int opcao = 0;
-        while (opcao!= SecaoMenu.SAIR) {
-            System.out.println(SecaoMenu.getOpcoes());
+        while (opcao!= SessaoMenu.SAIR) {
+            System.out.println(SessaoMenu.getOpcoes());
             opcao = Console.scanInt("Digite a opção que deseja: ");
 
             switch(opcao) {
-                case SecaoMenu.OP_CADASTRARSECAO:
+                case SessaoMenu.OP_CADASTRARSESSAO:
                     cadastrarSessao();
                     break;
-                case SecaoMenu.OP_LISTARSECOES:
-                    listaSessoes();
+                case SessaoMenu.OP_LISTARSESSOES:
+                    listarSessoes();
                     break;
-                case SecaoMenu.OP_REMOVERSECAO:
+                case SessaoMenu.OP_REMOVERSESSAO:
                     removerSessao();
                     break;
-                case SecaoMenu.OP_BUSCARSECAO:
+                case SessaoMenu.OP_BUSCARSESSAO:
                     buscarSessao();
+                    break;
+                case SessaoMenu.SAIR:
                     break;
                 default:
                     System.out.println("Opção inválida!");
@@ -53,19 +59,64 @@ public class SessaoUI {
     }
 
     private void cadastrarSessao() {
-       
-    }
+        
+        
+        
+        String dataHora = Console.scanString("Data/Hora (dd/mm/aaaa hh:mm):");
+        Date horario;
+         try {
+                horario = DateUtil.stringToDateHour(dataHora);
+                if(listaSessoes.existeSessao(horario)) {
+                    System.out.println("Nesse horario já existe uma consulta");
+                } else {
+                    //listaSessoes.addSessao();
+                    System.out.println("Agendamento realizado com sucesso!");
+                }
+            } catch (ParseException ex) {
+                System.out.println("Data ou hora no formato inválido.");                
+            }
+        }
+    
 
-    private void listaSessoes() {
-       
+    private void listarSessoes() {
+       if(listaSessoes.getSessoes().isEmpty()) {
+            System.out.println("Não há sessões disponíveis.");
+        } else {
+            System.out.println(String.format("%-10s", "NÚMERO DA SESSÃO") + "\t"
+                + String.format("%-30s","DIA E HORÁRIO")+"\t"+String.format("%-10s","SALA")
+                    +"\t"+String.format("%-30s","FILME")  + 
+                     "\t"+ String.format("%-30s", "ASSENTOS"));
+            for (Sessao sessao : listaSessoes.getSessoes()) {
+              System.out.println(String.format("%-10s", sessao.getCodigo()) + "\t"
+                + String.format("%-30s",sessao.getHorario())+"\t"+String.format("%-10s",sessao.getSala().getNumero())
+                    +"\t"+String.format("%-30s",sessao.getFilme().getTitulo())  + 
+                     "\t"+ String.format("%-30s", sessao.getQuantidade()));
+            }
+        }
     }
 
     private void removerSessao() {
-        
+        listarSessoes();
+        int codigo = Console.scanInt("Digite o código da sessão: ");
+        for(int x=0;x<listaSessoes.getSessoes().size();x++) {
+            if(listaSessoes.getSessoes().get(x).getCodigo()==codigo) {
+                listaSessoes.getSessoes().get(x);
+                System.out.println("Removido com sucesso!");
+            } else {
+                System.out.println("Sala inválida.");
+                
+            }
+           
+        }
     }
 
     private void buscarSessao() {
-        
+       int codigo = Console.scanInt("Título: ");
+       if(listaSessoes.getSessoes().isEmpty()) {
+           System.out.println("Não há sessões disponíveis.");
+       } else {
+           listaSessoes.buscarSessao(codigo);
+       }
     }
     
     

@@ -42,16 +42,11 @@ public class SalaUI {
                 case SalaMenu.OP_LISTARSALAS:
                     listarSalas();
                     break;
-                case SalaMenu.OPPESQUISAR_LIBERADAS:
-                    
-                    break;
-                case SalaMenu.OPPESQUISAR_OCUPADAS:
-                    
+                case SalaMenu.OP_VOLTAR:
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opção inválida.");
             }
-            
         }
     }
 
@@ -60,19 +55,31 @@ public class SalaUI {
     }
 
     private void removerSala() {
-     
+        listarSalas();
+        int numero = Console.scanInt("Digite o número da sala: ");
+        for(int y=0;y<listaSalas.getSalas().size();y++) {
+            if(listaSalas.getSalas().get(y).getNumero()==numero) {
+                listaSalas.getSalas().remove(y);
+                System.out.println("Removido com sucesso!");
+            } else {
+                System.out.println("Sala inválida.");
+                
+            }
+           
+        }
         
     }
 
    
 
-    private void pesquisarOcupadas() {
-        
-    }
+   
 
     private void listarSalas() {
-        for (int i = 0; i < listaSalas.getSalas().size(); i++) {
-            System.out.println(listaSalas.getSalas().get(i).getNumero());
+        System.out.println(String.format("%-10s", "IDENTIFICAÇÃO") + "\t"
+                + String.format("%-10s","CACIDADE"));
+        for (Sala salas: listaSalas.getSalas()) {
+            System.out.println(String.format("%-10s",salas.getNumero()) + "\t"
+                + String.format("%-10s",salas.getQuantidade()));
         }
     }
     

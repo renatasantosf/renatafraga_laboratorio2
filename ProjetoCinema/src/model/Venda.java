@@ -13,10 +13,10 @@ public class Venda {
     
     private static int CODIGO_GERADO = 1;
     private int codigoVenda;
-    private Secao secao;
+    private Sessao secao;
     private static int quantidadeAssento;
 
-    public Venda(Secao secao) {
+    public Venda(Sessao secao) {
         this.codigoVenda = gerarCodigo();
         this.secao = secao;
         quantidadeAssento = 50;
@@ -31,7 +31,7 @@ public class Venda {
         return codigoVenda;
     }
 
-    public Secao getSecao() {
+    public Sessao getSecao() {
         return secao;
     }
 

@@ -1,73 +1,72 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package repositorio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import model.Secao;
+import model.Sessao;
 
 /**
  *
  * @author renat
  */
 public class RepositorioSessao {
-    
-    private List<Secao> secoes;
-    
-    
+
+    private List<Sessao> sessoes;
+
     public RepositorioSessao() {
-        secoes = new ArrayList<>();
+        sessoes = new ArrayList<>();
     }
 
-    public List<Secao> getSecoes() {
-        return secoes;
+    public List<Sessao> getSessoes() {
+        return sessoes;
     }
-    
-    
-    public boolean addSecao(Secao secao) {
-        return (secoes.add(secao));
-        
+
+    public boolean addSessao(Sessao sessao) {
+        return (sessoes.add(sessao));
+
     }
-    
-    public Secao buscarSecao(int codigo) {
-            for (Secao secao: secoes) {
-                if (secao.getCodigo()==codigo) {
-                    return secao;
-                }
+
+    public void buscarSessao(int codigo) {
+        for (Sessao sessao : sessoes) {
+                if(sessao.getCodigo()==codigo) {
+                    System.out.println(String.format("%-10s", "NÚMERO DA SESSÃO") + "\t"
+                + String.format("%-30s","DIA E HORÁRIO")+"\t"+String.format("%-10s","SALA")
+                    +"\t"+String.format("%-30s","FILME")  + 
+                     "\t"+ String.format("%-30s", "ASSENTOS"));
+                    System.out.println(String.format("%-10s", sessao.getCodigo()) + "\t"
+                + String.format("%-30s",sessao.getHorario())+"\t"+String.format("%-10s",sessao.getSala().getNumero())
+                    +"\t"+String.format("%-30s",sessao.getFilme().getTitulo())  + 
+                     "\t"+ String.format("%-30s", sessao.getQuantidade()));
+                    break;
+                } 
             }
-            return null;
-            
+
     }
-    
-   
-    
-    public boolean existeSala(int codigo) {
-        if(secoes.isEmpty()) {
+
+    public boolean existeSessao(Date horario) {
+        if (sessoes.isEmpty()) {
             return false;
         } else {
-            for(Secao secao: secoes) {
-                if(secao.getCodigo()==codigo) {
+            for (Sessao sessao : sessoes) {
+                if (sessao.getHorario().compareTo(horario)==1) {
                     return true;
-                } 
+                }
             }
         }
         return false;
-    }
-    
    
-    
-    public void removerSala(int codigo) {
-       for(int i=0;i<secoes.size();i++) {
-           if(secoes.get(i).getCodigo()==codigo) {
-               secoes.remove(i);
-               break;
-           } else {
-               System.out.println("Código inválido.");
-               break;
-           }
-       }
+    }
+
+    public void removerSessao(int codigo) {
+        for (int i = 0; i < sessoes.size(); i++) {
+            if (sessoes.get(i).getCodigo() == codigo) {
+                sessoes.remove(i);
+                break;
+            } else {
+                System.out.println("Código inválido.");
+                break;
+            }
+        }
     }
 }

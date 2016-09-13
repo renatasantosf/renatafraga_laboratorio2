@@ -6,21 +6,22 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
  * @author renat
  */
-public class Secao {
+public class Sessao {
     private static int CODIGO_GERADO = 1;
     private int codigo;
     private Sala sala;
     private Filme filme;
-    private LocalDate horario;
+    private Date horario;
     private int quantidade;
  
 
-    public Secao(Sala sala, Filme filme, LocalDate horario) {
+    public Sessao(Sala sala, Filme filme, Date horario) {
         this.codigo = gerarCodigo();
         this.sala = sala;
         this.filme = filme;
@@ -47,11 +48,11 @@ public class Secao {
         this.filme = filme;
     }
 
-    public LocalDate getHorario() {
+    public Date getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalDate horario) {
+    public void setHorario(Date horario) {
         this.horario = horario;
     }
     
