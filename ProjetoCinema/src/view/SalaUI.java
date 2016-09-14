@@ -29,7 +29,7 @@ public class SalaUI {
      public void iniciar() {
         int opcao = 0;
         while (opcao!= SalaMenu.OP_VOLTAR) {
-            System.out.println(SalaMenu.menuSala());
+            System.out.println(SalaMenu.getOpcoes());
             opcao = Console.scanInt("Digite a opção que deseja: ");
 
             switch(opcao) {

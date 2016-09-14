@@ -75,4 +75,15 @@ public class RepositorioFilme {
            }
        }
     }
+    
+    public void listarFilmes() {
+         System.out.println(String.format("%-10s", "CÓDIGO") + "\t"
+                + String.format("%-40s","TÍTULO")+"\t" +
+                     "\t"+ String.format("%-30s", "SINOPSE"));
+            for (Filme filmes : filmes) {
+              System.out.println(String.format("%-10s", filmes.getCodigo()) + "\t"
+                + String.format("%-40s",filmes.getTitulo()) +
+                     "\t"+ String.format("%-30s", filmes.getSinopse()));  
+            }
+    }
 }

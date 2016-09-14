@@ -13,7 +13,7 @@ import java.util.Date;
  * @author renat
  */
 public class Sessao {
-    private static int CODIGO_GERADO = 1;
+    private static int CODIGO_GERADO = 0;
     private int codigo;
     private Sala sala;
     private Filme filme;

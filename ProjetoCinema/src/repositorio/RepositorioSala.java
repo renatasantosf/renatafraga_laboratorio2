@@ -47,6 +47,19 @@ public class RepositorioSala {
         }
         return false;
     }
+
+    public void listarSalas() {
+       if(salas.isEmpty()) {
+           System.out.println("Não há salas cadastradas.");
+       } else {
+           System.out.println(String.format("%-10s", "IDENTIFICAÇÃO") + "\t"
+                + String.format("%-10s","CACIDADE"));
+        for (Sala salas: salas) {
+            System.out.println(String.format("%-10s",salas.getNumero()) + "\t"
+                + String.format("%-10s",salas.getQuantidade()));
+        }
+       }
+    }
     
    
     

@@ -11,16 +11,14 @@ package model;
  */
 public class Venda {
     
-    private static int CODIGO_GERADO = 1;
+    private static int CODIGO_GERADO = 0;
     private int codigoVenda;
-    private Sessao secao;
-    private static int quantidadeAssento;
+    private Sessao sessao;
+    private static int quantidadeAssento = 50;
 
-    public Venda(Sessao secao) {
+    public Venda(Sessao sessao) {
         this.codigoVenda = gerarCodigo();
-        this.secao = secao;
-        quantidadeAssento = 50;
-        
+        this.sessao = sessao;    
     }
 
     public static int getCODIGO_GERADO() {
@@ -31,11 +29,11 @@ public class Venda {
         return codigoVenda;
     }
 
-    public Sessao getSecao() {
-        return secao;
+    public Sessao getSessao() {
+        return sessao;
     }
 
-    public static int getQuantidadeAssento() {
+    public int getQuantidadeAssento() {
         return quantidadeAssento;
     }
     

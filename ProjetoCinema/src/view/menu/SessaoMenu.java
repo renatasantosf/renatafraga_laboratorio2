@@ -17,11 +17,11 @@ public class SessaoMenu {
     public static final int SAIR = 5;
     
     public static String getOpcoes() {
-        String texto = "1 - Cadastrar Sessão"+
-                "2 - Listar sessões"+
-                "3 - Remover Sessão"+
-                "4 - Buscar Sessão"+
-                "5 - SAIR";
+        String texto = "1 - Cadastrar Sessão\n"+
+                "2 - Listar sessões\n"+
+                "3 - Remover Sessão\n"+
+                "4 - Buscar Sessão\n"+
+                "5 - SAIR\n";
         return texto;
     }
 }

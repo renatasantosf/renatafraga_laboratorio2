@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.Sessao;
+import util.DateUtil;
 
 /**
  *
@@ -26,16 +27,33 @@ public class RepositorioSessao {
         return (sessoes.add(sessao));
 
     }
+    
+    public void listaSessoes() {
+       if(sessoes.isEmpty()) {
+            System.out.println("Não há sessões disponíveis.");
+        } else {
+            System.out.println(String.format("%-20s", "NÚMERO DA SESSÃO") + "\t"
+                + String.format("%-30s","DIA E HORÁRIO")+"\t"+String.format("%-10s","SALA")
+                    +"\t"+String.format("%-30s","FILME")  + 
+                     "\t"+ String.format("%-30s", "ASSENTOS"));
+            for (Sessao sessao : sessoes) {
+              System.out.println(String.format("%-20s", sessao.getCodigo()) + "\t"
+                + String.format("%-30s",DateUtil.dateHourToString(sessao.getHorario()))+"\t"+String.format("%-10s",sessao.getSala().getNumero())
+                    +"\t"+String.format("%-30s",sessao.getFilme().getTitulo())  + 
+                     "\t"+ String.format("%-30s", sessao.getQuantidade()));
+            }
+        }
+    }
 
     public void buscarSessao(int codigo) {
         for (Sessao sessao : sessoes) {
                 if(sessao.getCodigo()==codigo) {
-                    System.out.println(String.format("%-10s", "NÚMERO DA SESSÃO") + "\t"
+                    System.out.println(String.format("%-20s", "NÚMERO DA SESSÃO") + "\t"
                 + String.format("%-30s","DIA E HORÁRIO")+"\t"+String.format("%-10s","SALA")
                     +"\t"+String.format("%-30s","FILME")  + 
                      "\t"+ String.format("%-30s", "ASSENTOS"));
-                    System.out.println(String.format("%-10s", sessao.getCodigo()) + "\t"
-                + String.format("%-30s",sessao.getHorario())+"\t"+String.format("%-10s",sessao.getSala().getNumero())
+                    System.out.println(String.format("%-20s", sessao.getCodigo()) + "\t"
+                + String.format("%-30s",DateUtil.dateHourToString(sessao.getHorario()))+"\t"+String.format("%-10s",sessao.getSala().getNumero())
                     +"\t"+String.format("%-30s",sessao.getFilme().getTitulo())  + 
                      "\t"+ String.format("%-30s", sessao.getQuantidade()));
                     break;
@@ -44,29 +62,24 @@ public class RepositorioSessao {
 
     }
 
-    public boolean existeSessao(Date horario) {
-        if (sessoes.isEmpty()) {
-            return false;
-        } else {
+    public boolean existeSessao(Date horario,int numero) {
             for (Sessao sessao : sessoes) {
-                if (sessao.getHorario().compareTo(horario)==1) {
+                if (sessao.getHorario().equals(horario) && sessao.getSala().getNumero()==numero) {
                     return true;
                 }
             }
-        }
-        return false;
-   
-    }
+            return false;
 
-    public void removerSessao(int codigo) {
-        for (int i = 0; i < sessoes.size(); i++) {
-            if (sessoes.get(i).getCodigo() == codigo) {
-                sessoes.remove(i);
-                break;
-            } else {
-                System.out.println("Código inválido.");
-                break;
-            }
-        }
     }
+    
+     public boolean sessaoValida(int codigo) {
+            for (Sessao sessao : sessoes) {
+                if (sessao.getCodigo()==codigo) {
+                    return true;
+                }
+            }
+            return false;
+
+    }
+    
 }

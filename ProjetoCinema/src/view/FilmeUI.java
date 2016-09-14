@@ -29,8 +29,6 @@ public class FilmeUI {
     
     
     
-   //TODO: menu em outra classe
-    
     public void iniciar() {
         int opcao = 0;
         while (opcao!= FilmeMenu.OP_VOLTAR) {
@@ -61,6 +59,8 @@ public class FilmeUI {
                     break;
                 case FilmeMenu.OP_REMOVERGENERO:
                      removerGenero();
+                     break;
+                case FilmeMenu.OP_VOLTAR:
                      break;
                 default:
                     System.out.println("Opção inválida!");

@@ -7,7 +7,7 @@ package model;
  */
 public class Filme {
     
-    private static int CODIGO_GERADO = 1;
+    private static int CODIGO_GERADO = 0;
     private int codigo;
     private String titulo;
     private Genero genero;
