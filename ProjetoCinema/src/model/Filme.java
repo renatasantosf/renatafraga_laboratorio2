@@ -3,7 +3,7 @@ package model;
 
 /**
  *
- * @author renat
+ * @authors Diego Pinto e Renata Fraga
  */
 public class Filme {
     

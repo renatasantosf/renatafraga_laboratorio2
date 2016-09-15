@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package repositorio;
 
 import java.util.ArrayList;
@@ -11,7 +7,7 @@ import model.Filme;
 
 /**
  *
- * @author renat
+ * @authors Diego Pinto e Renata Fraga
  */
 public class RepositorioFilme {
     
@@ -76,7 +72,7 @@ public class RepositorioFilme {
        }
     }
     
-    public void listarFilmes() {
+    public void listaFilmes() {
          System.out.println(String.format("%-10s", "CÓDIGO") + "\t"
                 + String.format("%-40s","TÍTULO")+"\t" +
                      "\t"+ String.format("%-30s", "SINOPSE"));

@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view.menu;
 
 /**
  *
- * @author renat
+ * @authors Diego Pinto e Renata Fraga
+ * 
  */
 public class FilmeMenu {
     
@@ -23,16 +20,16 @@ public class FilmeMenu {
     
 
   
-    public static String menuFilme() {
-        String texto  = "1 - Inserir Filme" +
-                "\n2 - Inserir Gênero "+
-                "\n3 - Pesquisar Filme por nome"+
-                "\n4 - Pesquisar Filme por gênero"+
-                "\n5 - Listar todos os filmes"+
-                "\n6 - Listar todos os Gêneros"+
-                "\n7 - Remover Filme"+
-                "\n8 - Remover Gênero"+
-                "\n9 - Voltar";
+    public static String getOpcoes() {
+        String texto  = "1 - INSERIR FILME " +
+                "\n2 - INSERIR GÊNERO "+
+                "\n3 - PESQUISAR FILME POR NOME "+
+                "\n4 - PESQUISAR FILME POR GÊNERO "+
+                "\n5 - LISTAR TODOS OS FILMES "+
+                "\n6 - LISTAR TODOS OS GÊNEROS "+
+                "\n7 - REMOVER FILME "+
+                "\n8 - REMOVER GÊNERO "+
+                "\n9 - VOLTAR";
         return texto;
     }
 }

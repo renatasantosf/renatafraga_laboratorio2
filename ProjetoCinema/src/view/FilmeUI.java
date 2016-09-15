@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import model.Filme;
@@ -14,7 +10,7 @@ import repositorio.RepositorioGenero;
 
 /**
  *
- * @author renat
+ * @authors Diego Pinto e Renata Fraga
  */
 public class FilmeUI {
     
@@ -32,7 +28,7 @@ public class FilmeUI {
     public void iniciar() {
         int opcao = 0;
         while (opcao!= FilmeMenu.OP_VOLTAR) {
-            System.out.println(FilmeMenu.menuFilme());
+            System.out.println(FilmeMenu.getOpcoes());
             opcao = Console.scanInt("Digite a opção que deseja: ");
 
             switch(opcao) {
@@ -70,7 +66,7 @@ public class FilmeUI {
     }
 
     private void cadastrarFilme() {
-      String titulo = Console.scanString("Título do filme: ");
+      String titulo = Console.scanString("Título: ");
       if(listaFilmes.filmeExiste(titulo)) {
           System.out.println("Este filme já foi cadastrado.");
       } else if(listaGeneros.getGeneros().isEmpty()) {

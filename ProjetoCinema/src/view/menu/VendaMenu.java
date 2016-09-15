@@ -1,9 +1,9 @@
-
 package view.menu;
 
 /**
  *
- * @author 631510049
+ * @authors Diego Pinto e Renata Fraga
+ * 
  */
 public class VendaMenu {
     public static final int OP_VENDERINGRESSO = 1;
@@ -13,11 +13,11 @@ public class VendaMenu {
     public static final int SAIR = 5;
     
     public static String getOpcoes() {
-        String texto = "1 - Vender Ingresso \n"+
-                "2 - Buscar Sessões \n"+
-                "3 - Listar Vendas \n"+
-                "4 - Cancelar Venda \n"+
-                "5 - Sair";
+        String texto = "1 - VENDER INGRESSO \n"+
+                "2 - BUSCAR SESSÕES \n"+
+                "3 - LISTAR VENDAS \n"+
+                "4 - CANCELAR VENDA \n"+
+                "5 - SAIR";
         return texto;
     }
    

@@ -4,7 +4,7 @@ package model;
 
 /**
  *
- * @author Renata Fraga e Diego 
+ * @authors Diego Pinto e Renata Fraga
  */
 public class Sala {
     

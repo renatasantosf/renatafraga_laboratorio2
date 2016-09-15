@@ -14,7 +14,7 @@ import view.menu.MainMenu;
 
 /**
  *
- * @author 80105681
+ * @authors Diego Pinto e Renata Fraga
  */
 public class MainUI {
     

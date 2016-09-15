@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.menu;
 
 /**
  *
- * @author 631510049
+ * @authors Diego Pinto e Renata Fraga
+ * 
  */
 public class SessaoMenu {
     public static final int OP_CADASTRARSESSAO = 1;
@@ -17,10 +13,10 @@ public class SessaoMenu {
     public static final int SAIR = 5;
     
     public static String getOpcoes() {
-        String texto = "1 - Cadastrar Sessão\n"+
-                "2 - Listar sessões\n"+
-                "3 - Remover Sessão\n"+
-                "4 - Buscar Sessão\n"+
+        String texto = "1 - CADASTRAR SESSÃO\n"+
+                "2 - LISTAR SESSÕES\n"+
+                "3 - REMOVER SESSÃO\n"+
+                "4 - BUSCAR SESSÃO\n"+
                 "5 - SAIR\n";
         return texto;
     }

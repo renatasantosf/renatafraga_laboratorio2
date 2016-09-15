@@ -8,7 +8,8 @@ import model.Sala;
 
 /**
  *
- * @author renat
+ * @authors Diego Pinto e Renata Fraga
+ * 
  */
 public class RepositorioSala {
      private List<Sala> salas;
@@ -48,7 +49,7 @@ public class RepositorioSala {
         return false;
     }
 
-    public void listarSalas() {
+    public void listaSalas() {
        if(salas.isEmpty()) {
            System.out.println("Não há salas cadastradas.");
        } else {

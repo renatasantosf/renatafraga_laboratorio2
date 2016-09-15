@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.text.ParseException;
@@ -11,7 +6,6 @@ import model.Filme;
 import model.Sala;
 import model.Sessao;
 import repositorio.RepositorioFilme;
-import repositorio.RepositorioGenero;
 import repositorio.RepositorioSala;
 import repositorio.RepositorioSessao;
 import util.Console;
@@ -20,7 +14,7 @@ import view.menu.SessaoMenu;
 
 /**
  *
- * @author 631510049
+ * @authors Diego Pinto e Renata Fraga
  */
 public class SessaoUI {
      
@@ -65,12 +59,12 @@ public class SessaoUI {
 
     private void cadastrarSessao() {
          System.out.println("Selecione o filme pelo código: ");
-         listaFilmes.listarFilmes();
+         listaFilmes.listaFilmes();
          int codigo = Console.scanInt("");
          Filme filme = listaFilmes.getFilmes().get(codigo);
 
          System.out.println("Selecione a sala pelo número: ");
-         listaSalas.listarSalas();
+         listaSalas.listaSalas();
          int numero = Console.scanInt("");
          Sala sala = listaSalas.getSalas().get(numero);
          

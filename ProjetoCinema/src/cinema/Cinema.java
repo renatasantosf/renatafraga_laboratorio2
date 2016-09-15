@@ -6,7 +6,7 @@ import view.MainUI;
 
 /**
  *
- * @author Diego e Renata
+ * @authors Diego Pinto e Renata Fraga
  */
 public class Cinema {
 
