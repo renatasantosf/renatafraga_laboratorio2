@@ -10,12 +10,12 @@ public class Sala {
     
     private static int CODIGO_GERADO = 0;
     private int numero;
-    private int quantidade;
+    private static int quantidade = 50;
 
     
     public Sala() {
         this.numero = gerarCodigo();
-        this.quantidade =  50;
+      
     }
     
    

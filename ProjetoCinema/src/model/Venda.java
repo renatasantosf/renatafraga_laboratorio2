@@ -11,7 +11,6 @@ public class Venda {
     private static int CODIGO_GERADO = 0;
     private int codigoVenda;
     private Sessao sessao;
-    private static int quantidadeAssento = 50;
 
     public Venda(Sessao sessao) {
         this.codigoVenda = gerarCodigo();
@@ -30,21 +29,19 @@ public class Venda {
         return sessao;
     }
 
-    public int getQuantidadeAssento() {
-        return quantidadeAssento;
-    }
-    
+       
     public void venderIngresso() {
-        if(quantidadeAssento>0) {
-            quantidadeAssento--;
+        if(sessao.getQuantidade()>0) {
+            sessao.setQuantidadeSubtracao();
+            System.out.println("Venda efetuada com sucesso!");
         } else {
             System.out.println("Ingressos esgostados!");
         }
     }
     
     public void devolverIngresso() {
-        if(quantidadeAssento<50) {
-            quantidadeAssento++;
+        if(sessao.getQuantidade()<50) {
+            sessao.setQuantidadeSoma();
         } else {
             System.out.println("Está sessão está livre.");
         }

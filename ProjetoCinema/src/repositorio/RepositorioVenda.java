@@ -18,8 +18,8 @@ public class RepositorioVenda {
     }
     
     public boolean addVenda(Venda venda) {
-        System.out.println("Venda efetuada com sucesso!");
-        return (vendas.add(venda));
+        venda.venderIngresso();
+       return (vendas.add(venda));
     }
     
     public List<Venda> getVendas() {
@@ -53,6 +53,7 @@ public class RepositorioVenda {
         for(int i=0;i<vendas.size();i++) {
            if(vendas.get(i).getCodigoVenda()==codigo) {
                vendas.remove(i);
+               System.out.println("Venda cancelada com sucesso!");
                break;
            } else {
                System.out.println("Código inválido!");

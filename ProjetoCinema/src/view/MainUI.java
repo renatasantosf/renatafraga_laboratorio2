@@ -23,6 +23,7 @@ public class MainUI {
     private RepositorioSala listaSalas;
     private RepositorioSessao listaSessoes;
     private RepositorioVenda listaVendas;
+   
     
     public MainUI() {
         listaFilmes = new RepositorioFilme();
@@ -51,6 +52,9 @@ public class MainUI {
                 case MainMenu.OP_VENDA:
                     new VendaUI(listaVendas,listaSessoes).iniciar();
                     break;
+                case MainMenu.OP_RELATORIO:
+                    new RelatorioUI(listaVendas, listaSessoes,
+            listaFilmes, listaSalas).iniciar();
                 case MainMenu.SAIR:
                     System.out.println("Sistema finalizado.");
                     break;

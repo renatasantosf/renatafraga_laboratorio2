@@ -58,6 +58,7 @@ public class SalaUI {
                 System.out.println("Removido com sucesso!");
             } else {
                 System.out.println("Sala inválida.");
+                break;
                 
             }
            

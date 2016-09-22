@@ -64,7 +64,6 @@ public class VendaUI {
             Sessao sessao = listaSessoes.getSessoes().get(numero);
             if(listaSessoes.sessaoValida(numero)) {
                 listaVendas.addVenda(new Venda(sessao));
-                listaVendas.getVendas().get(numero).venderIngresso();
             } else {
                 System.out.println("Esta sessão não existe.");
             }
@@ -89,7 +88,15 @@ public class VendaUI {
             System.out.println("Não há vendas disponíveis.");
         } else {
             if(listaVendas.existeVenda(numero)){
-                listaVendas.getVendas().get(numero).devolverIngresso();
+                //armezena a sessão 
+                int codSessao = listaVendas.getVendas().get(numero).getSessao().getCodigo();
+                listaVendas.removerVenda(numero);
+                for(int i=0;i<listaVendas.getVendas().size();i++) {
+                    if(listaVendas.getVendas().get(i).getSessao().getCodigo()==codSessao) {
+                        listaVendas.getVendas().get(i).devolverIngresso();
+                    }
+                }
+                
             }
         
         }
@@ -110,7 +117,7 @@ public class VendaUI {
                 + String.format("%-30s",DateUtil.dateHourToString(venda.getSessao().getHorario()))+
                       "\t"+String.format("%-10s",venda.getSessao().getSala().getNumero())
                     +"\t"+String.format("%-30s",venda.getSessao().getFilme().getTitulo())  + 
-                     "\t"+ String.format("%-30s", venda.getQuantidadeAssento()));
+                     "\t"+ String.format("%-30s", venda.getSessao().getQuantidade()));
             }
        }
     }
