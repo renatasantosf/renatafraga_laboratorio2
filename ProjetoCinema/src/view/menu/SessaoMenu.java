@@ -13,10 +13,10 @@ public class SessaoMenu {
     public static final int SAIR = 5;
     
     public static String getOpcoes() {
-        String texto = "1 - CADASTRAR SESSÃO\n"+
-                "2 - LISTAR SESSÕES\n"+
-                "3 - REMOVER SESSÃO\n"+
-                "4 - BUSCAR SESSÃO\n"+
+        String texto = "1 - CADASTRAR SESSAO\n"+
+                "2 - LISTAR SESSOES\n"+
+                "3 - REMOVER SESSAO\n"+
+                "4 - BUSCAR SESSAO\n"+
                 "5 - SAIR\n";
         return texto;
     }

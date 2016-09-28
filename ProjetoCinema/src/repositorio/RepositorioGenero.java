@@ -27,8 +27,8 @@ public class RepositorioGenero {
     }
     
      public void listarGeneros() {
-        System.out.println(String.format("%-10s", "CÓDIGO") + "\t"
-                + String.format("%-30s","NOME")+"\t"+String.format("%-30s","DESCRIÇÃO"));
+        System.out.println(String.format("%-10s", "CODIGO") + "\t"
+                + String.format("%-30s","NOME")+"\t"+String.format("%-30s","DESCRICAO"));
         for(Genero genero : generos) {
              System.out.println(String.format("%-10s",genero.getCodigo())+"\t"+
                      String.format("%-30s", genero.getNome()) + "\t"+

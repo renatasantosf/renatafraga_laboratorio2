@@ -18,7 +18,7 @@ public class Sala {
       
     }
     
-   
+    
     
     public int getQuantidade() {
         return quantidade;

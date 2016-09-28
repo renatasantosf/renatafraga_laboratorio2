@@ -3,6 +3,7 @@ package repositorio;
 import java.util.ArrayList;
 import java.util.List;
 import model.Venda;
+import util.DateUtil;
 
 /**
  *
@@ -26,10 +27,17 @@ public class RepositorioVenda {
         return vendas;
     }
     
-    public Venda buscarVenda(int codigo) {
+    public String buscarVenda(int codigo) {
         for(Venda venda: vendas) {
             if(venda.getCodigoVenda() == codigo) {
-                return venda;
+                return String.format("%-10s", "CODIGO") + "\t"
+                + String.format("%-20s","CODIGO SESSAO")+"\t"+String.format("%-30s","DIA E HORA")  +
+                     "\t"+ String.format("%-50s", "NOME DO FILME")
+                 + "\n" + String.format("%-10s",vendas.get(codigo).getCodigoVenda())+"\t"+String.format("%-20s",
+                         vendas.get(codigo).getSessao().getCodigo())  +
+                     "\t"+ String.format("%-30s", 
+                     DateUtil.dateHourToString(vendas.get(codigo).getSessao().getHorario())+"\t"+ String.format
+                     ("%-50s", vendas.get(codigo).getSessao().getFilme().getTitulo()));
             }
         }
         return null;

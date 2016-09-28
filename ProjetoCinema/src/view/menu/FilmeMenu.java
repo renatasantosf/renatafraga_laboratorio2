@@ -22,13 +22,13 @@ public class FilmeMenu {
   
     public static String getOpcoes() {
         String texto  = "1 - INSERIR FILME " +
-                "\n2 - INSERIR GÊNERO "+
+                "\n2 - INSERIR GENERO "+
                 "\n3 - PESQUISAR FILME POR NOME "+
-                "\n4 - PESQUISAR FILME POR GÊNERO "+
+                "\n4 - PESQUISAR FILME POR GENERO "+
                 "\n5 - LISTAR TODOS OS FILMES "+
-                "\n6 - LISTAR TODOS OS GÊNEROS "+
+                "\n6 - LISTAR TODOS OS GENEROS "+
                 "\n7 - REMOVER FILME "+
-                "\n8 - REMOVER GÊNERO "+
+                "\n8 - REMOVER GENERO "+
                 "\n9 - VOLTAR";
         return texto;
     }

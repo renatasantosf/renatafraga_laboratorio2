@@ -29,7 +29,7 @@ public class FilmeUI {
         int opcao = 0;
         while (opcao!= FilmeMenu.OP_VOLTAR) {
             System.out.println(FilmeMenu.getOpcoes());
-            opcao = Console.scanInt("Digite a opção que deseja: ");
+            opcao = Console.scanInt("Digite a opcao que deseja: ");
 
             switch(opcao) {
                 case FilmeMenu.OP_INSERIRFILME:
@@ -59,21 +59,21 @@ public class FilmeUI {
                 case FilmeMenu.OP_VOLTAR:
                      break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opcao invalida!");
             }
             
         }
     }
 
     private void cadastrarFilme() {
-      String titulo = Console.scanString("Título: ");
+      String titulo = Console.scanString("Titulo: ");
       if(listaFilmes.filmeExiste(titulo)) {
-          System.out.println("Este filme já foi cadastrado.");
+          System.out.println("Este filme ja foi cadastrado.");
       } else if(listaGeneros.getGeneros().isEmpty()) {
-          System.out.println("Não há gêneros cadastrados.");
+          System.out.println("Nao ha generos cadastrados.");
       } else {
           String sinopse = Console.scanString("Sinopse: ");
-          System.out.println("Gêneros: ");
+          System.out.println("Generos: ");
           listaGeneros.listarGeneros();
           int codigo = Console.scanInt("Escolha o código que deseja: ");
           Genero genero = listaGeneros.getGeneros().get(codigo);
@@ -84,10 +84,10 @@ public class FilmeUI {
     
     private void listarFilmes() {
         if(listaFilmes.getFilmes().isEmpty()) {
-            System.out.println("Não há filmes cadastrados.");
+            System.out.println("Nao ha filmes cadastrados.");
         } else {
-            System.out.println(String.format("%-10s", "CÓDIGO") + "\t"
-                + String.format("%-40s","TÍTULO")+"\t"+String.format("%-20s","GÊNERO")  +
+            System.out.println(String.format("%-10s", "CODIGO") + "\t"
+                + String.format("%-40s","TÍTULO")+"\t"+String.format("%-20s","GENERO")  +
                      "\t"+ String.format("%-30s", "SINOPSE"));
             for (Filme filmes : listaFilmes.getFilmes()) {
               System.out.println(String.format("%-10s", filmes.getCodigo()) + "\t"
@@ -101,49 +101,49 @@ public class FilmeUI {
     
     private void removerFilme() {
        if(listaFilmes.getFilmes().isEmpty()) {
-            System.out.println("Não há filmes cadastrados.");
+            System.out.println("Nao ha filmes cadastrados.");
         } else {  
             listarFilmes();
-            String titulo = Console.scanString("Título que deseja remover: ");
+            String titulo = Console.scanString("Titulo que deseja remover: ");
             listaFilmes.removerFilme(titulo);
         }
     }
 
     private void buscarFilme() {
-       String titulo = Console.scanString("Título: ");
+       String titulo = Console.scanString("Titulo: ");
        if(listaFilmes.getFilmes().isEmpty()) {
-           System.out.println("Não há filmes cadastrados.");
+           System.out.println("Nao ha filmes cadastrados.");
        } else {
            listaFilmes.buscarFilme(titulo);
        }
     }
     
     private void cadastrarGenero() {
-        String nome = Console.scanString("Gênero: ");
+        String nome = Console.scanString("Genero: ");
       if(listaGeneros.generoExiste(nome)) {
-          System.out.println("Este gênero já foi cadastrado.");
+          System.out.println("Este genero já foi cadastrado.");
       } else {
-          String descricao = Console.scanString("Descrição: ");
+          String descricao = Console.scanString("Descricao: ");
           listaGeneros.addGenero(new Genero(nome,descricao));
       }
     }
 
     private void buscarPorGenero() {
-        String nome = Console.scanString("Gênero: ");
+        String nome = Console.scanString("Genero: ");
        if(listaGeneros.getGeneros().isEmpty()) {
-           System.out.println("Não há gêneros cadastrados.");
+           System.out.println("Nao ha generos cadastrados.");
        } else {
            for(Filme filme: listaFilmes.getFilmes()) {
                if(filme.getGenero().getNome().equals(nome)) {
-                    System.out.println(String.format("%-10s", "CÓDIGO") + "\t"
-                  + String.format("%-40s","TÍTULO")+"\t"+String.format("%-20s","GÊNERO")  +
+                    System.out.println(String.format("%-10s", "CODIGO") + "\t"
+                  + String.format("%-40s","TITULO")+"\t"+String.format("%-20s","GENERO")  +
                        "\t"+ String.format("%-30s", "SINOPSE"));       
                    System.out.println(String.format("%-10s", filme.getCodigo()) + "\t"
                   + String.format("%-40s",filme.getTitulo())+ "\t"+String.format("%-20s",filme.getGenero().getNome())  +
                        "\t"+ String.format("%-30s", filme.getSinopse()));
                    break;
                } else {
-                   System.out.println("Gênero não encontrado.");
+                   System.out.println("Genero nao encontrado.");
                }
            }
        }
@@ -151,15 +151,15 @@ public class FilmeUI {
 
     private void removerGenero() {
         if(listaGeneros.getGeneros().isEmpty()) {
-            System.out.println("Não há gêneros cadastrados.");
+            System.out.println("Nao ha generos cadastrados.");
         } else {
             int indice;
             listaGeneros.listarGeneros();
-            System.out.println("Digite o nome gênero que deseja remover:");
+            System.out.println("Digite o nome genero que deseja remover:");
             String nome = Console.scanString("");           
             for(int i=0;i<listaFilmes.getFilmes().size();i++) {
                 if(listaFilmes.getFilmes().get(i).getGenero().getNome().equals(nome)) {
-                    System.out.println("Este gênero não pode ser removido, pois está vinculado a um filme.");
+                    System.out.println("Este genero nao pode ser removido, pois esta vinculado a um filme.");
                     break;
                 } else {
                    for(int x=0;x<listaGeneros.getGeneros().size();x++) {
@@ -168,9 +168,7 @@ public class FilmeUI {
                             listaGeneros.getGeneros().remove(indice);
                             System.out.println("Removido com sucesso!");
                             break;
-                         } else {
-                             System.out.println("Gênero não encontrado.");
-                         }
+                         } 
                             
                        
                    }

@@ -33,7 +33,7 @@ public class SessaoUI {
         int opcao = 0;
         while (opcao!= SessaoMenu.SAIR) {
             System.out.println(SessaoMenu.getOpcoes());
-            opcao = Console.scanInt("Digite a opção que deseja: ");
+            opcao = Console.scanInt("Digite a opcao que deseja: ");
 
             switch(opcao) {
                 case SessaoMenu.OP_CADASTRARSESSAO:
@@ -51,19 +51,19 @@ public class SessaoUI {
                 case SessaoMenu.SAIR:
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opcao invalida!");
             }
             
         }
     }
 
     private void cadastrarSessao() {
-         System.out.println("Selecione o filme pelo código: ");
+         System.out.println("Selecione o filme pelo codigo: ");
          listaFilmes.listaFilmes();
          int codigo = Console.scanInt("");
          Filme filme = listaFilmes.getFilmes().get(codigo);
 
-         System.out.println("Selecione a sala pelo número: ");
+         System.out.println("Selecione a sala pelo numero: ");
          listaSalas.listaSalas();
          int numero = Console.scanInt("");
          Sala sala = listaSalas.getSalas().get(numero);
@@ -77,31 +77,31 @@ public class SessaoUI {
                 
                 
                 if(horario.compareTo(hoje)==-1) {
-                    System.out.println("Impossível inserir sessão.Data inferior a data atual.");
+                    System.out.println("Impossivel inserir sessao. Data inferior a data atual.");
                 } else {
                     
                     if(listaSessoes.existeSessao(horario,numero)) {
 
-                        System.out.println("Já ha um filme inserido nesta mesma sessão e neste mesmo horário.");
+                        System.out.println("Ja ha um filme inserido nesta mesma sessao e neste mesmo horario.");
 
                     } else {
 
                         listaSessoes.addSessao(new Sessao(sala,filme,horario));
-                        System.out.println("Sessão inserida com sucesso.");
+                        System.out.println("Sessao inserida com sucesso.");
                     }
                 }
             } catch (ParseException ex) {
-                System.out.println("Data ou hora no formato inválido.");                
+                System.out.println("Data ou hora no formato invalido.");                
             }
         }
     
 
     private void listarSessoes() {
        if(listaSessoes.getSessoes().isEmpty()) {
-            System.out.println("Não há sessões disponíveis.");
+            System.out.println("Nao ha sessoes disponiveis.");
         } else {
-            System.out.println(String.format("%-20s", "NÚMERO DA SESSÃO") + "\t"
-                + String.format("%-30s","DIA E HORÁRIO")+"\t"+String.format("%-10s","SALA")
+            System.out.println(String.format("%-20s", "NUMERO DA SESSAO") + "\t"
+                + String.format("%-30s","DIA E HORARIO")+"\t"+String.format("%-10s","SALA")
                     +"\t"+String.format("%-30s","FILME")  + 
                      "\t"+ String.format("%-30s", "ASSENTOS"));
             for (Sessao sessao : listaSessoes.getSessoes()) {
@@ -115,16 +115,16 @@ public class SessaoUI {
 
     private void removerSessao() {
        if(listaSessoes.getSessoes().isEmpty()) {
-           System.out.println("Não há sessões disponíveis.");
+           System.out.println("Nao ha sessoes disponiveis.");
        } else {
             listarSessoes();
-            int codigo = Console.scanInt("Digite o código da sessão: ");
+            int codigo = Console.scanInt("Digite o codigo da sessao: ");
             for(int x=0;x<listaSessoes.getSessoes().size();x++) {
                 if(listaSessoes.getSessoes().get(x).getCodigo()==codigo) {
                     listaSessoes.getSessoes().remove(x);
                     System.out.println("Removido com sucesso!");
                 } else {
-                    System.out.println("Sessão inválida inválida.");
+                    System.out.println("Sessao invalida.");
                     break;
                 }
             }
@@ -132,9 +132,9 @@ public class SessaoUI {
     }
 
     private void buscarSessao() {
-       int codigo = Console.scanInt("Código: ");
+       int codigo = Console.scanInt("Codigo: ");
        if(listaSessoes.getSessoes().isEmpty()) {
-           System.out.println("Não há sessões disponíveis.");
+           System.out.println("Nao ha sessões disponiveis.");
        } else {
            listaSessoes.buscarSessao(codigo);
        }

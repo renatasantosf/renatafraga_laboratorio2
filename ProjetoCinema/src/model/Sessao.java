@@ -13,7 +13,7 @@ public class Sessao {
     private Sala sala;
     private Filme filme;
     private Date horario;
-    private int quantidade = 50;
+    private int quantidade;
  
 
     public Sessao(Sala sala, Filme filme, Date horario) {
@@ -21,6 +21,8 @@ public class Sessao {
         this.sala = sala;
         this.filme = filme;
         this.horario = horario;
+        this.quantidade = sala.getQuantidade();
+        
     }
 
     public Sala getSala() {

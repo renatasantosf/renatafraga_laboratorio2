@@ -51,9 +51,9 @@ public class RepositorioSala {
 
     public void listaSalas() {
        if(salas.isEmpty()) {
-           System.out.println("Não há salas cadastradas.");
+           System.out.println("Nao ha salas cadastradas.");
        } else {
-           System.out.println(String.format("%-10s", "IDENTIFICAÇÃO") + "\t"
+           System.out.println(String.format("%-10s", "IDENTIFICACAO") + "\t"
                 + String.format("%-10s","CACIDADE"));
         for (Sala salas: salas) {
             System.out.println(String.format("%-10s",salas.getNumero()) + "\t"

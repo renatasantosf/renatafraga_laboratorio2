@@ -25,7 +25,7 @@ public class SalaUI {
         int opcao = 0;
         while (opcao!= SalaMenu.OP_VOLTAR) {
             System.out.println(SalaMenu.getOpcoes());
-            opcao = Console.scanInt("Digite a opção que deseja: ");
+            opcao = Console.scanInt("Digite a opcao que deseja: ");
 
             switch(opcao) {
                 case SalaMenu.OPCADASTRAR_SALA:
@@ -40,7 +40,7 @@ public class SalaUI {
                 case SalaMenu.OP_VOLTAR:
                     break;
                 default:
-                    System.out.println("Opção inválida.");
+                    System.out.println("Opcao inválida.");
             }
         }
     }
@@ -51,13 +51,13 @@ public class SalaUI {
 
     private void removerSala() {
         listarSalas();
-        int numero = Console.scanInt("Digite o número da sala: ");
+        int numero = Console.scanInt("Digite o numero da sala: ");
         for(int y=0;y<listaSalas.getSalas().size();y++) {
             if(listaSalas.getSalas().get(y).getNumero()==numero) {
                 listaSalas.getSalas().remove(y);
                 System.out.println("Removido com sucesso!");
             } else {
-                System.out.println("Sala inválida.");
+                System.out.println("Sala invalida.");
                 break;
                 
             }
@@ -71,7 +71,7 @@ public class SalaUI {
    
 
     private void listarSalas() {
-        System.out.println(String.format("%-10s", "IDENTIFICAÇÃO") + "\t"
+        System.out.println(String.format("%-10s", "IDENTIFICACAO") + "\t"
                 + String.format("%-10s","CACIDADE"));
         for (Sala salas: listaSalas.getSalas()) {
             System.out.println(String.format("%-10s",salas.getNumero()) + "\t"

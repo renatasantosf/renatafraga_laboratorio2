@@ -2,7 +2,6 @@
 package model;
 
 /**
- *
  * @authors Diego Pinto e Renata Fraga
  * 
  */
@@ -43,7 +42,7 @@ public class Venda {
         if(sessao.getQuantidade()<50) {
             sessao.setQuantidadeSoma();
         } else {
-            System.out.println("Está sessão está livre.");
+            System.out.println("Esta sessao esta vazia.");
         }
     }
     

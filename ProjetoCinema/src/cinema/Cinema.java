@@ -2,8 +2,6 @@ package cinema;
 
 import view.MainUI;
 
-
-
 /**
  *
  * @authors Diego Pinto e Renata Fraga

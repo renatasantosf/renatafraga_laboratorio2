@@ -31,10 +31,10 @@ public class RepositorioSessao {
     
     public void listaSessoes() {
        if(sessoes.isEmpty()) {
-            System.out.println("Não há sessões disponíveis.");
+            System.out.println("Nao ha sessoes disponiveis.");
         } else {
-            System.out.println(String.format("%-20s", "NÚMERO DA SESSÃO") + "\t"
-                + String.format("%-30s","DIA E HORÁRIO")+"\t"+String.format("%-10s","SALA")
+            System.out.println(String.format("%-20s", "NUMERO DA SESSAO") + "\t"
+                + String.format("%-30s","DIA E HORARIO")+"\t"+String.format("%-10s","SALA")
                     +"\t"+String.format("%-30s","FILME")  + 
                      "\t"+ String.format("%-30s", "ASSENTOS"));
             for (Sessao sessao : sessoes) {
@@ -49,8 +49,8 @@ public class RepositorioSessao {
     public void buscarSessao(int codigo) {
         for (Sessao sessao : sessoes) {
                 if(sessao.getCodigo()==codigo) {
-                    System.out.println(String.format("%-20s", "NÚMERO DA SESSÃO") + "\t"
-                + String.format("%-30s","DIA E HORÁRIO")+"\t"+String.format("%-10s","SALA")
+                    System.out.println(String.format("%-20s", "NUMERO DA SESSAO") + "\t"
+                + String.format("%-30s","DIA E HORARIO")+"\t"+String.format("%-10s","SALA")
                     +"\t"+String.format("%-30s","FILME")  + 
                      "\t"+ String.format("%-30s", "ASSENTOS"));
                     System.out.println(String.format("%-20s", sessao.getCodigo()) + "\t"

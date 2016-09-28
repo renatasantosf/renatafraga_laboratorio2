@@ -14,7 +14,7 @@ public class VendaMenu {
     
     public static String getOpcoes() {
         String texto = "1 - VENDER INGRESSO \n"+
-                "2 - BUSCAR SESSÕES \n"+
+                "2 - BUSCAR SESSOES \n"+
                 "3 - LISTAR VENDAS \n"+
                 "4 - CANCELAR VENDA \n"+
                 "5 - SAIR";

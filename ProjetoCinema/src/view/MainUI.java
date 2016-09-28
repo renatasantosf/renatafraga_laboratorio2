@@ -38,7 +38,7 @@ public class MainUI {
         
         while(opcao!=MainMenu.SAIR) {
             System.out.println(MainMenu.getOpcoes());
-            opcao = Console.scanInt("Digite a opção desejada: ");
+            opcao = Console.scanInt("Digite a opcao que deseja: ");
             switch(opcao) {
                 case MainMenu.OP_FILME:
                     new FilmeUI(listaFilmes,listaGeneros).iniciar();
@@ -59,7 +59,7 @@ public class MainUI {
                     System.out.println("Sistema finalizado.");
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opcao invalida!");
             }
         }
     }

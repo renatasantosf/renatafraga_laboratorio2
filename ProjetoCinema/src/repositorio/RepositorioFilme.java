@@ -29,15 +29,15 @@ public class RepositorioFilme {
     public void buscarFilme(String titulo) {
             for (Filme filmes : filmes) {
                 if(filmes.getTitulo().equals(titulo)) {
-                    System.out.println(String.format("%-10s", "CÓDIGO") + "\t"
-                       + String.format("%-20s","TÍTULO")+"\t"+String.format("%-20s","GÊNERO")  +
+                    System.out.println(String.format("%-10s", "CODIGO") + "\t"
+                       + String.format("%-20s","TITULO")+"\t"+String.format("%-20s","GENERO")  +
                             "\t"+ String.format("%-30s", "SINOPSE"));
                      System.out.println(String.format("%-10s", filmes.getCodigo()) + "\t"
                        + String.format("%-20s",filmes.getTitulo())+ "\t"+String.format("%-20s",filmes.getGenero().getNome())  +
                             "\t"+ String.format("%-30s", filmes.getSinopse()));  
                      break;
                 } else {
-                    System.out.println("Não há este filme cadastrado.");
+                    System.out.println("Nao ha este filme cadastrado.");
                 }
             }
            

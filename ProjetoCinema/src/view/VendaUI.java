@@ -29,7 +29,7 @@ public class VendaUI {
         int opcao = 0;
         while (opcao!= VendaMenu.SAIR) {
             System.out.println(VendaMenu.getOpcoes());
-            opcao = Console.scanInt("Digite a opção que deseja: ");
+            opcao = Console.scanInt("Digite a opcao que deseja: ");
 
             switch(opcao) {
                 case VendaMenu.OP_VENDERINGRESSO:
@@ -47,7 +47,7 @@ public class VendaUI {
                 case VendaMenu.SAIR:
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Opcao invalida!");
             }
             
         }
@@ -56,24 +56,24 @@ public class VendaUI {
 
     private void venderIngresso() {
         if(listaSessoes.getSessoes().isEmpty()) {
-            System.out.println("Não há sessões disponíveis.");
+            System.out.println("Não ha sessoes disponiveis.");
         } else { 
-            System.out.println("Digite o número da sessão que deseja comprar: ");
+            System.out.println("Digite o numero da sessao que deseja comprar: ");
             listaSessoes.listaSessoes();
             int numero = Console.scanInt("");
             Sessao sessao = listaSessoes.getSessoes().get(numero);
             if(listaSessoes.sessaoValida(numero)) {
                 listaVendas.addVenda(new Venda(sessao));
             } else {
-                System.out.println("Esta sessão não existe.");
+                System.out.println("Esta sessão nao existe.");
             }
         }
     }
 
     private void buscarSessoes() {
-        int numero = Console.scanInt("Digite o número da sessão: ");
+        int numero = Console.scanInt("Digite o numero da sessao: ");
         if(listaSessoes.getSessoes().isEmpty()) {
-            System.out.println("Não há sessões disponíveis.");
+            System.out.println("Nao ha sessoes disponiveis.");
         } else {
             if(listaSessoes.sessaoValida(numero)) {
                 listaSessoes.buscarSessao(numero);
@@ -83,9 +83,9 @@ public class VendaUI {
     }
 
     private void cancelarVenda() {
-        int numero = Console.scanInt("Digite o número da venda que deseja cancelar: ");
+        int numero = Console.scanInt("Digite o numero da venda que deseja cancelar: ");
         if(listaVendas.getVendas().isEmpty()) {
-            System.out.println("Não há vendas disponíveis.");
+            System.out.println("Nao ha vendas disponiveis.");
         } else {
             if(listaVendas.existeVenda(numero)){
                 //armezena a sessão 
@@ -104,13 +104,13 @@ public class VendaUI {
     
     private void listarVendas() {
        if(listaVendas.getVendas().isEmpty()) {
-           System.out.println("Não há vendas disponíveis.");
+           System.out.println("Nao ha vendas disponiveis.");
        } else {
-           System.out.println(String.format("%-20s", "NÚMERO DA VENDA")+"\t"
-                + String.format("%-20s","NÚMERO DA SESSÃO")+  "\t"
-                + String.format("%-30s","DIA E HORÁRIO")+"\t"+String.format("%-10s","SALA")
+           System.out.println(String.format("%-20s", "NUMERO DA VENDA")+"\t"
+                + String.format("%-20s","NUMERO DA SESSAO")+  "\t"
+                + String.format("%-30s","DIA E HORARIO")+"\t"+String.format("%-10s","SALA")
                     +"\t"+String.format("%-30s","FILME")  + 
-                     "\t"+ String.format("%-30s", "ASSENTOS DISPONÍVEIS"));
+                     "\t"+ String.format("%-30s", "ASSENTOS DISPONIVEIS"));
             for (Venda venda: listaVendas.getVendas()) {
               System.out.println(String.format("%-20s", venda.getCodigoVenda())+"\t"
                 + String.format("%-20s",venda.getSessao().getCodigo())+  "\t"
