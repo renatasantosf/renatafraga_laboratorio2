@@ -1,7 +1,7 @@
 package view;
 
-import model.Sessao;
-import model.Venda;
+import dominio.Sessao;
+import dominio.Venda;
 import repositorio.RepositorioSessao;
 import repositorio.RepositorioVenda;
 import util.Console;

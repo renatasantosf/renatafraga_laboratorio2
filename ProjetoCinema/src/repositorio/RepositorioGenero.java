@@ -1,7 +1,7 @@
 
 package repositorio;
 
-import model.Genero;
+import dominio.Genero;
 import java.util.ArrayList;
 import java.util.List;
 

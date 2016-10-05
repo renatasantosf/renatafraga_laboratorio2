@@ -3,7 +3,7 @@ package repositorio;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Filme;
+import dominio.Filme;
 
 /**
  *

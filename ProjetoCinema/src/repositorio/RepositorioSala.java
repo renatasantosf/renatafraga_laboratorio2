@@ -4,7 +4,7 @@ package repositorio;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Sala;
+import dominio.Sala;
 
 /**
  *

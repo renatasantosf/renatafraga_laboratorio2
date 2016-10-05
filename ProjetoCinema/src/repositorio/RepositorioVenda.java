@@ -2,7 +2,7 @@ package repositorio;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.Venda;
+import dominio.Venda;
 import util.DateUtil;
 
 /**

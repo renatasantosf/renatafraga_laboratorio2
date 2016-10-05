@@ -1,5 +1,5 @@
 
-package model;
+package dominio;
 
 /**
  *
@@ -13,8 +13,8 @@ public class Filme {
     private Genero genero;
     private String sinopse;
 
-    public Filme(String titulo, Genero genero, String sinopse) {
-        this.codigo = gerarCodigo();
+    public Filme(int codigo, String titulo, Genero genero, String sinopse) {
+        this.codigo = codigo;
         this.titulo = titulo;
         this.genero = genero;
         this.sinopse = sinopse;
@@ -57,6 +57,11 @@ public class Filme {
     public String toString() {
         return "Código: " + codigo + "\nTítulo: " + titulo + "\nGênero: " + genero +
                 "\nSinopse: " + sinopse;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+        
     }
     
     

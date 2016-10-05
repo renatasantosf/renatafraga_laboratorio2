@@ -2,9 +2,9 @@ package view;
 
 import java.text.ParseException;
 import java.util.Date;
-import model.Filme;
-import model.Sala;
-import model.Sessao;
+import dominio.Filme;
+import dominio.Sala;
+import dominio.Sessao;
 import repositorio.RepositorioFilme;
 import repositorio.RepositorioSala;
 import repositorio.RepositorioSessao;

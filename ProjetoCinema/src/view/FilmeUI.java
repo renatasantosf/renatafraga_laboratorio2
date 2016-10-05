@@ -1,8 +1,8 @@
 
 package view;
 
-import model.Filme;
-import model.Genero;
+import dominio.Filme;
+import dominio.Genero;
 import repositorio.RepositorioFilme;
 import util.Console;
 import view.menu.FilmeMenu;

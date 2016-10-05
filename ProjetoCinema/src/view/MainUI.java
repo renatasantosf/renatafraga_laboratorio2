@@ -2,7 +2,7 @@
 
 package view;
 
-import model.Filme;
+import dominio.Filme;
 import repositorio.RepositorioFilme;
 import repositorio.RepositorioGenero;
 import repositorio.RepositorioSala;

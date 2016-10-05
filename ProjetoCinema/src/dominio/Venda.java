@@ -1,5 +1,5 @@
 
-package model;
+package dominio;
 
 /**
  * @authors Diego Pinto e Renata Fraga

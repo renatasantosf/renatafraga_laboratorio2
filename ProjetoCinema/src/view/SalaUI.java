@@ -1,6 +1,6 @@
 package view;
 
-import model.Sala;
+import dominio.Sala;
 
 import repositorio.RepositorioSala;
 import util.Console;
