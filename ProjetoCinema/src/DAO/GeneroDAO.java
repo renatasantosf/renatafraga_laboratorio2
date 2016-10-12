@@ -13,10 +13,14 @@ import java.util.List;
  * @author renat
  */
 public interface GeneroDAO {
-    public void cadastrar(Genero genero);
+  public void cadastrar(Genero genero);
     public void remover(Genero genero);
     public void alterar(Genero genero);
     public List<Genero> listar();
-    public List<Genero> pesquisarGenero(String genero);
+
+    public Genero buscarPorCodigo(int codigo);
+    
+    
+    
     
 }

@@ -20,7 +20,7 @@ import java.util.List;
  *
  * @author renat
  */
-public class FilmeDAOBD implements FilmeDAO {
+/*public class FilmeDAOBD implements FilmeDAO {
     private Connection conexao;
     private PreparedStatement comando;
 
@@ -197,3 +197,4 @@ public class FilmeDAOBD implements FilmeDAO {
     }
     
 }
+*/

@@ -1,39 +1,16 @@
 
-
 package view;
-
-import dominio.Filme;
-import repositorio.RepositorioFilme;
-import repositorio.RepositorioGenero;
-import repositorio.RepositorioSala;
-import repositorio.RepositorioSessao;
-import repositorio.RepositorioVenda;
-
 import util.Console;
 import view.menu.MainMenu;
 
 /**
  *
  * @authors Diego Pinto e Renata Fraga
+ * 
  */
 public class MainUI {
-    
-    private RepositorioFilme listaFilmes;
-    private RepositorioGenero listaGeneros;
-    private RepositorioSala listaSalas;
-    private RepositorioSessao listaSessoes;
-    private RepositorioVenda listaVendas;
-   
-    
-    public MainUI() {
-        listaFilmes = new RepositorioFilme();
-        listaGeneros = new RepositorioGenero();
-        listaSalas = new RepositorioSala();
-        listaSessoes = new RepositorioSessao();
-        listaVendas = new RepositorioVenda();
-    }
-    
-    public void executar() {
+
+     public void executar() {
         int opcao = 0;
         
         while(opcao!=MainMenu.SAIR) {
@@ -41,20 +18,19 @@ public class MainUI {
             opcao = Console.scanInt("Digite a opcao que deseja: ");
             switch(opcao) {
                 case MainMenu.OP_FILME:
-                    new FilmeUI(listaFilmes,listaGeneros).iniciar();
+                    new FilmeUI().iniciar();
                     break;
                 case MainMenu.OP_SALA:
-                    new SalaUI(listaSalas).iniciar();
+                    new SalaUI().iniciar();
                     break;
                 case MainMenu.OP_SESSAO:
-                    new SessaoUI(listaSessoes, listaFilmes,listaSalas).iniciar();
+                    new SessaoUI().iniciar();
                     break;
                 case MainMenu.OP_VENDA:
-                    new VendaUI(listaVendas,listaSessoes).iniciar();
+                    new VendaUI().iniciar();
                     break;
                 case MainMenu.OP_RELATORIO:
-                    new RelatorioUI(listaVendas, listaSessoes,
-            listaFilmes, listaSalas).iniciar();
+                    new RelatorioUI().iniciar();
                 case MainMenu.SAIR:
                     System.out.println("Sistema finalizado.");
                     break;

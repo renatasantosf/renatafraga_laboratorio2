@@ -1,12 +1,18 @@
 
 package view;
 
+import DAO.GeneroDAO;
+import DAO.impl_bd.GeneroDAOBD;
 import dominio.Filme;
 import dominio.Genero;
+import java.text.ParseException;
+import java.util.InputMismatchException;
+import java.util.List;
 import repositorio.RepositorioFilme;
 import util.Console;
 import view.menu.FilmeMenu;
 import repositorio.RepositorioGenero;
+import util.DateUtil;
 
 /**
  *
@@ -14,44 +20,42 @@ import repositorio.RepositorioGenero;
  */
 public class FilmeUI {
     
-    private RepositorioFilme listaFilmes;
-    private RepositorioGenero listaGeneros;
-    
-    public FilmeUI(RepositorioFilme listaF, RepositorioGenero listaG) {
-        this.listaFilmes = listaF;
-        this.listaGeneros = listaG;
-       
+   private GeneroDAO generoDao;
+
+    public FilmeUI() {
+        generoDao = new GeneroDAOBD();
     }
     
     
     
     public void iniciar() {
         int opcao = 0;
-        while (opcao!= FilmeMenu.OP_VOLTAR) {
-            System.out.println(FilmeMenu.getOpcoes());
-            opcao = Console.scanInt("Digite a opcao que deseja: ");
+        do {
+            try {
+                System.out.println(FilmeMenu.getOpcoes());
+                opcao = Console.scanInt("Digite sua opção:");
 
             switch(opcao) {
                 case FilmeMenu.OP_INSERIRFILME:
-                      cadastrarFilme();
+                     // cadastrarFilme();
                     break;
                 case FilmeMenu.OP_INSERIRGENERO:
                      cadastrarGenero();
                     break;
                 case FilmeMenu.OP_BUSCARNOME:
-                    buscarFilme();
+                    //buscarFilme();
                     break;
                 case FilmeMenu.OP_BUSCARGENERO:
-                    buscarPorGenero();
+                    
                     break;
                 case FilmeMenu.OP_LISTARFILMES:
-                    listarFilmes();
+                    //listarFilmes();
                     break;
                 case FilmeMenu.OP_LISTARGENEROS:
-                     listaGeneros.listarGeneros();
+                     mostrarGenero();
                     break;
                 case FilmeMenu.OP_REMOVERFILME:
-                     removerFilme();
+                    // removerFilme();
                     break;
                 case FilmeMenu.OP_REMOVERGENERO:
                      removerGenero();
@@ -61,9 +65,14 @@ public class FilmeUI {
                 default:
                     System.out.println("Opcao invalida!");
             }
-            
-        }
-    }
+            } catch (InputMismatchException ex) {
+                UIUtil.mostrarErro("Somente numeros sao permitidos!");
+            }
+        } while(opcao != FilmeMenu.OP_VOLTAR);
+    }  
+        
+    
+    /*
 
     private void cadastrarFilme() {
       String titulo = Console.scanString("Titulo: ");
@@ -117,18 +126,26 @@ public class FilmeUI {
            listaFilmes.buscarFilme(titulo);
        }
     }
+    */
     
-    private void cadastrarGenero() {
-        String nome = Console.scanString("Genero: ");
-      if(listaGeneros.generoExiste(nome)) {
-          System.out.println("Este genero já foi cadastrado.");
-      } else {
-          String descricao = Console.scanString("Descricao: ");
-          listaGeneros.addGenero(new Genero(nome,descricao));
-      }
+     
+   
+     private void cadastrarGenero() {
+        String nome = Console.scanString("Gênero: ");
+        String descricao = Console.scanString("Descricao: ");
+        generoDao.cadastrar(new Genero(nome, descricao));
+        
+        System.out.println("Gênero" + nome + " cadastrado com sucesso!");
     }
+     
+     /* private void buscarGenero() {
+     int codigo = Console.scanInt("Codigo: ");
+     List<Genero> listaGeneros = generoDao.buscarPorCodigo(codigo);
+     this.mostrarGenero(listaGeneros);
+     
+     }*/
 
-    private void buscarPorGenero() {
+   /* private void buscarPorGenero() {
         String nome = Console.scanString("Genero: ");
        if(listaGeneros.getGeneros().isEmpty()) {
            System.out.println("Nao ha generos cadastrados.");
@@ -147,36 +164,52 @@ public class FilmeUI {
                }
            }
        }
-    }
+    }*/
 
     private void removerGenero() {
-        if(listaGeneros.getGeneros().isEmpty()) {
-            System.out.println("Nao ha generos cadastrados.");
+        
+        int codigo = Console.scanInt("Codigo do genero: ");
+        Genero gen = generoDao.buscarPorCodigo(codigo);
+        this.mostrarGenero(gen);
+        if (UIUtil.getConfirmacao("Realmente deseja excluir esse paciente?")) {
+            generoDao.remover(gen);
+            System.out.println("Gênero removido com sucesso!");
         } else {
-            int indice;
-            listaGeneros.listarGeneros();
-            System.out.println("Digite o nome genero que deseja remover:");
-            String nome = Console.scanString("");           
-            for(int i=0;i<listaFilmes.getFilmes().size();i++) {
-                if(listaFilmes.getFilmes().get(i).getGenero().getNome().equals(nome)) {
-                    System.out.println("Este genero nao pode ser removido, pois esta vinculado a um filme.");
-                    break;
-                } else {
-                   for(int x=0;x<listaGeneros.getGeneros().size();x++) {
-                         if(listaGeneros.getGeneros().get(x).getNome().equals(nome)) {
-                            indice = x;
-                            listaGeneros.getGeneros().remove(indice);
-                            System.out.println("Removido com sucesso!");
-                            break;
-                         } 
-                            
-                       
-                   }
-                
-                }
-            }
-        }   
+            System.out.println("Operacao cancelada!");
+        } 
     }
+    
+    public void mostrarGenero() {
+        List<Genero> listaGeneros = generoDao.listar();
+        this.mostrarGenero(listaGeneros);
+    }
+    
+    private void mostrarGenero(Genero g) {
+        System.out.println("-----------------------------");
+        System.out.println("Genero");
+        System.out.println("Nome: " + g.getNome());
+        System.out.println("Descricao: " + g.getDescricao());
+        System.out.println("-----------------------------");
+    }
+
+    private void mostrarGenero(List<Genero> listaGeneros) {
+        if (listaGeneros.isEmpty()) {
+            System.out.println("Generos nao encontrados!");
+        } else {
+            System.out.println("-----------------------------\n");
+            System.out.println(String.format("%-10s", "CÓDIGO") + "\t"
+                    + String.format("%-20s", "|NOME") + "\t"
+                    + String.format("%-30s", "|DESCRICAO"));
+            for (Genero genero : listaGeneros) {
+                System.out.println(String.format("%-10s", genero.getCodigo()) + "\t"
+                        + String.format("%-20s", "|" + genero.getNome()) + "\t"
+                        + String.format("%-20s", "|" + genero.getDescricao()));
+            }
+        }
+    }
+    
+    
+    
 }
     
 

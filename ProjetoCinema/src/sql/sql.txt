@@ -1,0 +1,30 @@
+create table filme (
+    codigo serial primary key,
+    titulo varchar(80) not null,
+    codigo_genero integer references genero(codigo),
+    sinopse varchar(300)
+);
+
+create table genero (
+    codigo serial primary key,
+    nome varchar(80) not null,
+    descricao varchar(300)
+);
+
+create table sala(
+    numero serial primary key,
+    quantidade integer not null
+);
+
+create table sessao(
+    codigo serial primary key,
+    horario date not null,
+    numero_sala integer references sala(numero) not null,
+    codigo_filme integer references filme(codigo) not null,
+    quantidade integer not null
+);
+
+create table venda(
+    codigo serial primary key,
+    codigo_sessao integer references sessao(codigo) not null
+);

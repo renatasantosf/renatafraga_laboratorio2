@@ -7,19 +7,29 @@ package dominio;
  */
 public class Genero {
     
-    private static int CODIGO_GERADO = 0;
+   
     private int codigo;
     private String nome;
     private String descricao;
 
     public Genero(String nome, String descricao) {
-        this.codigo = gerarCodigo();
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+    
+     public Genero(int codigo, String nome, String descricao) {
+        this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
     }
 
+
     public String getNome() {
         return nome;
+    }
+    
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public void setNome(String nome) {
@@ -34,9 +44,7 @@ public class Genero {
         this.descricao = descricao;
     }
     
-    private int gerarCodigo() {
-        return (CODIGO_GERADO++);
-    }
+   
 
    public int getCodigo() {
        return codigo;
