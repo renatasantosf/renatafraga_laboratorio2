@@ -5,10 +5,18 @@
  */
 package DAO;
 
+import dominio.Sessao;
+import java.util.List;
+
 /**
  *
  * @author renat
  */
 public interface SessaoDAO {
+    public void cadastrar(Sessao sessao);
+    public void remover(Sessao sessao);
+    public void alterar(Sessao sessao);
+    public List<Sessao> listar();
+    public Sessao buscarPorCodigo(int codigo);
     
 }

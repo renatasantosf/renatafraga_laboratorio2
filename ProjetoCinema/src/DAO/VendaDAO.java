@@ -5,10 +5,18 @@
  */
 package DAO;
 
+import dominio.Venda;
+import java.util.List;
+
 /**
  *
  * @author renat
  */
 public interface VendaDAO {
+    public void cadastrar(Venda venda);
+    public void remover(Venda venda);
+    public void alterar(Venda venda);
+    public List<Venda> listar();
+    public Venda buscarPorCodigo(int codigo);
     
 }

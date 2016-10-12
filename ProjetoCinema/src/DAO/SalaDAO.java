@@ -5,10 +5,19 @@
  */
 package DAO;
 
+import dominio.Sala;
+import java.util.List;
+
 /**
  *
  * @author renat
  */
 public interface SalaDAO {
+    public void cadastrar(Sala sala);
+    public void remover(Sala sala);
+    public void alterar(Sala sala);
+    public List<Sala> listar();
+    public Sala buscarPorCodigo(int codigo);
+    
     
 }

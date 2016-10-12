@@ -16,15 +16,26 @@ public class Sessao {
     private int quantidade;
  
 
-    public Sessao(Sala sala, Filme filme, Date horario) {
-        this.codigo = gerarCodigo();
+    public Sessao(Date horario,Sala sala, Filme filme) {
         this.sala = sala;
         this.filme = filme;
         this.horario = horario;
         this.quantidade = sala.getQuantidade();
         
     }
-
+    
+    
+    public Sessao(int codigo,Date horario, Sala sala, Filme filme) {
+        this.codigo = codigo;
+        this.horario = horario;
+        this.sala = sala;
+        this.filme = filme;
+        this.horario = horario;
+        this.quantidade = sala.getQuantidade();
+        
+    }
+    
+    
     public Sala getSala() {
         return sala;
     }
@@ -63,8 +74,9 @@ public class Sessao {
     public void setQuantidadeSubtracao() {
         this.quantidade -= 1;
     }
-    public int gerarCodigo() {
-        return (CODIGO_GERADO++);
+   
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
     
     

@@ -7,21 +7,25 @@ package dominio;
  */
 public class Venda {
     
-    private static int CODIGO_GERADO = 0;
-    private int codigoVenda;
+
+    private int codigo;
     private Sessao sessao;
 
-    public Venda(Sessao sessao) {
-        this.codigoVenda = gerarCodigo();
+    public Venda(int codigo, Sessao sessao) {
+        this.codigo = codigo;
         this.sessao = sessao;    
     }
-
-    public static int getCODIGO_GERADO() {
-        return CODIGO_GERADO;
+    
+    public Venda(Sessao sessao) {
+        this.sessao = sessao;
     }
 
-    public int getCodigoVenda() {
-        return codigoVenda;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public int getCodigo() {
+        return codigo;
     }
 
     public Sessao getSessao() {
@@ -46,9 +50,7 @@ public class Venda {
         }
     }
     
-    public int gerarCodigo() {
-        return (CODIGO_GERADO++);
-    }
+   
     
     
     

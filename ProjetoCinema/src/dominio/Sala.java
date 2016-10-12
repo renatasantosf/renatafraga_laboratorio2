@@ -8,16 +8,24 @@ package dominio;
  */
 public class Sala {
     
-    private static int CODIGO_GERADO = 0;
     private int numero;
-    private static int quantidade = 50;
+    private int quantidade;
 
     
     public Sala() {
-        this.numero = gerarCodigo();
+        this.numero = 50;
       
     }
     
+     public Sala(int numero, int quantidade) {
+        this.numero = numero;
+        this.quantidade = quantidade;
+      
+    }
+    
+     public Sala(int numero) {
+         this.numero = numero;
+    }
     
     
     public int getQuantidade() {
@@ -29,8 +37,8 @@ public class Sala {
     }
     
     
-    public int gerarCodigo() {
-        return (CODIGO_GERADO++);
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
     
     
