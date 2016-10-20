@@ -17,7 +17,7 @@ public interface FilmeDAO {
     public void remover(Filme filme);
     public void alterar(Filme filme);
     public List<Filme> listar();
-    public List<Filme> pesquisarGenero(String genero);
-    public List<Filme> pesquisarPorNome(String nome);
-    
+    public Filme pesquisarGenero(int genero);
+    public Filme pesquisarPorNome(String nome);
+    public Filme buscarPorCodigo(int codigo);
 }

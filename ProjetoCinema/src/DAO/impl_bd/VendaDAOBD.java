@@ -56,6 +56,8 @@ public class VendaDAOBD implements VendaDAO {
     @Override
     public void cadastrar(Venda venda) {
         int codigo = 0;
+        
+        
         try {
             String sql = "INSERT INTO venda (codigo_sessao) "
                     + "VALUES (?)";
@@ -65,6 +67,7 @@ public class VendaDAOBD implements VendaDAO {
             comando.setInt(1, venda.getSessao().getCodigo());
             comando.executeUpdate();
             
+           
             //Obtém o resultSet para pegar o id
             ResultSet resultado = comando.getGeneratedKeys();
             if (resultado.next()) {
@@ -140,8 +143,11 @@ public class VendaDAOBD implements VendaDAO {
                 int cod_sessao = resultado.getInt("Sessao");
                 
                 
+                SessaoDAOBD sessaoDAOBD = new SessaoDAOBD();
+                
+                Venda venda = new Venda(numero, sessaoDAOBD.buscarPorCodigo(cod_sessao));
 
-                Venda venda = new Venda(numero, cod_sessao);
+                
 
                 listaVendas.add(venda);
 
@@ -168,10 +174,14 @@ public class VendaDAOBD implements VendaDAO {
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                int sessao = resultado.getInt("Sessao");
+                int cod_sessao = resultado.getInt("Sessao");
                 
                
-              Venda venda = new Venda(codigo, sessao);
+              
+                SessaoDAOBD sessaoDAOBD = new SessaoDAOBD();
+                
+                Venda venda = new Venda(codigo, sessaoDAOBD.buscarPorCodigo(cod_sessao));
+
 
                 return venda;
 

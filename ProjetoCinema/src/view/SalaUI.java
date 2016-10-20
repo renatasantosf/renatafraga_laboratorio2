@@ -1,6 +1,9 @@
 package view;
 
+import DAO.SalaDAO;
+import DAO.impl_bd.SalaDAOBD;
 import dominio.Sala;
+import java.util.List;
 
 import repositorio.RepositorioSala;
 import util.Console;
@@ -12,11 +15,11 @@ import view.menu.SalaMenu;
  */
 public class SalaUI {
     
-    private RepositorioSala listaSalas;
+    private SalaDAO salaDao;
     
     
-    public SalaUI(RepositorioSala rs) {
-        this.listaSalas = rs;
+    public SalaUI() {
+        salaDao = new SalaDAOBD();
      
     }
     
@@ -46,37 +49,54 @@ public class SalaUI {
     }
 
     private void cadastrarSala() {
-            listaSalas.addSala(new Sala());
+        salaDao.cadastrar(new Sala());
+        
+        System.out.println("Cadastrado com sucesso!");
     }
 
     private void removerSala() {
-        listarSalas();
-        int numero = Console.scanInt("Digite o numero da sala: ");
-        for(int y=0;y<listaSalas.getSalas().size();y++) {
-            if(listaSalas.getSalas().get(y).getNumero()==numero) {
-                listaSalas.getSalas().remove(y);
-                System.out.println("Removido com sucesso!");
-            } else {
-                System.out.println("Sala invalida.");
-                break;
-                
-            }
-           
-        }
+        int codigo = Console.scanInt("Numero da sala: ");
+        Sala sala = salaDao.buscarPorCodigo(codigo);
         
+        if (UIUtil.getConfirmacao("Realmente deseja excluir essa sala?")) {
+            salaDao.remover(sala);
+            System.out.println("Sala removida com sucesso!");
+        } else {
+            System.out.println("Operacao cancelada!");
+        } 
     }
 
    
 
    
 
-    private void listarSalas() {
-        System.out.println(String.format("%-10s", "IDENTIFICACAO") + "\t"
-                + String.format("%-10s","CACIDADE"));
-        for (Sala salas: listaSalas.getSalas()) {
-            System.out.println(String.format("%-10s",salas.getNumero()) + "\t"
-                + String.format("%-10s",salas.getQuantidade()));
+    public void listarSalas() {
+        List<Sala> listaSalas = salaDao.listar();
+        this.mostrarSala(listaSalas);
+    }
+    
+    private void mostrarSala(Sala s) {
+        System.out.println("-----------------------------");
+        System.out.println("Sala");
+        System.out.println("Numero: "+ s.getNumero());
+        System.out.println("Capacidade: " + s.getQuantidade());
+        System.out.println("-----------------------------");
+    }
+
+    private void mostrarSala(List<Sala> listaSalas) {
+        if (listaSalas.isEmpty()) {
+            System.out.println("Salas nao encontrados!");
+        } else {
+            System.out.println("-----------------------------\n");
+            System.out.println(String.format("%-10s", "NUMERO") + "\t"
+                    + String.format("%-20s", "|QUANTIDADE"));
+          
+            for (Sala sala: listaSalas) {
+                System.out.println(String.format("%-10s", sala.getNumero()) + "\t"
+                        + String.format("%-20s", "|" + sala.getQuantidade()));
+            }
         }
     }
+     
     
 }

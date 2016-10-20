@@ -1,9 +1,12 @@
 package view;
 
+import DAO.SessaoDAO;
+import DAO.VendaDAO;
+import DAO.impl_bd.SessaoDAOBD;
+import DAO.impl_bd.VendaDAOBD;
 import dominio.Sessao;
 import dominio.Venda;
-import repositorio.RepositorioSessao;
-import repositorio.RepositorioVenda;
+import java.util.List;
 import util.Console;
 import util.DateUtil;
 import view.menu.VendaMenu;
@@ -15,12 +18,13 @@ import view.menu.VendaMenu;
  */
 public class VendaUI {
     
-    private RepositorioVenda listaVendas;
-    private RepositorioSessao listaSessoes;
     
-    public VendaUI(RepositorioVenda rv, RepositorioSessao rs) {
-        listaVendas = rv;
-        listaSessoes = rs;
+    private VendaDAO vendaDao;
+    private SessaoDAO sessaoDao;
+    
+    public VendaUI() {
+       vendaDao = new VendaDAOBD();
+       sessaoDao = new SessaoDAOBD();
     }
     
      
@@ -55,73 +59,72 @@ public class VendaUI {
 
 
     private void venderIngresso() {
-        if(listaSessoes.getSessoes().isEmpty()) {
-            System.out.println("Não ha sessoes disponiveis.");
-        } else { 
-            System.out.println("Digite o numero da sessao que deseja comprar: ");
-            listaSessoes.listaSessoes();
-            int numero = Console.scanInt("");
-            Sessao sessao = listaSessoes.getSessoes().get(numero);
-            if(listaSessoes.sessaoValida(numero)) {
-                listaVendas.addVenda(new Venda(sessao));
-            } else {
-                System.out.println("Esta sessão nao existe.");
-            }
-        }
+        sessaoDao.listar();
+        int codigoSessao= Console.scanInt("Codigo da sessao: ");
+        
+        
+        vendaDao.cadastrar(new Venda(sessaoDao.buscarPorCodigo(codigoSessao)));
+        
+        
+        
+        
+        System.out.println("Venda efetuada com sucesso!");
     }
 
     private void buscarSessoes() {
-        int numero = Console.scanInt("Digite o numero da sessao: ");
-        if(listaSessoes.getSessoes().isEmpty()) {
-            System.out.println("Nao ha sessoes disponiveis.");
-        } else {
-            if(listaSessoes.sessaoValida(numero)) {
-                listaSessoes.buscarSessao(numero);
-            }
-        }
-       
+       int codigo = Console.scanInt("Codigo da sessao: ");
+       sessaoDao.buscarPorCodigo(codigo);
     }
 
     private void cancelarVenda() {
-        int numero = Console.scanInt("Digite o numero da venda que deseja cancelar: ");
-        if(listaVendas.getVendas().isEmpty()) {
-            System.out.println("Nao ha vendas disponiveis.");
-        } else {
-            if(listaVendas.existeVenda(numero)){
-                //armezena a sessão 
-                int codSessao = listaVendas.getVendas().get(numero).getSessao().getCodigo();
-                listaVendas.removerVenda(numero);
-                for(int i=0;i<listaVendas.getVendas().size();i++) {
-                    if(listaVendas.getVendas().get(i).getSessao().getCodigo()==codSessao) {
-                        listaVendas.getVendas().get(i).devolverIngresso();
-                    }
-                }
-                
-            }
+       int codigo = Console.scanInt("Codigo da venda: ");
+        Venda venda =  vendaDao.buscarPorCodigo(codigo);
         
-        }
+        if (UIUtil.getConfirmacao("Realmente deseja cancelar esta venda?")) {
+            vendaDao.remover(venda);
+            System.out.println("Venda removida com sucesso!");
+        } else {
+            System.out.println("Operacao cancelada!");
+        }   
     }
     
     private void listarVendas() {
-       if(listaVendas.getVendas().isEmpty()) {
-           System.out.println("Nao ha vendas disponiveis.");
-       } else {
-           System.out.println(String.format("%-20s", "NUMERO DA VENDA")+"\t"
-                + String.format("%-20s","NUMERO DA SESSAO")+  "\t"
-                + String.format("%-30s","DIA E HORARIO")+"\t"+String.format("%-10s","SALA")
-                    +"\t"+String.format("%-30s","FILME")  + 
-                     "\t"+ String.format("%-30s", "ASSENTOS DISPONIVEIS"));
-            for (Venda venda: listaVendas.getVendas()) {
-              System.out.println(String.format("%-20s", venda.getCodigoVenda())+"\t"
-                + String.format("%-20s",venda.getSessao().getCodigo())+  "\t"
-                + String.format("%-30s",DateUtil.dateHourToString(venda.getSessao().getHorario()))+
-                      "\t"+String.format("%-10s",venda.getSessao().getSala().getNumero())
-                    +"\t"+String.format("%-30s",venda.getSessao().getFilme().getTitulo())  + 
-                     "\t"+ String.format("%-30s", venda.getSessao().getQuantidade()));
-            }
-       }
-    }
+        List<Venda> listaVendas = vendaDao.listar();
+        this.mostrarVenda(listaVendas);
     
+    }    
+      private void mostrarVenda(Venda v) {
+        System.out.println("-----------------------------");
+        System.out.println("Vendas: ");
+        System.out.println("Venda: "+ v.getCodigo());
+        System.out.println("Sessão: " + v.getSessao().getCodigo());
+        System.out.println("Horário:  " + DateUtil.dateHourToString(v.getSessao().getHorario()));
+        System.out.println("Filme:  " + v.getSessao().getFilme().getTitulo());
+        System.out.println("Capacidade:  " + v.getSessao().getSala().getQuantidade());
+        System.out.println("-----------------------------");
+    }
+
+    private void mostrarVenda(List<Venda> listaVendas) {
+        if (listaVendas.isEmpty()) {
+            System.out.println("Vendas nao encontrados!");
+        } else {
+            System.out.println("-----------------------------\n");
+            System.out.println(String.format("%-10s", "VENDA") + "\t"
+                    + String.format("%-10s", "|SESSÃO") + "\t"
+                    + String.format("%-30s", "|HORÁRIO ") + "\t" 
+                     + String.format("%-40s", "|FILME ") + "\t" 
+                     + String.format("%-10s", "|CAPACIDADE "));
+          
+            for (Venda venda:listaVendas) {
+                   System.out.println("-----------------------------\n");
+            System.out.println(String.format("%-10s", venda.getCodigo()) + "\t"
+                    + String.format("%-10s", venda.getSessao().getCodigo()) + "\t"
+                    + String.format("%-30s", DateUtil.dateHourToString(venda.getSessao().getHorario())) + "\t" 
+                     + String.format("%-40s", venda.getSessao().getFilme().getTitulo()) + "\t" 
+                     + String.format("%-10s", venda.getSessao().getQuantidade()));
+            }
+        }
+    }
     
     
     

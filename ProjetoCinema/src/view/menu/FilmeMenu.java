@@ -10,7 +10,7 @@ public class FilmeMenu {
     
     public static final int OP_INSERIRFILME= 1;
     public static final int OP_INSERIRGENERO = 2;
-    public static final int OP_BUSCARNOME = 3;
+    public static final int OP_BUSCARFILME = 3;
     public static final int OP_BUSCARGENERO = 4;
     public static final int OP_LISTARFILMES = 5;
     public static final int OP_LISTARGENEROS = 6;
@@ -23,8 +23,8 @@ public class FilmeMenu {
     public static String getOpcoes() {
         String texto  = "1 - INSERIR FILME " +
                 "\n2 - INSERIR GENERO "+
-                "\n3 - PESQUISAR FILME POR NOME "+
-                "\n4 - PESQUISAR FILME POR GENERO "+
+                "\n3 - BUSCAR FILME"+
+                "\n4 - BUSCAR GENERO "+
                 "\n5 - LISTAR TODOS OS FILMES "+
                 "\n6 - LISTAR TODOS OS GENEROS "+
                 "\n7 - REMOVER FILME "+

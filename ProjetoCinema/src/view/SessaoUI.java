@@ -1,13 +1,15 @@
 package view;
 
+import DAO.FilmeDAO;
+import DAO.SalaDAO;
+import DAO.SessaoDAO;
+import DAO.impl_bd.FilmeDAOBD;
+import DAO.impl_bd.SalaDAOBD;
+import DAO.impl_bd.SessaoDAOBD;
 import java.text.ParseException;
 import java.util.Date;
-import dominio.Filme;
-import dominio.Sala;
 import dominio.Sessao;
-import repositorio.RepositorioFilme;
-import repositorio.RepositorioSala;
-import repositorio.RepositorioSessao;
+import java.util.List;
 import util.Console;
 import util.DateUtil;
 import view.menu.SessaoMenu;
@@ -18,14 +20,15 @@ import view.menu.SessaoMenu;
  */
 public class SessaoUI {
      
-    private RepositorioSessao listaSessoes;
-    private RepositorioFilme listaFilmes;
-    private RepositorioSala listaSalas;
+    private SessaoDAO sessaoDao;
+    private FilmeDAO filmeDao;
+    private SalaDAO salaDao;
     
-    public SessaoUI(RepositorioSessao rs,RepositorioFilme rf, RepositorioSala rps) {
-       listaSessoes = rs;
-       listaFilmes = rf;
-       listaSalas = rps;
+    
+    public SessaoUI() {
+        sessaoDao = new SessaoDAOBD();
+        filmeDao = new FilmeDAOBD();
+        salaDao = new SalaDAOBD();
     }
     
     
@@ -59,14 +62,21 @@ public class SessaoUI {
 
     private void cadastrarSessao() {
          System.out.println("Selecione o filme pelo codigo: ");
-         listaFilmes.listaFilmes();
+         
+         FilmeUI filmeUi = new FilmeUI();
+         filmeUi.listarFilme();
+         
          int codigo = Console.scanInt("");
-         Filme filme = listaFilmes.getFilmes().get(codigo);
+         
+         
 
          System.out.println("Selecione a sala pelo numero: ");
-         listaSalas.listaSalas();
+         
+         SalaUI salaUi = new SalaUI();
+         salaUi.listarSalas();
+         
          int numero = Console.scanInt("");
-         Sala sala = listaSalas.getSalas().get(numero);
+         
          
          String dataHora = Console.scanString("Data/Hora (dd/mm/aaaa hh:mm):");
          Date horario;
@@ -80,14 +90,14 @@ public class SessaoUI {
                     System.out.println("Impossivel inserir sessao. Data inferior a data atual.");
                 } else {
                     
-                    if(listaSessoes.existeSessao(horario,numero)) {
+                    if(sessaoDao.seHaSessao(horario,numero)) {
 
                         System.out.println("Ja ha um filme inserido nesta mesma sessao e neste mesmo horario.");
 
                     } else {
 
-                        listaSessoes.addSessao(new Sessao(sala,filme,horario));
-                        System.out.println("Sessao inserida com sucesso.");
+                        Sessao sessao = new Sessao(horario,salaDao.buscarPorCodigo(numero),filmeDao.buscarPorCodigo(codigo));
+                        System.out.println("Cadastrado com sucesso!");
                     }
                 }
             } catch (ParseException ex) {
@@ -97,48 +107,62 @@ public class SessaoUI {
     
 
     private void listarSessoes() {
-       if(listaSessoes.getSessoes().isEmpty()) {
-            System.out.println("Nao ha sessoes disponiveis.");
-        } else {
-            System.out.println(String.format("%-20s", "NUMERO DA SESSAO") + "\t"
-                + String.format("%-30s","DIA E HORARIO")+"\t"+String.format("%-10s","SALA")
-                    +"\t"+String.format("%-30s","FILME")  + 
-                     "\t"+ String.format("%-30s", "ASSENTOS"));
-            for (Sessao sessao : listaSessoes.getSessoes()) {
-              System.out.println(String.format("%-20s", sessao.getCodigo()) + "\t"
-                + String.format("%-30s",DateUtil.dateHourToString(sessao.getHorario()))+"\t"+String.format("%-10s",sessao.getSala().getNumero())
-                    +"\t"+String.format("%-30s",sessao.getFilme().getTitulo())  + 
-                     "\t"+ String.format("%-30s", sessao.getQuantidade()));
-            }
-        }
+        List<Sessao> listaSessoes = sessaoDao.listar();
+        this.mostrarSessao(listaSessoes);
     }
 
     private void removerSessao() {
-       if(listaSessoes.getSessoes().isEmpty()) {
-           System.out.println("Nao ha sessoes disponiveis.");
-       } else {
-            listarSessoes();
-            int codigo = Console.scanInt("Digite o codigo da sessao: ");
-            for(int x=0;x<listaSessoes.getSessoes().size();x++) {
-                if(listaSessoes.getSessoes().get(x).getCodigo()==codigo) {
-                    listaSessoes.getSessoes().remove(x);
-                    System.out.println("Removido com sucesso!");
-                } else {
-                    System.out.println("Sessao invalida.");
-                    break;
-                }
-            }
+      int codigo = Console.scanInt("Codigo da sessao: ");
+      Sessao sessao =  sessaoDao.buscarPorCodigo(codigo);
+        
+        if (UIUtil.getConfirmacao("Realmente deseja excluir essa sessao?")) {
+            sessaoDao.remover(sessao);
+            System.out.println("Sessao removida com sucesso!");
+        } else {
+            System.out.println("Operacao cancelada!");
         }   
     }
 
     private void buscarSessao() {
-       int codigo = Console.scanInt("Codigo: ");
-       if(listaSessoes.getSessoes().isEmpty()) {
-           System.out.println("Nao ha sessões disponiveis.");
-       } else {
-           listaSessoes.buscarSessao(codigo);
-       }
+       int codigo = Console.scanInt("Codigo da sessao: ");
+       sessaoDao.buscarPorCodigo(codigo);
     }
+    
+     private void listarSessao() {
+        List<Sessao> listaSessoes = sessaoDao.listar();
+        this.mostrarSessao(listaSessoes);
+    }
+    
+     private void mostrarSessao(Sessao s) {
+        System.out.println("-----------------------------");
+        System.out.println("Sessao");
+        System.out.println("Codigo: "+ s.getCodigo());
+        System.out.println("Horario " + DateUtil.dateHourToString(s.getHorario()));
+        System.out.println("Filme: " + s.getFilme().getTitulo());
+        System.out.println("Sala: " + s.getSala().getNumero());
+        System.out.println("-----------------------------");
+    }
+
+    private void mostrarSessao(List<Sessao> listaSessoes) {
+        if (listaSessoes.isEmpty()) {
+            System.out.println("Sessoes nao encontrados!");
+        } else {
+            System.out.println("-----------------------------\n");
+            System.out.println(String.format("%-10s", "CODIGO") + "\t"
+                    + String.format("%-40s", "|HORARIO") + "\t"
+                    + String.format("%-10s", "|FILME ") + "\t" 
+            + String.format("%-10s", "|SALA"));
+          
+            for (Sessao sessao : listaSessoes) {
+                System.out.println(String.format("%-10s", sessao.getCodigo()) + "\t"
+                        + String.format("%-40s", "|" +  DateUtil.dateHourToString(sessao.getHorario()) +"\t"                                .getHorario()) + "\t"
+                        + String.format("%-10s", "|" + sessao.getFilme().getTitulo()) + "\t"
+                        + String.format("%-10s", "|" + sessao.getSala().getNumero()));
+            }
+        }
+    }
+     
+    
     
     
     

@@ -18,5 +18,7 @@ public interface VendaDAO {
     public void alterar(Venda venda);
     public List<Venda> listar();
     public Venda buscarPorCodigo(int codigo);
+   
+    
     
 }

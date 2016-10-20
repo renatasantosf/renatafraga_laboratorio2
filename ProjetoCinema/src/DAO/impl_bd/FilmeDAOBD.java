@@ -20,7 +20,8 @@ import java.util.List;
  *
  * @author renat
  */
-/*public class FilmeDAOBD implements FilmeDAO {
+public class FilmeDAOBD implements FilmeDAO{
+    
     private Connection conexao;
     private PreparedStatement comando;
 
@@ -53,7 +54,7 @@ import java.util.List;
 
     @Override
     public void cadastrar(Filme filme) {
-         int id = 0;
+        int codigo = 0;
         try {
             String sql = "INSERT INTO filme(titulo,codigo_genero,sinopse) VALUES (?,?,?)";
             conectarObtendoId(sql);
@@ -61,6 +62,7 @@ import java.util.List;
             comando.setString(1,filme.getTitulo());
             comando.setInt(2,filme.getGenero().getCodigo());
             comando.setString(3,filme.getSinopse());
+            
             comando.execute();
            
             ResultSet resultado = comando.getGeneratedKeys();
@@ -71,11 +73,11 @@ import java.util.List;
            
             if (resultado.next()) {
                 //seta o id para o objeto
-                id = resultado.getInt(1);
-                filme.setCodigo(id);
+                codigo = resultado.getInt(1);
+                filme.setCodigo(codigo);
             }
             else{
-                System.err.println("Erro de Sistema - Nao gerou o id conforme esperado!");
+                System.err.println("Erro de Sistema - Nao gerou o codigo conforme esperado!");
                 throw new BDException("Nao gerou o id conforme esperado!");
             }
 
@@ -90,10 +92,10 @@ import java.util.List;
     @Override
     public void remover(Filme filme) {
         try {
-            String sql = "DELETE FROM filme WHERE titulo = ?";
+            String sql = "DELETE FROM filme WHERE codigo = ?";
 
             conectar(sql);
-            comando.setString(1, filme.getTitulo());
+            comando.setInt(1, filme.getCodigo());
             comando.executeUpdate();
 
         } catch (SQLException ex) {
@@ -108,7 +110,7 @@ import java.util.List;
     @Override
     public void alterar(Filme filme) {
         try {
-            String sql = "UPDATE filme SET titulo =?, genero =?, sinopse=? "
+            String sql = "UPDATE filme SET titulo =?, codigo_genero =?, sinopse=? "
                     + "WHERE codigo=?";
 
             conectar(sql);
@@ -140,18 +142,20 @@ import java.util.List;
             while (resultado.next()) {
                 int codigo = resultado.getInt("Codigo");
                 String titulo = resultado.getString("Titulo");
-               // Genero genero = resultado.getString("Genero");
+                int codigoGenero = resultado.getInt("Genero");
                 String sinopse = resultado.getString("Sinopse");
                
 
-                Filme film = new Filme(codigo,titulo, genero, sinopse);
+               GeneroDAOBD generoDAOBD = new GeneroDAOBD();
+                        
+                Filme film = new Filme(codigo,titulo, generoDAOBD.buscarPorCodigo(codigoGenero), sinopse);
 
                 listaFilmes.add(film);
 
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar os pacientes do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar os filmes do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
@@ -162,7 +166,7 @@ import java.util.List;
     
 
     @Override
-    public List<Filme> pesquisarGenero(int codigo_genero) {
+    public Filme pesquisarGenero(int codigo_genero) {
         String sql = "SELECT * FROM filme WHERE codigo_genero = ?";
 
         try {
@@ -172,17 +176,22 @@ import java.util.List;
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                String codigo = resultado.getString("Codigo");
+                int codigo = resultado.getInt("Codigo");
                 String titulo = resultado.getString("Titulo");
-                
-                Filme film = new Filme(codigo,titulo);
+                int codigoGenero = resultado.getInt("Genero");
+                String sinopse = resultado.getString("Sinopse");
+               
+                GeneroDAOBD generoDAOBD = new GeneroDAOBD();
+                        
+                Filme film = new Filme(codigo,titulo, generoDAOBD.buscarPorCodigo(codigoGenero), sinopse);
+
 
                 return film;
 
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar o paciente pelo id do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar filme pelo genero do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
@@ -192,9 +201,70 @@ import java.util.List;
     }
 
     @Override
-    public List<Filme> pesquisarPorNome(String nome) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Filme pesquisarPorNome(String nome) {
+        String sql = "SELECT * FROM filme WHERE nome = ?";
+
+        try {
+            conectar(sql);
+            comando.setString(1,nome);
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                int codigo = resultado.getInt("Codigo");
+                String titulo = resultado.getString("Titulo");
+                int codigoGenero = resultado.getInt("Genero");
+                String sinopse = resultado.getString("Sinopse");
+               
+                GeneroDAOBD generoDAOBD = new GeneroDAOBD();
+                        
+                Filme film = new Filme(codigo,titulo, generoDAOBD.buscarPorCodigo(codigoGenero), sinopse);
+
+
+                return film;
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar o filme pelo nome no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+
+        return (null);
     }
-    
+
+    public Filme buscarPorCodigo(int codigo) {
+        String sql = "SELECT * FROM filme WHERE codigo = ?";
+
+        try {
+            conectar(sql);
+            comando.setInt(1, codigo);
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                String titulo = resultado.getString("Titulo");
+                int codigo_gen = resultado.getInt("Genero");
+                String sinopse = resultado.getString("Sinopse");
+               
+                GeneroDAOBD generoDAOBD = new GeneroDAOBD();
+                
+                Filme filme = new Filme(codigo,titulo,generoDAOBD.buscarPorCodigo(codigo_gen),sinopse);
+
+                return filme;
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar o filme pelo codigo do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+
+        return (null);
+    }
+   
 }
-*/

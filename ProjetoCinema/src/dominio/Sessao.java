@@ -8,7 +8,6 @@ import java.util.Date;
  * @authors Diego Pinto e Renata Fraga
  */
 public class Sessao {
-    private static int CODIGO_GERADO = 0;
     private int codigo;
     private Sala sala;
     private Filme filme;
@@ -24,8 +23,7 @@ public class Sessao {
         
     }
     
-    
-    public Sessao(int codigo,Date horario, Sala sala, Filme filme) {
+     public Sessao(int codigo,Date horario, Sala sala, Filme filme) {
         this.codigo = codigo;
         this.horario = horario;
         this.sala = sala;
@@ -33,6 +31,21 @@ public class Sessao {
         this.horario = horario;
         this.quantidade = sala.getQuantidade();
         
+    }
+    
+    
+    public Sessao(int codigo,Date horario, Sala sala, Filme filme, int quanitidade) {
+        this.codigo = codigo;
+        this.horario = horario;
+        this.sala = sala;
+        this.filme = filme;
+        this.horario = horario;
+        this.quantidade = sala.getQuantidade();
+        
+    }
+
+    public Sessao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

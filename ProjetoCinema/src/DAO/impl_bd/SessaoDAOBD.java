@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package DAO.impl_bd;
 
 import DAO.SessaoDAO;
@@ -12,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -109,11 +106,6 @@ public class SessaoDAOBD implements SessaoDAO{
 
     @Override
     public void alterar(Sessao sessao) {
-         /*  codigo serial primary key,
-    horario date not null,
-    numero_sala integer references sala(numero) not null,
-    codigo_filme integer references filme(codigo) not null,
-    quantidade integer not null*/
         try {
             String sql = "UPDATE sessao SET horario=?,numero_sala=?, codigo_filme=?,quantidade=?"
                     + "WHERE codigo=?";
@@ -156,8 +148,11 @@ public class SessaoDAOBD implements SessaoDAO{
                 int codigo_sala = resultado.getInt("Numero sala");
                 int codigo_filme = resultado.getInt("Filme: ");
                 int quantidade = resultado.getInt("Quantidade: ");
-
-                Sessao sessao = new Sessao(codigo,dataUtil,listaSessoes.get(codigo_filme),codigo_filme,quantidade);
+                
+                SalaDAOBD salaDAOBD = new SalaDAOBD();
+                FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
+                
+                Sessao sessao = new Sessao(codigo, dataUtil, salaDAOBD.buscarPorCodigo(codigo_sala), filmeDAOBD.buscarPorCodigo(codigo_filme));
 
                 listaSessoes.add(sessao);
 
@@ -175,6 +170,7 @@ public class SessaoDAOBD implements SessaoDAO{
 
     @Override
     public Sessao buscarPorCodigo(int codigo) {
+        List<Sessao> listaSessoes = new ArrayList<>();
         String sql = "SELECT * FROM sessao WHERE codigo = ?";
 
         try {
@@ -191,7 +187,12 @@ public class SessaoDAOBD implements SessaoDAO{
                 int codigo_filme = resultado.getInt("Codigo filme: ");
                 int quantidade = resultado.getInt("Quantidade: ");
                 
-                Sessao sessao = new Sessao(dataUtil,numero_sala,codigo_filme,quantidade);
+                
+                
+               SalaDAOBD salaDAOBD = new SalaDAOBD();
+                FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
+                
+                Sessao sessao = new Sessao(codigo, dataUtil, salaDAOBD.buscarPorCodigo(numero_sala), filmeDAOBD.buscarPorCodigo(codigo_filme));
 
                 return sessao;
                     
@@ -208,6 +209,49 @@ public class SessaoDAOBD implements SessaoDAO{
         return (null);
     }
 
+    @Override
+    public boolean seHaSessao(java.sql.Date horario, int numero) {
+        List<Sessao> listaSessoes = new ArrayList<>();
+        String sql = "SELECT * FROM sessao WHERE numero_sala = ? and horario = ?";
+
+        try {
+            conectar(sql);
+            comando.setInt(1, numero);
+            comando.setDate(2,horario);
+
+            ResultSet resultado = comando.executeQuery();
+
+            if (resultado.next()) {
+                //Trabalhando com data: lembrando dataSql -> dataUtil
+                java.sql.Date dataSql = resultado.getDate("Horario: ");
+                java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
+                int numero_sala = resultado.getInt("Sala: ");
+                int codigo_filme = resultado.getInt("Codigo filme: ");
+                int quantidade = resultado.getInt("Quantidade: ");
+                
+                
+                
+                SalaDAOBD salaDAOBD = new SalaDAOBD();
+                FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
+                
+                Sessao sessao = new Sessao(numero, dataUtil, salaDAOBD.buscarPorCodigo(numero_sala), filmeDAOBD.buscarPorCodigo(codigo_filme));
+
+                return true;
+                    
+
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar as sessao pelo numero do Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+
+        
+    }
+}
+
      
     
-}

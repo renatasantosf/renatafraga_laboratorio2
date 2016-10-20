@@ -7,19 +7,26 @@ package dominio;
  */
 public class Filme {
     
-    private static int CODIGO_GERADO = 0;
+   
     private int codigo;
     private String titulo;
     private Genero genero;
     private String sinopse;
-
+   
+    
     public Filme(int codigo, String titulo, Genero genero, String sinopse) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.genero = genero;
         this.sinopse = sinopse;
     }
-
+    
+      public Filme(String titulo, Genero genero, String sinopse) {
+        this.titulo = titulo;
+        this.genero = genero;
+        this.sinopse = sinopse;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
@@ -49,9 +56,7 @@ public class Filme {
         this.sinopse = sinopse;
     }
     
-     private int gerarCodigo() {
-        return (CODIGO_GERADO++);
-    }
+     
 
     @Override
     public String toString() {

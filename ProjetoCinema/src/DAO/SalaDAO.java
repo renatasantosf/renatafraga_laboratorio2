@@ -6,6 +6,7 @@
 package DAO;
 
 import dominio.Sala;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ public interface SalaDAO {
     public void alterar(Sala sala);
     public List<Sala> listar();
     public Sala buscarPorCodigo(int codigo);
+
+    
     
     
 }

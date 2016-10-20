@@ -6,6 +6,7 @@
 package DAO;
 
 import dominio.Sessao;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,5 +19,7 @@ public interface SessaoDAO {
     public void alterar(Sessao sessao);
     public List<Sessao> listar();
     public Sessao buscarPorCodigo(int codigo);
+
+    public boolean seHaSessao(java.sql.Date horario, int numero);
     
 }
