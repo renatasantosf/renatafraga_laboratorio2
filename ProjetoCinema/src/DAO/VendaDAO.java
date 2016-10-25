@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author renat
+ * @author Diego
  */
 public interface VendaDAO {
     public void cadastrar(Venda venda);

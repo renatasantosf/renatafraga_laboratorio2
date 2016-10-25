@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author renat
+ * @author Diego
  */
 public class SalaDAOBD implements SalaDAO{
     

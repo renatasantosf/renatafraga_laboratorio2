@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author renat
+ * @author Diego
  */
 public class SessaoDAOBD implements SessaoDAO{
     
@@ -210,14 +210,15 @@ public class SessaoDAOBD implements SessaoDAO{
     }
 
     @Override
-    public boolean seHaSessao(java.sql.Date horario, int numero) {
+    public boolean seHaSessao(Date horario, int numero) {
         List<Sessao> listaSessoes = new ArrayList<>();
         String sql = "SELECT * FROM sessao WHERE numero_sala = ? and horario = ?";
 
         try {
             conectar(sql);
             comando.setInt(1, numero);
-            comando.setDate(2,horario);
+            java.sql.Date horarioBD = new java.sql.Date(horario.getTime());
+            comando.setDate(2,horarioBD);
 
             ResultSet resultado = comando.executeQuery();
 
@@ -251,6 +252,7 @@ public class SessaoDAOBD implements SessaoDAO{
 
         
     }
+
 }
 
      

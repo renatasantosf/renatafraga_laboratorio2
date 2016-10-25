@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *
- * @author renat
+ * @author Diego
  */
 public class GeneroDAOBD implements GeneroDAO {
     

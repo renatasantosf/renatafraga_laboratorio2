@@ -7,7 +7,7 @@ package DAO;
 
 /**
  *
- * @author renat
+ * @author Diego
  */
 public interface RelatorioDAO {
     

@@ -155,9 +155,9 @@ public class SessaoUI {
           
             for (Sessao sessao : listaSessoes) {
                 System.out.println(String.format("%-10s", sessao.getCodigo()) + "\t"
-                        + String.format("%-40s", "|" +  DateUtil.dateHourToString(sessao.getHorario()) +"\t"                                .getHorario()) + "\t"
+                        + String.format("%-40s", "|" +  DateUtil.dateHourToString(sessao.getHorario()) +"\t"
                         + String.format("%-10s", "|" + sessao.getFilme().getTitulo()) + "\t"
-                        + String.format("%-10s", "|" + sessao.getSala().getNumero()));
+                        + String.format("%-10s", "|" + sessao.getSala().getNumero())));
             }
         }
     }

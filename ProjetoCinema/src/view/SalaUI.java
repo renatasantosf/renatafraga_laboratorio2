@@ -5,7 +5,6 @@ import DAO.impl_bd.SalaDAOBD;
 import dominio.Sala;
 import java.util.List;
 
-import repositorio.RepositorioSala;
 import util.Console;
 import view.menu.SalaMenu;
 

@@ -3,10 +3,7 @@ package view;
 
 import DAO.VendaDAO;
 import DAO.impl_bd.VendaDAOBD;
-import repositorio.RepositorioFilme;
-import repositorio.RepositorioSala;
-import repositorio.RepositorioSessao;
-import repositorio.RepositorioVenda;
+
 import util.Console;
 import util.DateUtil;
 import view.menu.RelatorioMenu;
@@ -72,7 +69,7 @@ public class RelatorioUI {
     
     private String salaMaisUtilizada() {
       
-        
+        return("Nao funcional!");
     
     }
 

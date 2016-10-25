@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author renat
+ * @author Diego
  */
 public interface SessaoDAO {
     public void cadastrar(Sessao sessao);
@@ -20,6 +20,6 @@ public interface SessaoDAO {
     public List<Sessao> listar();
     public Sessao buscarPorCodigo(int codigo);
 
-    public boolean seHaSessao(java.sql.Date horario, int numero);
+    public boolean seHaSessao(Date horario, int numero);
     
 }

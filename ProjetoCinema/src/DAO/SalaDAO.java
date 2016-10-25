@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author renat
+ * @author Diego
  */
 public interface SalaDAO {
     public void cadastrar(Sala sala);
