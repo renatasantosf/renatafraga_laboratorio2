@@ -128,7 +128,9 @@ public class SessaoDAOBD implements SessaoDAO{
     }
 
  
-
+    
+   
+    
     @Override
     public List<Sessao> listar() {
        List<Sessao> listaSessoes = new ArrayList<>();

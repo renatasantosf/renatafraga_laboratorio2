@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import dominio.Sessao;
 import dominio.Venda;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public interface VendaDAO {
     public void cadastrar(Venda venda);
     public void remover(Venda venda);
-    public void alterar(Venda venda);
+    public void venderIngresso(int codigo, Sessao sessao);
     public List<Venda> listar();
     public Venda buscarPorCodigo(int codigo);
    

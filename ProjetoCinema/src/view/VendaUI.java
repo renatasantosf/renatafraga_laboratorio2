@@ -4,7 +4,6 @@ import DAO.SessaoDAO;
 import DAO.VendaDAO;
 import DAO.impl_bd.SessaoDAOBD;
 import DAO.impl_bd.VendaDAOBD;
-import dominio.Sessao;
 import dominio.Venda;
 import java.util.List;
 import util.Console;
@@ -61,7 +60,6 @@ public class VendaUI {
     private void venderIngresso() {
         sessaoDao.listar();
         int codigoSessao= Console.scanInt("Codigo da sessao: ");
-        
         
         vendaDao.cadastrar(new Venda(sessaoDao.buscarPorCodigo(codigoSessao)));
         

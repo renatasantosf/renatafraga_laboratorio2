@@ -6,7 +6,6 @@
 package DAO.impl_bd;
 
 import DAO.VendaDAO;
-import dominio.Sala;
 import dominio.Sessao;
 import dominio.Venda;
 import java.sql.Connection;
@@ -92,9 +91,16 @@ public class VendaDAOBD implements VendaDAO {
     public void remover(Venda venda) {
         try {
             String sql = "DELETE FROM venda WHERE codigo = ?";
-
+            
             conectar(sql);
             comando.setInt(1, venda.getCodigo());
+            comando.executeUpdate();
+            
+            sql = "UPDATE sessao SET quantidade = ?" +
+                    "WHERE codigo=?";
+            conectar(sql);
+            comando.setInt(1,(venda.getSessao().getQuantidade()+1));
+            comando.setInt(2, venda.getSessao().getCodigo());
             comando.executeUpdate();
 
         } catch (SQLException ex) {
@@ -106,24 +112,7 @@ public class VendaDAOBD implements VendaDAO {
 
     }
 
-    @Override
-    public void alterar(Venda venda) {
-        try {
-            String sql = "UPDATE venda SET codigo_sessao = ?"
-                    + "WHERE codigo=?";
-
-            conectar(sql);
-            comando.setInt(1, venda.getSessao().getCodigo());
-            comando.setInt(2, venda.getCodigo());
-            comando.executeUpdate();
-
-        } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao alterar venda no Banco de Dados!");
-            throw new BDException(ex);
-        } finally {
-            fecharConexao();
-        }
-    }
+   
 
  
 
@@ -195,6 +184,25 @@ public class VendaDAOBD implements VendaDAO {
         }
 
         return (null);
+    }
+    
+    @Override
+     public void venderIngresso(int codigo,Sessao sessao) {
+        try {
+            String sql = "UPDATE sessao SET quantidade=?"
+                    + "WHERE codigo=?";
+
+            conectar(sql);
+            comando.setInt(1, (sessao.getQuantidade()-1));
+            comando.setInt(2,codigo);
+            comando.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao vender ingresso");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
     }
 
 }
