@@ -125,7 +125,7 @@ public class SessaoUI {
 
     private void buscarSessao() {
        int codigo = Console.scanInt("Codigo da sessao: ");
-       sessaoDao.buscarPorCodigo(codigo);
+        mostrarSessao(sessaoDao.buscarPorCodigo(codigo));
     }
     
      private void listarSessao() {

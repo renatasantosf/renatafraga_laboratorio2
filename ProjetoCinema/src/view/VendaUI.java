@@ -71,7 +71,7 @@ public class VendaUI {
 
     private void buscarSessoes() {
        int codigo = Console.scanInt("Codigo da sessao: ");
-       sessaoDao.buscarPorCodigo(codigo);
+        mostrarVenda(vendaDao.buscarPorCodigo(codigo));
     }
 
     private void cancelarVenda() {

@@ -108,12 +108,12 @@ public class FilmeUI {
 
     private void buscarFilme() {
        int codigo = Console.scanInt("Codigo do filme: ");
-       filmeDao.buscarPorCodigo(codigo);
+        mostrarFilme(filmeDao.buscarPorCodigo(codigo));
     }
     
      private void buscarGenero() {
        int codigo = Console.scanInt("Codigo do genero: ");
-       generoDao.buscarPorCodigo(codigo);
+       mostrarGenero(generoDao.buscarPorCodigo(codigo));
     }
     
      private void mostrarFilme(Filme f) {
