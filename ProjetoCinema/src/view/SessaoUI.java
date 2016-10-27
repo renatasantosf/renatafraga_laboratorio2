@@ -96,7 +96,7 @@ public class SessaoUI {
 
                     } else {
 
-                        Sessao sessao = new Sessao(horario,salaDao.buscarPorCodigo(numero),filmeDao.buscarPorCodigo(codigo));
+                        sessaoDao.cadastrar(new Sessao(horario,salaDao.buscarPorCodigo(numero),filmeDao.buscarPorCodigo(codigo)));
                         System.out.println("Cadastrado com sucesso!");
                     }
                 }

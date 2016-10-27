@@ -77,10 +77,13 @@ public class FilmeUI {
         int codigoGenero = Console.scanInt("Codigo genero: ");
         String titulo = Console.scanString("Titulo: ");
         String sinopse = Console.scanString("Sinopse: ");
+        
         filmeDao.cadastrar(new Filme(titulo,generoDao.buscarPorCodigo(codigoGenero),sinopse));
         
         System.out.println("Filme " + titulo + " cadastrado com sucesso!");
        
+        
+        
     }
    
     

@@ -128,8 +128,8 @@ public class VendaDAOBD implements VendaDAO {
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int numero = resultado.getInt("Codigo");
-                int cod_sessao = resultado.getInt("Sessao");
+                int numero = resultado.getInt("codigo");
+                int cod_sessao = resultado.getInt("codigo_sessao");
                 
                 
                 SessaoDAOBD sessaoDAOBD = new SessaoDAOBD();
@@ -163,7 +163,7 @@ public class VendaDAOBD implements VendaDAO {
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                int cod_sessao = resultado.getInt("Sessao");
+                int cod_sessao = resultado.getInt("codigo_sessao");
                 
                
               

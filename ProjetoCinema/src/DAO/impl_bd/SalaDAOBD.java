@@ -61,7 +61,7 @@ public class SalaDAOBD implements SalaDAO{
 
             //Foi criado um novo método conectar para obter o id
             conectarObtendoId(sql);
-            comando.setInt(1, sala.getQuantidade());
+            comando.setInt(1,50);
             comando.executeUpdate();
             
             //Obtém o resultSet para pegar o id
@@ -135,8 +135,8 @@ public class SalaDAOBD implements SalaDAO{
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int numero = resultado.getInt("Numero");
-                int qtd_assent = resultado.getInt("Qtd. Assentos");
+                int numero = resultado.getInt("numero");
+                int qtd_assent = resultado.getInt("quantidade");
                 
                 
 
@@ -167,7 +167,7 @@ public class SalaDAOBD implements SalaDAO{
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                int quantidade = resultado.getInt("Quantidade");
+                int quantidade = resultado.getInt("quantidade");
                 
                
                Sala sala = new Sala(codigo, quantidade);

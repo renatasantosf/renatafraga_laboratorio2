@@ -127,8 +127,7 @@ public class SessaoDAOBD implements SessaoDAO{
         }
     }
 
- 
-    
+
    
     
     @Override
@@ -143,13 +142,13 @@ public class SessaoDAOBD implements SessaoDAO{
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int codigo = resultado.getInt("Codigo");
+                int codigo = resultado.getInt("codigo");
                 //Trabalhando com data: lembrando dataSql -> dataUtil
-                java.sql.Date dataSql = resultado.getDate("Horario ");
+                java.sql.Date dataSql = resultado.getDate("horario");
                 java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
-                int codigo_sala = resultado.getInt("Numero sala");
-                int codigo_filme = resultado.getInt("Filme: ");
-                int quantidade = resultado.getInt("Quantidade: ");
+                int codigo_sala = resultado.getInt("numero_sala");
+                int codigo_filme = resultado.getInt("codigo_filme");
+                int quantidade = resultado.getInt("quantidade");
                 
                 SalaDAOBD salaDAOBD = new SalaDAOBD();
                 FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
@@ -183,11 +182,11 @@ public class SessaoDAOBD implements SessaoDAO{
 
             if (resultado.next()) {
                 //Trabalhando com data: lembrando dataSql -> dataUtil
-                java.sql.Date dataSql = resultado.getDate("Horario: ");
+                java.sql.Date dataSql = resultado.getDate("horario");
                 java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
-                int numero_sala = resultado.getInt("Sala: ");
-                int codigo_filme = resultado.getInt("Codigo filme: ");
-                int quantidade = resultado.getInt("Quantidade: ");
+                int numero_sala = resultado.getInt("numero_sala");
+                int codigo_filme = resultado.getInt("codigo_filme");
+                int quantidade = resultado.getInt("quantidade");
                 
                 
                 
@@ -226,11 +225,11 @@ public class SessaoDAOBD implements SessaoDAO{
 
             if (resultado.next()) {
                 //Trabalhando com data: lembrando dataSql -> dataUtil
-                java.sql.Date dataSql = resultado.getDate("Horario: ");
+                java.sql.Date dataSql = resultado.getDate("horario");
                 java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
-                int numero_sala = resultado.getInt("Sala: ");
-                int codigo_filme = resultado.getInt("Codigo filme: ");
-                int quantidade = resultado.getInt("Quantidade: ");
+                int numero_sala = resultado.getInt("numero_sala");
+                int codigo_filme = resultado.getInt("codigo_filme");
+                int quantidade = resultado.getInt("quantidade");
                 
                 
                 

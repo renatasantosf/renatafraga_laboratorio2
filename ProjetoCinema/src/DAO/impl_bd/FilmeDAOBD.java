@@ -54,7 +54,37 @@ public class FilmeDAOBD implements FilmeDAO{
 
     @Override
     public void cadastrar(Filme filme) {
-        int codigo = 0;
+       
+         int id = 0;
+        try {
+            String sql = "INSERT INTO filme(titulo,codigo_genero,sinopse) "
+                    + "VALUES (?,?,?)";
+
+            //Foi criado um novo método conectar para obter o id
+            conectarObtendoId(sql);
+            comando.setString(1, filme.getTitulo());
+            comando.setInt(2, filme.getGenero().getCodigo());
+            comando.setString(3,filme.getSinopse());
+            comando.executeUpdate();
+            
+            //Obtém o resultSet para pegar o id
+            ResultSet resultado = comando.getGeneratedKeys();
+            if (resultado.next()) {
+                //seta o id para o objeto
+                id = resultado.getInt(1);
+                filme.setCodigo(id);
+            } else{
+                System.err.println("Erro de Sistema - Nao gerou o codigo conforme esperado!");
+                throw new BDException("Nao gerou o id conforme esperado!");
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao salvar filme no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+        /* int codigo = 0;
         try {
             String sql = "INSERT INTO filme(titulo,codigo_genero,sinopse) VALUES (?,?,?)";
             conectarObtendoId(sql);
@@ -86,7 +116,7 @@ public class FilmeDAOBD implements FilmeDAO{
             throw new BDException(ex);
         } finally {
             fecharConexao();
-        }
+        }*/
     }
 
     @Override
@@ -140,22 +170,21 @@ public class FilmeDAOBD implements FilmeDAO{
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int codigo = resultado.getInt("Codigo");
-                String titulo = resultado.getString("Titulo");
-                int codigoGenero = resultado.getInt("Genero");
-                String sinopse = resultado.getString("Sinopse");
-               
+                int codigo = resultado.getInt("codigo");
+                String titulo = resultado.getString("titulo");
+                int codGenero = resultado.getInt("codigo_genero");
+                String sinopse = resultado.getString("sinopse");
+                
+                GeneroDAOBD generoDao = new GeneroDAOBD(); 
+                
+                Filme filme = new Filme(codigo,titulo,generoDao.buscarPorCodigo(codGenero),sinopse);
 
-               GeneroDAOBD generoDAOBD = new GeneroDAOBD();
-                        
-                Filme film = new Filme(codigo,titulo, generoDAOBD.buscarPorCodigo(codigoGenero), sinopse);
-
-                listaFilmes.add(film);
+                listaFilmes.add(filme);
 
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar os filmes do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar os gêneros no Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
@@ -176,10 +205,10 @@ public class FilmeDAOBD implements FilmeDAO{
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                int codigo = resultado.getInt("Codigo");
-                String titulo = resultado.getString("Titulo");
-                int codigoGenero = resultado.getInt("Genero");
-                String sinopse = resultado.getString("Sinopse");
+                int codigo = resultado.getInt("codigo");
+                String titulo = resultado.getString("titulo");
+                int codigoGenero = resultado.getInt("codigo_genero");
+                String sinopse = resultado.getString("sinopse");
                
                 GeneroDAOBD generoDAOBD = new GeneroDAOBD();
                         
@@ -211,10 +240,10 @@ public class FilmeDAOBD implements FilmeDAO{
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                int codigo = resultado.getInt("Codigo");
-                String titulo = resultado.getString("Titulo");
-                int codigoGenero = resultado.getInt("Genero");
-                String sinopse = resultado.getString("Sinopse");
+                int codigo = resultado.getInt("codigo");
+                String titulo = resultado.getString("titulo");
+                int codigoGenero = resultado.getInt("codigo_genero");
+                String sinopse = resultado.getString("sinopse");
                
                 GeneroDAOBD generoDAOBD = new GeneroDAOBD();
                         
@@ -235,6 +264,7 @@ public class FilmeDAOBD implements FilmeDAO{
         return (null);
     }
 
+    @Override
     public Filme buscarPorCodigo(int codigo) {
         String sql = "SELECT * FROM filme WHERE codigo = ?";
 
@@ -245,9 +275,9 @@ public class FilmeDAOBD implements FilmeDAO{
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                String titulo = resultado.getString("Titulo");
-                int codigo_gen = resultado.getInt("Genero");
-                String sinopse = resultado.getString("Sinopse");
+                String titulo = resultado.getString("titulo");
+                int codigo_gen = resultado.getInt("codigo_genero");
+                String sinopse = resultado.getString("sinopse");
                
                 GeneroDAOBD generoDAOBD = new GeneroDAOBD();
                 

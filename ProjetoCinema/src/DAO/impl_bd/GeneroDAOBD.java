@@ -136,9 +136,9 @@ public class GeneroDAOBD implements GeneroDAO {
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
-                int codigo = resultado.getInt("Codigo");
-                String nome = resultado.getString("Nome");
-                String descricao = resultado.getString("Descricao");
+                int codigo = resultado.getInt("codigo");
+                String nome = resultado.getString("nome");
+                String descricao = resultado.getString("descricao");
                 
 
                 Genero gen = new Genero(codigo,nome,descricao);
