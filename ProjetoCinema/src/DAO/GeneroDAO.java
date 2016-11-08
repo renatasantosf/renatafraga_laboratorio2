@@ -17,7 +17,7 @@ public interface GeneroDAO {
     public void remover(Genero genero);
     public void alterar(Genero genero);
     public List<Genero> listar();
-
+    public List<Genero> listarGeneros();
     public Genero buscarPorCodigo(int codigo);
     
     

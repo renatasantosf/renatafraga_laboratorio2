@@ -18,7 +18,7 @@ public class MainUI {
             opcao = Console.scanInt("Digite a opcao que deseja: ");
             switch(opcao) {
                 case MainMenu.OP_FILME:
-                    new FilmeUI().iniciar();
+                    new FilmeUIController().iniciar();
                     break;
                 case MainMenu.OP_SALA:
                     new SalaUI().iniciar();

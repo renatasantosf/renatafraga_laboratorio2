@@ -23,6 +23,10 @@ public class Genero {
         this.descricao = descricao;
     }
 
+    public Genero(String nome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 
     public String getNome() {
         return nome;

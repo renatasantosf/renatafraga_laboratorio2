@@ -158,6 +158,36 @@ public class GeneroDAOBD implements GeneroDAO {
     }
 
     @Override
+    public List<Genero> listarGeneros() {
+       List<Genero> listaGeneros = new ArrayList<>();
+
+        String sql = "SELECT nome FROM genero";
+
+        try {
+            conectar(sql);
+
+            ResultSet resultado = comando.executeQuery();
+
+            while (resultado.next()) {
+                String nome = resultado.getString("nome");
+                Genero gen = new Genero(nome);
+
+                listaGeneros.add(gen);
+
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Erro de Sistema - Problema ao buscar os gêneros no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+
+        return (listaGeneros);
+    }
+    
+    
+    @Override
     public Genero buscarPorCodigo(int codigo) {
         String sql = "SELECT * FROM genero WHERE codigo = ?";
 

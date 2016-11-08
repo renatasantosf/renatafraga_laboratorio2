@@ -1,6 +1,13 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 import DAO.FilmeDAO;
 import DAO.GeneroDAO;
 import DAO.impl_bd.FilmeDAOBD;
@@ -8,11 +15,15 @@ import DAO.impl_bd.GeneroDAOBD;
 import dominio.Filme;
 import dominio.Genero;
 import java.awt.Button;
+import java.awt.Desktop.Action;
 import java.awt.TextArea;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
 import java.util.InputMismatchException;
 import java.util.List;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import util.Console;
 import view.menu.FilmeMenu;
@@ -21,15 +32,13 @@ import view.menu.FilmeMenu;
  *
  * @authors Diego Pinto e Renata Fraga
  */
-public class FilmeUI {
+public class FilmeUIController implements Initializable {
     
    private GeneroDAO generoDao;
    private FilmeDAO filmeDao;
    
-   
-   
-    @FXML
-    private TextField txTitulo;
+     @FXML
+    private TextField tfTitulo;
     
     
     @FXML
@@ -47,13 +56,15 @@ public class FilmeUI {
     @FXML
     private Button btLimpar;
 
-    
-    
-    public FilmeUI() {
+    public FilmeUIController() {
         generoDao = new GeneroDAOBD();
         filmeDao = new FilmeDAOBD();
     }
     
+     @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+    } 
     
     
     public void iniciar() {
@@ -99,21 +110,32 @@ public class FilmeUI {
         } while(opcao != FilmeMenu.OP_VOLTAR);
     }  
      
-    private void cadastrarFilme() {
+    @FXML
+    public void cadastrarFilme() {
+        //adicionarAoCombo();
+        String titulo = tfTitulo.getText();
+        int codigoGenero = cbGenero.getVisibleRowCount();
+        String sinopse = taSinopse.getText();
         
-        mostrarGenero();
-        int codigoGenero = Console.scanInt("Codigo genero: ");
-        String titulo = Console.scanString("Titulo: ");
-        String sinopse = Console.scanString("Sinopse: ");
+        
         
         filmeDao.cadastrar(new Filme(titulo,generoDao.buscarPorCodigo(codigoGenero),sinopse));
         
-        System.out.println("Filme " + titulo + " cadastrado com sucesso!");
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Sucesso!");
+        alert.setContentText("Filme "+titulo+" cadastrado com sucesso!");
+        alert.showAndWait();
        
-        
+                
+                            
+                
         
     }
-   
+    
+    public void adicionarAoCombo() {
+         cbGenero.getItems().addAll(generoDao.listarGeneros());
+        
+    }
     
     public void listarFilme() {
         List<Filme> listaFilmes = filmeDao.listar();
