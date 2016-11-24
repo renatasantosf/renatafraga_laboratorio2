@@ -6,7 +6,9 @@
 package DAO;
 
 import dominio.Filme;
+import dominio.Genero;
 import java.util.List;
+import javafx.scene.control.ComboBox;
 
 /**
  *
@@ -20,4 +22,5 @@ public interface FilmeDAO {
     public Filme pesquisarGenero(int genero);
     public Filme pesquisarPorNome(String nome);
     public Filme buscarPorCodigo(int codigo);
+    public void popularCombo(ComboBox<Genero> combo);
 }

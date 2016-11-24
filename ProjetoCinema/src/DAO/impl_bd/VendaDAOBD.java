@@ -34,6 +34,8 @@ public class VendaDAOBD implements VendaDAO {
         conexao = BDUtil.getConnection();
         comando = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
     }
+    
+    
 
     public void fecharConexao() {
         try {
@@ -112,8 +114,47 @@ public class VendaDAOBD implements VendaDAO {
 
     }
 
-   
+   @Override
+    public List<String> vendasPorFilme() {
+             List<String> listaVenda = new ArrayList<>();
+               
+            String sql = "SELECT FILME.TITULO, COUNT(VENDA.CODIGO) AS INGRESSOS\n" +
+            "FROM FILME, VENDA,SESSAO\n" +
+            "WHERE FILME.CODIGO = SESSAO.CO"
+                    + "DIGO_FILME AND SESSAO.CODIGO = VENDA.CODIGO_SESSAO\n" +
+            "GROUP BY FILME.TITULO;";
+        try {  
+             conectar(sql);
 
+            ResultSet resultado = comando.executeQuery();
+            
+            while (resultado.next()) {
+                String titulo = resultado.getString("titulo");
+                int quantidade = resultado.getInt("quantidade");
+                
+                
+                
+                
+                
+              
+
+                
+
+                listaVenda.add(titulo);
+
+            }
+            
+            
+        } catch( SQLException ex) {
+            
+            System.err.println("Erro de Sistema - Problema ao remover sala no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+        
+        return listaVenda;
+    }
  
 
     @Override
@@ -204,5 +245,18 @@ public class VendaDAOBD implements VendaDAO {
             fecharConexao();
         }
     }
+/*
+    @Override
+    public List<String> vendasPorHorario() {
+      
+    }
 
+    public List<String> vendasPorSalas() {
+        
+    }
+
+    public List<String> vendasPorSessoes() {
+        
+    }
+*/
 }

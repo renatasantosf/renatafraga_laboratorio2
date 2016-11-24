@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="painelSessao" prefHeight="474.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SessaoUIController">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="717.0">
+        <items>
+          <Button fx:id="btInserir" mnemonicParsing="false" onAction="#tratarInserir" text="Inserir" />
+            <Button fx:id="btAlterar" mnemonicParsing="false" onAction="#tratarEditar" text="Alterar" />
+            <Button fx:id="btRemover" mnemonicParsing="false" onAction="#tratarRemover" text="Remover" />
+            <Button fx:id="btVoltar" mnemonicParsing="false" onAction="#tratarVoltar" text="Voltar" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewSessao" layoutY="40.0" prefHeight="435.0" prefWidth="717.0">
+        <columns>
+          <TableColumn fx:id="tableCCodigo" prefWidth="73.0" text="Código" />
+          <TableColumn fx:id="tableCHorario" prefWidth="210.0" text="Horário" />
+            <TableColumn fx:id="tableCFilme" prefWidth="315.0" text="Filme" />
+            <TableColumn fx:id="tableCSala" prefWidth="118.0" text="Sala" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

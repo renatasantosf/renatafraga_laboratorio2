@@ -10,9 +10,8 @@ public class Filme {
    
     private int codigo;
     private String titulo;
-    private Genero genero;
     private String sinopse;
-   
+    private Genero genero;
     
     public Filme(int codigo, String titulo, Genero genero, String sinopse) {
         this.codigo = codigo;
@@ -25,6 +24,16 @@ public class Filme {
         this.titulo = titulo;
         this.genero = genero;
         this.sinopse = sinopse;
+    }
+
+    public Filme(int codigo, String titulo, String sinopse) {
+        this.codigo = codigo;
+        this.titulo = titulo;
+        this.sinopse = sinopse;
+    }
+
+    public Filme(String titulo) {
+       this.titulo  = titulo;
     }
     
     public String getTitulo() {

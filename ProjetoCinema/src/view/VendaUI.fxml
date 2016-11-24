@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="vendaPainel" prefHeight="404.0" prefWidth="488.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.VendaUIController">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="640.0">
+        <items>
+          <Button fx:id="btComprarIngresso" mnemonicParsing="false" onAction="#tratarComprarIngresso" text="Comprar Ingresso" />
+            <Button fx:id="btCancelarVenda" mnemonicParsing="false" text="Cancelar Venda" />
+            <Button fx:id="btVoltar" mnemonicParsing="false" onAction="#tratarVoltar" text="Voltar" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewVenda" layoutY="40.0" prefHeight="454.0" prefWidth="640.0">
+        <columns>
+          <TableColumn fx:id="tableCCodVenda" prefWidth="75.0" text="Cód. Venda" />
+          <TableColumn fx:id="tableCCodSessao" prefWidth="87.0" text="Cód. Sessão" />
+            <TableColumn fx:id="tableCHorario" prefWidth="104.0" text="Horário" />
+            <TableColumn fx:id="tableCFilme" prefWidth="261.0" text="Filme" />
+            <TableColumn fx:id="tableCCapacidade" prefWidth="112.0" text="Capacidade" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

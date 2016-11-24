@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import util.DateUtil;
 
 /**
  *
@@ -134,7 +135,8 @@ public class SessaoDAOBD implements SessaoDAO{
     public List<Sessao> listar() {
        List<Sessao> listaSessoes = new ArrayList<>();
 
-        String sql = "SELECT * FROM sessao";
+        String sql = "SELECT sessao.codigo, sessao.horario, filme.titulo, sala.numero from sessao inner join filme on \n" +
+        "sessao.codigo_filme = filme.codigo inner join sala on sala.numero = sessao.numero_sala;";
 
         try {
             conectar(sql);
@@ -146,14 +148,13 @@ public class SessaoDAOBD implements SessaoDAO{
                 //Trabalhando com data: lembrando dataSql -> dataUtil
                 java.sql.Date dataSql = resultado.getDate("horario");
                 java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
-                int codigo_sala = resultado.getInt("numero_sala");
-                int codigo_filme = resultado.getInt("codigo_filme");
-                int quantidade = resultado.getInt("quantidade");
-                
+                String titulo = resultado.getString("titulo");
+                int numero_sala = resultado.getInt("numero");
+                                
                 SalaDAOBD salaDAOBD = new SalaDAOBD();
                 FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
                 
-                Sessao sessao = new Sessao(codigo, dataUtil, salaDAOBD.buscarPorCodigo(codigo_sala), filmeDAOBD.buscarPorCodigo(codigo_filme));
+                Sessao sessao = new Sessao(codigo,DateUtil.dateHourToString(dataUtil), titulo, numero_sala);
 
                 listaSessoes.add(sessao);
 

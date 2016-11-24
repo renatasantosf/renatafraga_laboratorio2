@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="painelSala" prefHeight="286.0" prefWidth="341.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.SalaUIController">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="354.0">
+        <items>
+          <Button fx:id="btnInserir" mnemonicParsing="false" onAction="#tratarInserir" text="Inserir" />
+            <Button fx:id="btnRemover" mnemonicParsing="false" onAction="#tratarRemover" text="Remover" />
+            <Button fx:id="btVoltar" mnemonicParsing="false" onAction="#tratarVoltar" text="Voltar" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewSala" layoutY="40.0" prefHeight="246.0" prefWidth="354.0">
+        <columns>
+          <TableColumn fx:id="tableCNumero" prefWidth="141.0" text="Numero" />
+          <TableColumn fx:id="tableCQuantidade" minWidth="8.0" prefWidth="249.0" text="Quantidade de Assentos" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

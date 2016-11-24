@@ -15,6 +15,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 
 /**
  *
@@ -34,6 +38,30 @@ public class FilmeDAOBD implements FilmeDAO{
     public void conectarObtendoId(String sql) throws SQLException {
         conexao = BDUtil.getConnection();
         comando = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+    }
+    
+    @Override
+    public void popularCombo(ComboBox<Genero> combo){
+         try{
+            String sql = "SELECT codigo, nome FROM genero";
+            PreparedStatement stm = conexao.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            
+            while(rs.next()){
+                int codigo = rs.getInt("codigo");
+                String nome = rs.getString("nome");
+                combo.setEditable(true);
+                combo.getItems().addAll(new Genero(codigo,nome));
+            }
+        }catch(Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERRO");
+                alert.setContentText("Não foi possível carregar o combo"+e.getMessage());
+                alert.showAndWait();
+            
+        } finally {
+             fecharConexao();
+         }
     }
 
     public void fecharConexao() {
@@ -84,39 +112,7 @@ public class FilmeDAOBD implements FilmeDAO{
         } finally {
             fecharConexao();
         }
-        /* int codigo = 0;
-        try {
-            String sql = "INSERT INTO filme(titulo,codigo_genero,sinopse) VALUES (?,?,?)";
-            conectarObtendoId(sql);
-            PreparedStatement comando = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            comando.setString(1,filme.getTitulo());
-            comando.setInt(2,filme.getGenero().getCodigo());
-            comando.setString(3,filme.getSinopse());
-            
-            comando.execute();
-           
-            ResultSet resultado = comando.getGeneratedKeys();
-            resultado.next();            
-           
-          
-            comando.executeUpdate();
-           
-            if (resultado.next()) {
-                //seta o id para o objeto
-                codigo = resultado.getInt(1);
-                filme.setCodigo(codigo);
-            }
-            else{
-                System.err.println("Erro de Sistema - Nao gerou o codigo conforme esperado!");
-                throw new BDException("Nao gerou o id conforme esperado!");
-            }
-
-        } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao salvar paciente no Banco de Dados!");
-            throw new BDException(ex);
-        } finally {
-            fecharConexao();
-        }*/
+        
     }
 
     @Override

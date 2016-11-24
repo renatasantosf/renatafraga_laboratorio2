@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="painelGeneroPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="373.0" prefWidth="551.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GeneroUIController">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button fx:id="btInserir" mnemonicParsing="false" onAction="#tratarInserir" text="Inserir" />
+            <Button fx:id="btAlterar" mnemonicParsing="false" onAction="#tratarEditar" text="Alterar" />
+            <Button fx:id="btRemover1" mnemonicParsing="false" onAction="#tratarRemover" text="Remover" />
+            <Button fx:id="btVoltar" mnemonicParsing="false" onAction="#tratarVoltar" text="Voltar" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewGenero" prefHeight="335.0" prefWidth="551.0">
+        <columns>
+          <TableColumn fx:id="tableCCodigo" prefWidth="85.0" text="Código" />
+          <TableColumn fx:id="tableCGenero" minWidth="5.0" prefWidth="180.0" text="Gênero" />
+            <TableColumn fx:id="tableCDescricao" minWidth="5.0" prefWidth="285.0" text="Descrição" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

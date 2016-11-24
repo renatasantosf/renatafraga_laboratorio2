@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="filmePainel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.FilmePainelController">
+   <children>
+      <ToolBar fx:id="toolMenu" prefHeight="30.0" prefWidth="751.0">
+        <items>
+            <Button mnemonicParsing="false" onAction="#tratarInserir" text="Inserir" />
+            <Button fx:id="btAlterar" mnemonicParsing="false" onAction="#tratarEditar" text="Alterar" />
+            <Button fx:id="btRemover" mnemonicParsing="false" onAction="#tratarRemover" text="Remover" />
+            <Button fx:id="btVoltar" mnemonicParsing="false" onAction="#tratarVoltar" text="Voltar" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="tableViewFilme" prefHeight="462.0" prefWidth="769.0">
+        <columns>
+          <TableColumn fx:id="tableCCodigo" prefWidth="128.0" text="codigo" />
+          <TableColumn fx:id="tableCTitulo" minWidth="0.0" prefWidth="183.0" text="titulo" />
+            <TableColumn fx:id="tableCSinopse" minWidth="0.0" prefWidth="436.0" text="sinopse" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

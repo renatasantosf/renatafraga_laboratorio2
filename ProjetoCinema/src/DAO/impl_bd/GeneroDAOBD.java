@@ -158,10 +158,10 @@ public class GeneroDAOBD implements GeneroDAO {
     }
 
     @Override
-    public List<Genero> listarGeneros() {
-       List<Genero> listaGeneros = new ArrayList<>();
+    public List<String> listarGeneros() {
+       List<String> listaGeneros = new ArrayList<>();
 
-        String sql = "SELECT nome FROM genero";
+        String sql = "SELECT codigo,nome FROM genero";
 
         try {
             conectar(sql);
@@ -169,10 +169,11 @@ public class GeneroDAOBD implements GeneroDAO {
             ResultSet resultado = comando.executeQuery();
 
             while (resultado.next()) {
+                int codigo = resultado.getInt("codigo");
                 String nome = resultado.getString("nome");
-                Genero gen = new Genero(nome);
+                Genero gen = new Genero(codigo,nome);
 
-                listaGeneros.add(gen);
+                listaGeneros.add(codigo+"-"+nome);
 
             }
 
