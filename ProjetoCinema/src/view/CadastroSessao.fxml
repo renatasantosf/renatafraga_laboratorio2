@@ -45,7 +45,7 @@
                      </children>
                   </GridPane>
                   <Button fx:id="btCadastrar" layoutX="219.0" layoutY="267.0" mnemonicParsing="false" onAction="#cadastrarSessao" prefHeight="57.0" prefWidth="129.0" text="CADASTRAR" />
-                  <Button fx:id="btLimpar" layoutX="360.0" layoutY="267.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="129.0" text="LIMPAR" />
+                  <Button fx:id="btLimpar" layoutX="360.0" layoutY="267.0" mnemonicParsing="false" onAction="#limpar" prefHeight="57.0" prefWidth="129.0" text="LIMPAR" />
                </children>
             </AnchorPane>
         </content>

@@ -259,4 +259,11 @@ public class FilmePainelController implements Initializable {
         stage.setScene(new Scene(painelFilme));
 
     }
+    
+   @FXML
+   public void limpar(ActionEvent event) throws IOException {
+       tfCodigoGenero.clear();
+       tfTitulo.clear();
+       taSinopse.clear();
+   }
 }

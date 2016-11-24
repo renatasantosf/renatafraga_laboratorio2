@@ -127,17 +127,22 @@ public class SessaoUIController implements Initializable {
             
         
         tableCCodigo.setCellValueFactory(new PropertyValueFactory<Sessao,Integer>("codigo"));
-        tableCHorario.setCellValueFactory(new PropertyValueFactory<Sessao, String>("horario"));
-        tableCFilme.setCellValueFactory(new PropertyValueFactory<Sessao, String>("filme.titulo"));
-        tableCSala.setCellValueFactory(new PropertyValueFactory<Sessao, Integer>("sala.numero"));
+        tableCHorario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Sessao, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Sessao, String> cell) {
+                final Sessao sessao = cell.getValue();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  hh:mm");
+                final SimpleObjectProperty<String> simpleObject = new SimpleObjectProperty(dateFormat.format(sessao.getHorario()));
+                return simpleObject;
+            }
+
+        });
+        tableCFilme.setCellValueFactory(new PropertyValueFactory<Sessao, String>("filme"));
+        tableCSala.setCellValueFactory(new PropertyValueFactory<Sessao, Integer>("sala"));
         
-        
-            
-        
+               
         listaSessoes = sessaoDAOBD.listar();
         
         
-
         observableListaSessoes = FXCollections.observableArrayList(listaSessoes);
         tableViewSessao.setItems(observableListaSessoes);
      
@@ -229,6 +234,7 @@ public class SessaoUIController implements Initializable {
                 alert.setTitle("Alteração");
                 alert.setContentText("Sessão alterada com sucesso!");
                 alert.showAndWait();
+               
             } catch (BDException ex) {
                 System.out.println(ex.getMessage());
             }
@@ -323,4 +329,16 @@ public class SessaoUIController implements Initializable {
         stage.setScene(new Scene(painelFilme));
 
     }
+    
+    
+   @FXML
+   public void limpar(ActionEvent event) throws IOException {
+       tfFilme.clear();
+       tfHorario.clear();
+       tfSala.clear();
+   }
+    
+    
+    
+    
 }

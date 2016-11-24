@@ -224,6 +224,13 @@ public class GeneroUIController implements Initializable {
 
     }
     
+    @FXML
+    public void limpar(ActionEvent event) throws IOException {
+       tfGenero.clear();
+       taDescricao.clear();
+       
+   }
+    
 }
       
 

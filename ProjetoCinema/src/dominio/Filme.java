@@ -69,8 +69,7 @@ public class Filme {
 
     @Override
     public String toString() {
-        return "Código: " + codigo + "\nTítulo: " + titulo + "\nGênero: " + genero +
-                "\nSinopse: " + sinopse;
+        return  titulo;
     }
 
     public void setCodigo(int codigo) {

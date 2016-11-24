@@ -60,5 +60,12 @@ public class Genero {
    public int getCodigo() {
        return codigo;
    }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+   
+   
     
 }

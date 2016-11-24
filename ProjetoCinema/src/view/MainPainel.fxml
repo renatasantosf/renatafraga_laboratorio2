@@ -33,5 +33,6 @@
             <Image url="@../img/192448_mostra-cinema-cinemundi_OK.jpg.1000x390_q60_box-0,31,708,308_crop_detail.jpg" />
          </image>
       </ImageView>
+      <Label layoutX="14.0" layoutY="6.0" text="CINESYSTEM - BILHETERIAS DE CINEMA" />
    </children>
 </AnchorPane>

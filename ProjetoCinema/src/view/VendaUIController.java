@@ -5,6 +5,7 @@
  */
 package view;
 
+import DAO.impl_bd.BDException;
 import DAO.impl_bd.SessaoDAOBD;
 import DAO.impl_bd.VendaDAOBD;
 import dominio.Filme;
@@ -13,15 +14,21 @@ import dominio.Sessao;
 import dominio.Venda;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -31,6 +38,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -85,11 +93,20 @@ public class VendaUIController implements Initializable {
     
     private VendaDAOBD vendaDAOBD;
     private SessaoDAOBD sessaoDAOBD;
+    
+    private ObservableList<Venda> observableListVendas;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sessaoDAOBD = new SessaoDAOBD();
         vendaDAOBD = new VendaDAOBD();
+        
+        
+        if (tableViewVenda != null) {
+            carregarTableViewVenda();
+        }
     }    
+    
+    
     
     @FXML
     public void tratarVoltar(ActionEvent event) throws IOException {
@@ -104,7 +121,7 @@ public class VendaUIController implements Initializable {
     public void tratarComprarIngresso(ActionEvent event) throws IOException {
         vendaSelecionada = null;
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(this.getClass().getResource("/view/CadastroVenda1.fxml"));
+        Parent root = FXMLLoader.load(this.getClass().getResource("CadastroVenda1.fxml"));
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(vendaPainel.getScene().getWindow());
@@ -112,18 +129,91 @@ public class VendaUIController implements Initializable {
         carregarTableViewVenda();
     }
     
+    
+     @FXML
+    public void tratarRemover(ActionEvent event) throws IOException {
+       Venda vendSel = tableViewVenda.getSelectionModel().getSelectedItem();
+        if (vendSel != null) {
+            try {
+                vendaDAOBD.remover(vendSel);
+                this.carregarTableViewVenda();
+            } catch (BDException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERRO");
+                alert.setContentText("Não foi possivel remover.");
+                alert.showAndWait();
+            }
+        } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("ERRO");
+                alert.setContentText("Você precisa selecionar uma linha.");
+                alert.showAndWait();
+        }
+    }
+    
     private void carregarTableViewVenda() {
         tableCCodVenda.setCellValueFactory(new PropertyValueFactory<Venda, Integer>("codigo"));
-        tableCCodSessao.setCellValueFactory(new PropertyValueFactory<Venda, Integer>("codsessao"));
-        tableCHorario.setCellValueFactory(new PropertyValueFactory<Venda, String>("horario"));
-        tableCFilme.setCellValueFactory(new PropertyValueFactory<Venda, String>("titulo"));
-        tableCCapacidade.setCellValueFactory(new PropertyValueFactory<Venda, Integer>("quantidade"));
-        
-       
+        tableCCodSessao.setCellValueFactory(new PropertyValueFactory<Venda, Integer>("sessao"));
+        tableCHorario.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Venda, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Venda, String> cell) {
+                final Venda venda = cell.getValue();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy  hh:mm");
+                final SimpleObjectProperty<String> simpleObject = new SimpleObjectProperty(dateFormat.format(venda.getSessao().getHorario()));
+                return simpleObject;
+            }
 
-      /*  observableListaSessoes = FXCollections.observableArrayList(listaSessoes);
-        tableViewSessao.setItems(observableListaSessoes);*/
+        });
+       
+        tableCFilme.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Venda, String>, ObservableValue<String>>() {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Venda, String> cell) {
+                final Venda venda = cell.getValue();
+                final SimpleObjectProperty<String> simpleObject = new SimpleObjectProperty(String.format(venda.getSessao().getFilme().getTitulo()));
+                return simpleObject;
+            }
+
+        });
+        tableCCapacidade.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Venda, Integer>, ObservableValue<Integer>>() {
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<Venda, Integer> cell) {
+                final Venda venda = cell.getValue();
+                final SimpleObjectProperty<Integer> simpleObject = new SimpleObjectProperty(venda.getSessao().getQuantidade());
+                return simpleObject;
+                }
+        });
+        
+        listaVendas = vendaDAOBD.listar();
+
+        observableListVendas = FXCollections.observableArrayList(listaVendas);
+        tableViewVenda.setItems(observableListVendas);
      
     }
     
+    
+    @FXML
+    public void efetuarVenda() throws ParseException {
+                   
+        Stage stage = (Stage) painelEfetuarVenda.getScene().getWindow();
+        
+        if(vendaSelecionada == null) {
+        
+            try {
+                vendaDAOBD.venderIngresso(Integer.parseInt(tfSessao.getText()),
+                        sessaoDAOBD.buscarPorCodigo(Integer.parseInt(tfSessao.getText())));                   
+                vendaDAOBD.cadastrar(new Venda(sessaoDAOBD.buscarPorCodigo(Integer.parseInt(tfSessao.getText()))));
+                
+                
+                stage.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sucesso!");
+                alert.setContentText("Venda efetuada com sucesso!");
+                alert.showAndWait();
+                
+            } catch (BDException ex) {
+               Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERRO");
+                alert.setContentText("Erro ao inserir sessão.");
+                alert.showAndWait();
+            }
+            
+        }
+    }
 }

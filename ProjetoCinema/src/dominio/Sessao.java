@@ -2,6 +2,7 @@
 package dominio;
 
 import java.util.Date;
+import util.DateUtil;
 
 /**
  *
@@ -13,9 +14,7 @@ public class Sessao {
     private Filme filme;
     private Date horario;
     private int quantidade;
-    private String dateAuxiliar;
-    private String tituloAuxiliar;
-    private int numeroSalaAuxiliar;
+  
  
 
     public Sessao(Date horario,Sala sala, Filme filme) {
@@ -26,14 +25,7 @@ public class Sessao {
         
     }
     
-     public Sessao(int codigo, String dateAuxiliar,Sala sala, Filme filme) {
-        this.codigo = codigo;
-        this.sala = sala;
-        this.filme = filme;
-        this.dateAuxiliar = dateAuxiliar;
-        this.quantidade = sala.getQuantidade();
-        
-    }
+   
     
      public Sessao(int codigo,Date horario, Sala sala, Filme filme) {
         this.codigo = codigo;
@@ -57,15 +49,14 @@ public class Sessao {
     }
 
     public Sessao() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
     }
 
-    public Sessao(int codigo, String dateHourToString, String titulo, int numero_sala) {
-       this.codigo = codigo;
-       this.dateAuxiliar = dateHourToString;
-       this.tituloAuxiliar = titulo;
-       this.numeroSalaAuxiliar = numero_sala;
+    public Sessao(int codigo) {
+        this.codigo = codigo;
     }
+
+    
     
     
     public Sala getSala() {
@@ -109,6 +100,11 @@ public class Sessao {
    
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    @Override
+    public String toString() {
+        return ""+codigo;
     }
     
     

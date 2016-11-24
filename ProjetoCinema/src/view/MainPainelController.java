@@ -102,6 +102,7 @@ public class MainPainelController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initOwner(mainPanel.getScene().getWindow());
         stage.showAndWait();
+        
     
     }
     

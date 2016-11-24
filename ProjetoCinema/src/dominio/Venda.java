@@ -1,6 +1,8 @@
 
 package dominio;
 
+import java.util.Date;
+
 /**
  * @authors Diego Pinto e Renata Fraga
  * 
@@ -10,10 +12,12 @@ public class Venda {
 
     private int codigo;
     private Sessao sessao;
+   
 
     public Venda(int codigo, Sessao sessao) {
         this.codigo = codigo;
         this.sessao = sessao;    
+        
     }
     
     public Venda(Sessao sessao) {
@@ -49,8 +53,18 @@ public class Venda {
             System.out.println("Esta sessao esta vazia.");
         }
     }
+
+    public void setSessao(Sessao sessao) {
+        this.sessao = sessao;
+    }
+
+    @Override
+    public String toString() {
+        return ""+sessao.getCodigo();
+    }
     
-   
+    
+  
     
     
     

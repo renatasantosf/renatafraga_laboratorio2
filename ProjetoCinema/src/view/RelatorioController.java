@@ -52,23 +52,23 @@ public class RelatorioController implements Initializable {
     }    
     
   
-   /* private void tratarBuscas(ActionEvent event) throws IOException {
+   private void tratarBuscas(ActionEvent event) throws IOException {
         if(cbBusca.getValue().equals("VENDAS POR FILME")) {
             listViewResultado.getItems().addAll(vendaDAOBD.vendasPorFilme());
         } else {
             if(cbBusca.getValue().equals("VENDAS POR HORÁRIO")) {
-                listViewResultado.getItems().addAll(vendaDAOBD.vendasPorHorario());
+                //listViewResultado.getItems().addAll(vendaDAOBD.vendasPorHorario());
             } else {
                 if(cbBusca.getValue().equals("VENDAS POR SALAS")) {
-                    listViewResultado.getItems().addAll(vendaDAOBD.vendasPorSalas());
+                   // listViewResultado.getItems().addAll(vendaDAOBD.vendasPorSalas());
                 } else {
                     if(cbBusca.getValue().equals("VENDAS POR SESSÕES")) {
-                          listViewResultado.getItems().addAll(vendaDAOBD.vendasPorSessoes());
+                       //   listViewResultado.getItems().addAll(vendaDAOBD.vendasPorSessoes());
                     }
                 }
             }
         }
-    }*/
+    }
     
     
     

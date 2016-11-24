@@ -115,8 +115,8 @@ public class VendaDAOBD implements VendaDAO {
     }
 
    @Override
-    public List<String> vendasPorFilme() {
-             List<String> listaVenda = new ArrayList<>();
+    public String vendasPorFilme() {
+            String result = "";
                
             String sql = "SELECT FILME.TITULO, COUNT(VENDA.CODIGO) AS INGRESSOS\n" +
             "FROM FILME, VENDA,SESSAO\n" +
@@ -133,14 +133,14 @@ public class VendaDAOBD implements VendaDAO {
                 int quantidade = resultado.getInt("quantidade");
                 
                 
+                result = quantidade + "- " +titulo;
                 
-                
-                
+                return result;
               
 
                 
 
-                listaVenda.add(titulo);
+               
 
             }
             
@@ -153,7 +153,7 @@ public class VendaDAOBD implements VendaDAO {
             fecharConexao();
         }
         
-        return listaVenda;
+        return result;
     }
  
 

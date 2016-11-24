@@ -135,8 +135,7 @@ public class SessaoDAOBD implements SessaoDAO{
     public List<Sessao> listar() {
        List<Sessao> listaSessoes = new ArrayList<>();
 
-        String sql = "SELECT sessao.codigo, sessao.horario, filme.titulo, sala.numero from sessao inner join filme on \n" +
-        "sessao.codigo_filme = filme.codigo inner join sala on sala.numero = sessao.numero_sala;";
+        String sql = "SELECT * from sessao";
 
         try {
             conectar(sql);
@@ -148,20 +147,21 @@ public class SessaoDAOBD implements SessaoDAO{
                 //Trabalhando com data: lembrando dataSql -> dataUtil
                 java.sql.Date dataSql = resultado.getDate("horario");
                 java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
-                String titulo = resultado.getString("titulo");
-                int numero_sala = resultado.getInt("numero");
+                int codigo_filme = resultado.getInt("codigo_filme");
+                int numero_sala = resultado.getInt("numero_sala");
                                 
                 SalaDAOBD salaDAOBD = new SalaDAOBD();
                 FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
                 
-                Sessao sessao = new Sessao(codigo,DateUtil.dateHourToString(dataUtil), titulo, numero_sala);
+                Sessao sessao = new Sessao(codigo,dataUtil,salaDAOBD.buscarPorCodigo(numero_sala),
+                        filmeDAOBD.buscarPorCodigo(codigo_filme));
 
                 listaSessoes.add(sessao);
 
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar sesosoes no Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar sessoes no Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
