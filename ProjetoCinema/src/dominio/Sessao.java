@@ -38,13 +38,13 @@ public class Sessao {
     }
     
     
-    public Sessao(int codigo,Date horario, Sala sala, Filme filme, int quanitidade) {
+    public Sessao(int codigo,Date horario, Sala sala, Filme filme, int quantidade) {
         this.codigo = codigo;
         this.horario = horario;
         this.sala = sala;
         this.filme = filme;
         this.horario = horario;
-        this.quantidade = sala.getQuantidade();
+        this.quantidade = quantidade;
         
     }
 

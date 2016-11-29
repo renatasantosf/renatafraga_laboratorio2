@@ -149,12 +149,13 @@ public class SessaoDAOBD implements SessaoDAO{
                 java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
                 int codigo_filme = resultado.getInt("codigo_filme");
                 int numero_sala = resultado.getInt("numero_sala");
+                int quantidade = resultado.getInt("quantidade");
                                 
                 SalaDAOBD salaDAOBD = new SalaDAOBD();
                 FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
                 
                 Sessao sessao = new Sessao(codigo,dataUtil,salaDAOBD.buscarPorCodigo(numero_sala),
-                        filmeDAOBD.buscarPorCodigo(codigo_filme));
+                        filmeDAOBD.buscarPorCodigo(codigo_filme),quantidade);
 
                 listaSessoes.add(sessao);
 
@@ -194,7 +195,8 @@ public class SessaoDAOBD implements SessaoDAO{
                SalaDAOBD salaDAOBD = new SalaDAOBD();
                 FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
                 
-                Sessao sessao = new Sessao(codigo, dataUtil, salaDAOBD.buscarPorCodigo(numero_sala), filmeDAOBD.buscarPorCodigo(codigo_filme));
+                Sessao sessao = new Sessao(codigo, dataUtil, salaDAOBD.buscarPorCodigo(numero_sala), 
+                        filmeDAOBD.buscarPorCodigo(codigo_filme),quantidade);
 
                 return sessao;
                     
@@ -237,7 +239,8 @@ public class SessaoDAOBD implements SessaoDAO{
                 SalaDAOBD salaDAOBD = new SalaDAOBD();
                 FilmeDAOBD filmeDAOBD = new FilmeDAOBD();
                 
-                Sessao sessao = new Sessao(numero, dataUtil, salaDAOBD.buscarPorCodigo(numero_sala), filmeDAOBD.buscarPorCodigo(codigo_filme));
+                Sessao sessao = new Sessao(numero, dataUtil, salaDAOBD.buscarPorCodigo(numero_sala), 
+                        filmeDAOBD.buscarPorCodigo(codigo_filme),quantidade);
 
                 return true;
                     

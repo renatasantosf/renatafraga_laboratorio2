@@ -94,7 +94,7 @@ public class FilmeDAOBD implements FilmeDAO{
             comando.setInt(2, filme.getGenero().getCodigo());
             comando.setString(3,filme.getSinopse());
             comando.executeUpdate();
-            
+            //validar campos vazios
             //Obtém o resultSet para pegar o id
             ResultSet resultado = comando.getGeneratedKeys();
             if (resultado.next()) {
