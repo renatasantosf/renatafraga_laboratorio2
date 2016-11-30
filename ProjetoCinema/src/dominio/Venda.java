@@ -24,6 +24,11 @@ public class Venda {
         this.sessao = sessao;
     }
 
+    public Venda(int codigo, String titulo) {
+       this.codigo = codigo;
+       sessao.setFilme(new Filme(titulo));
+    }
+
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }

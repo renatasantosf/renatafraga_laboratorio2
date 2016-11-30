@@ -6,6 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RelatorioUIController">
-    
+
+<AnchorPane id="AnchorPane" fx:id="painelRelatorio" prefHeight="468.0" prefWidth="402.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="view.RelatorioUIController">
+   <children>
+      <ToolBar prefHeight="40.0" prefWidth="402.0">
+        <items>
+          <Button fx:id="btGraficos" mnemonicParsing="false" prefHeight="22.0" prefWidth="60.0" text="Gráficos" />
+        </items>
+      </ToolBar>
+      <ComboBox fx:id="cbBusca" layoutX="47.0" layoutY="67.0" prefHeight="25.0" prefWidth="218.0" />
+      <Button fx:id="btBusca" layoutX="289.0" layoutY="52.0" mnemonicParsing="false" onAction="#tratarBuscaDoCombo" prefHeight="47.0" prefWidth="77.0" text="BUSCAR" />
+      <ListView fx:id="listViewBusca" layoutX="42.0" layoutY="127.0" prefHeight="320.0" prefWidth="319.0" />
+   </children>
 </AnchorPane>

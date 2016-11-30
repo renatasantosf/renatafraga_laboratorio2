@@ -96,10 +96,13 @@ public class MainPainelController implements Initializable {
     
     @FXML
     private void tratarTelaRelatorio(ActionEvent event) throws IOException {
-        Stage stage = (Stage) mainPanel.getScene().getWindow();
-        stage.setTitle("Vendas");
-        Parent painelTelaProxima = FXMLLoader.load(this.getClass().getResource("/view/RelatorioUI.fxml"));
-        stage.setScene(new Scene(painelTelaProxima));
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(this.getClass().getResource("RelatorioUI1.fxml"));
+        stage.setScene(new Scene(root));
+        stage.setTitle("Relatórios");
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(mainPanel.getScene().getWindow());
+        stage.showAndWait();
 
         
     

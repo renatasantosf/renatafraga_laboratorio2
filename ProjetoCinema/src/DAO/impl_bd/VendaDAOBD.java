@@ -120,8 +120,7 @@ public class VendaDAOBD implements VendaDAO {
                
             String sql = "SELECT FILME.TITULO, COUNT(VENDA.CODIGO) AS INGRESSOS\n" +
             "FROM FILME, VENDA,SESSAO\n" +
-            "WHERE FILME.CODIGO = SESSAO.CO"
-                    + "DIGO_FILME AND SESSAO.CODIGO = VENDA.CODIGO_SESSAO\n" +
+            "WHERE FILME.CODIGO = SESSAO.CODIGO_FILME AND SESSAO.CODIGO = VENDA.CODIGO_SESSAO\n" +
             "GROUP BY FILME.TITULO;";
         try {  
              conectar(sql);
@@ -129,18 +128,11 @@ public class VendaDAOBD implements VendaDAO {
             ResultSet resultado = comando.executeQuery();
             
             while (resultado.next()) {
-                String titulo = resultado.getString("titulo");
-                int quantidade = resultado.getInt("quantidade");
-                
-                
-                result = quantidade + "- " +titulo;
-                
-                return result;
-              
+               String titulo = resultado.getString("titulo");
+               int codigo = resultado.getInt("count(venda.codigo)");
+              Venda venda = new Venda(codigo,titulo);  
 
-                
-
-               
+              return venda.toString();
 
             }
             
@@ -153,7 +145,7 @@ public class VendaDAOBD implements VendaDAO {
             fecharConexao();
         }
         
-        return result;
+       return null;
     }
  
 
