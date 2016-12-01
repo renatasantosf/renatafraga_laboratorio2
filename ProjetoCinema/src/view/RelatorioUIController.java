@@ -71,6 +71,7 @@ public class RelatorioUIController implements Initializable {
                 listaVenda = vendaDAOBD.vendasPorHorario();
                 observableListVenda = FXCollections.observableArrayList(listaVenda);
                 listViewBusca.setItems(observableListVenda);
+                
             } else {
                 if(cbBusca.getValue().equals("VENDAS POR SALA")) {
                     listaVenda = vendaDAOBD.vendasSalas();
@@ -84,6 +85,7 @@ public class RelatorioUIController implements Initializable {
                         
                     } else {
                         if(cbBusca.getValue().equals("FILME QUE ESTEVE EM MAIS SESSÕES")) {
+                            listViewBusca.getItems().clear();
                             listViewBusca.getItems().add(vendaDAOBD.filmeMaisSessoes());                        
                         } 
                     }

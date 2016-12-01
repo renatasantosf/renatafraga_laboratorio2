@@ -256,11 +256,13 @@ public class VendaDAOBD implements VendaDAO {
             ResultSet resultado = comando.executeQuery();
             
             while (resultado.next()) {
-               String datas = resultado.getString("horario");
+                java.sql.Timestamp dataSql = resultado.getTimestamp("horario");
+                java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
                int qtdIng = resultado.getInt("ingressos");
 
-               listaVendasPorHorario.add("Ingressos vendidos: " + qtdIng +" Data:: "+ 
-                       DateUtil.stringToDateHour(datas));
+               listaVendasPorHorario.add("Ingressos vendidos: " + qtdIng +" Data: "+ 
+                       DateUtil.dateHourToString(dataUtil));
+                       
 
             }
             
@@ -269,8 +271,6 @@ public class VendaDAOBD implements VendaDAO {
             
             System.err.println("Erro de Sistema - Problema ao remover sala no Banco de Dados!");
             throw new BDException(ex);
-        } catch (ParseException ex) {
-            
         } finally {
             fecharConexao();
         }
@@ -325,11 +325,12 @@ public class VendaDAOBD implements VendaDAO {
             
             while (resultado.next()) {
               int codigo = resultado.getInt("codigo");
-              String horario = resultado.getString("horario");
+              java.sql.Date dataSql = resultado.getDate("horario");
+              java.util.Date dataUtil = new java.util.Date(dataSql.getTime());
               int qtdIng = resultado.getInt("ingressos");
 
-               listaVendasPorSessoes.add(codigo + " - " + DateUtil.stringToDateHour(horario) + " - "
-               + "Ingressos vendidos: "+qtdIng);
+               listaVendasPorSessoes.add(codigo + " - " + DateUtil.dateHourToString(dataUtil) + " - "
+               + "Ing. vendidos: "+qtdIng);
 
             }
             
@@ -338,8 +339,6 @@ public class VendaDAOBD implements VendaDAO {
             
             System.err.println("Erro de Sistema - Problema ao remover sala no Banco de Dados!");
             throw new BDException(ex);
-        } catch (ParseException ex) {
-            
         } finally {
             fecharConexao();
         }
