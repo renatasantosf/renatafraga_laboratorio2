@@ -176,37 +176,49 @@ public class GeneroUIController implements Initializable {
         Stage stage = (Stage) painelCadastroGenero.getScene().getWindow();
         
         if(generoSelecionado == null) {
-        
-            try {
-                generoDaobd.cadastrar(new Genero(
-                        tfGenero.getText(), taDescricao.getText()));                
-                stage.close();
+            if(tfGenero.getText().equals("") || taDescricao.getText().equals("")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Sucesso!");
-                alert.setContentText("Gênero "+tfGenero.getText()+" inserido com sucesso!");
+                alert.setTitle("Campos vazios!");
+                alert.setContentText("Preencha todos os campos");
                 alert.showAndWait();
-            } catch (BDException ex) {
-               Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERRO");
-                alert.setContentText("Erro ao cadastrar gênero.");
-                alert.showAndWait();
+            } else {
+                try {
+                    generoDaobd.cadastrar(new Genero(
+                            tfGenero.getText(), taDescricao.getText()));                
+                    stage.close();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Sucesso!");
+                    alert.setContentText("Gênero "+tfGenero.getText()+" inserido com sucesso!");
+                    alert.showAndWait();
+                } catch (BDException ex) {
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ERRO");
+                    alert.setContentText("Erro ao cadastrar gênero.");
+                    alert.showAndWait();
+                }
             }
-            
         } else {
-            try {
-              
-               generoSelecionado.setNome(tfGenero.getText());
-               generoSelecionado.setDescricao(taDescricao.getText());
-               
-               
-                generoDaobd.alterar(generoSelecionado);
-                stage.close();
+            if(tfGenero.getText().equals("") || taDescricao.getText().equals("")) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Alteração");
-                alert.setContentText("Gênero alterado com sucesso!");
+                alert.setTitle("Campos vazios!");
+                alert.setContentText("Preencha todos os campos");
                 alert.showAndWait();
-            } catch (BDException ex) {
-                System.out.println(ex.getMessage());
+            } else {
+                try {
+
+                   generoSelecionado.setNome(tfGenero.getText());
+                   generoSelecionado.setDescricao(taDescricao.getText());
+
+
+                    generoDaobd.alterar(generoSelecionado);
+                    stage.close();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Alteração");
+                    alert.setContentText("Gênero alterado com sucesso!");
+                    alert.showAndWait();
+                } catch (BDException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
         }
     }

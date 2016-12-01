@@ -207,36 +207,49 @@ public class SessaoUIController implements Initializable {
         Stage stage = (Stage) painelCadastroSessao.getScene().getWindow();
         
         if(sessaoSelecionada == null) {
-        
-            try {
-                                            
-                tratarCadastroData(tfHorario.getText(),Integer.parseInt(tfSala.getText()),
-                        salaDAOBD.buscarPorCodigo(Integer.parseInt(tfSala.getText())),
-                filmeDAOBD.buscarPorCodigo(Integer.parseInt(tfFilme.getText())));
-                
-                
-            } catch (BDException ex) {
-               Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERRO");
-                alert.setContentText("Erro ao inserir sessão.");
-                alert.showAndWait();
+            if(tfHorario.getText().equals("") || tfSala.getText().equals("") ||
+                    tfFilme.equals("")) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Campos vazios!");
+                    alert.setContentText("Preencha todos os campos");
+                    alert.showAndWait();
+            } else {
+                        try {
+                            tratarCadastroData(tfHorario.getText(),Integer.parseInt(tfSala.getText()),
+                                    salaDAOBD.buscarPorCodigo(Integer.parseInt(tfSala.getText())),
+                            filmeDAOBD.buscarPorCodigo(Integer.parseInt(tfFilme.getText())));
+
+
+                        } catch (BDException ex) {
+                           Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("ERRO");
+                            alert.setContentText("Erro ao inserir sessão.");
+                            alert.showAndWait();
+                        }
             }
             
         } else {
-            try {
-                        
-                tratarEditarData(tfHorario.getText(),Integer.parseInt(tfSala.getText()),
-                        salaDAOBD.buscarPorCodigo(Integer.parseInt(tfSala.getText())), 
-                        filmeDAOBD.buscarPorCodigo(Integer.parseInt(tfFilme.getText())));
-                
-                stage.close();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Alteração");
-                alert.setContentText("Sessão alterada com sucesso!");
-                alert.showAndWait();
-               
-            } catch (BDException ex) {
-                System.out.println(ex.getMessage());
+            if(tfHorario.getText().equals("") || tfSala.getText().equals("") ||
+                    tfFilme.equals("")) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Campos vazios!");
+                    alert.setContentText("Preencha todos os campos");
+                    alert.showAndWait();
+            } else {
+                try {    
+                    tratarEditarData(tfHorario.getText(),Integer.parseInt(tfSala.getText()),
+                            salaDAOBD.buscarPorCodigo(Integer.parseInt(tfSala.getText())), 
+                            filmeDAOBD.buscarPorCodigo(Integer.parseInt(tfFilme.getText())));
+
+                    stage.close();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Alteração");
+                    alert.setContentText("Sessão alterada com sucesso!");
+                    alert.showAndWait();
+
+                } catch (BDException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
         }
     }

@@ -12,8 +12,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import util.DateUtil;
 
 /**
  *
@@ -115,24 +119,23 @@ public class VendaDAOBD implements VendaDAO {
     }
 
    @Override
-    public String vendasPorFilme() {
-            String result = "";
-               
-            String sql = "SELECT FILME.TITULO, COUNT(VENDA.CODIGO) AS INGRESSOS\n" +
+    public List<String> vendasPorFilmes() {
+            List<String> listaVendasPorFilme = new ArrayList<>();
+            
+            String sql = "SELECT FILME.TITULO AS TITULO, COUNT(VENDA.CODIGO) AS INGRESSOS\n" +
             "FROM FILME, VENDA,SESSAO\n" +
             "WHERE FILME.CODIGO = SESSAO.CODIGO_FILME AND SESSAO.CODIGO = VENDA.CODIGO_SESSAO\n" +
             "GROUP BY FILME.TITULO;";
         try {  
-             conectar(sql);
-
+            conectar(sql);
+            
             ResultSet resultado = comando.executeQuery();
             
             while (resultado.next()) {
                String titulo = resultado.getString("titulo");
-               int codigo = resultado.getInt("count(venda.codigo)");
-              Venda venda = new Venda(codigo,titulo);  
+               int qtdIng = resultado.getInt("ingressos");
 
-              return venda.toString();
+               listaVendasPorFilme.add("Ingressos vendidos: " + qtdIng +" Filme: "+ titulo);
 
             }
             
@@ -145,7 +148,7 @@ public class VendaDAOBD implements VendaDAO {
             fecharConexao();
         }
         
-       return null;
+       return listaVendasPorFilme;
     }
  
 
@@ -239,18 +242,142 @@ public class VendaDAOBD implements VendaDAO {
             fecharConexao();
         }
     }
-/*
+
     @Override
     public List<String> vendasPorHorario() {
-      
-    }
+        List<String> listaVendasPorHorario = new ArrayList<>();
+            
+            String sql = "SELECT SESSAO.HORARIO AS HORARIO, COUNT(VENDA.CODIGO) AS INGRESSOS "
+                    + "FROM SESSAO,VENDA WHERE VENDA.CODIGO_SESSAO = SESSAO.CODIGO \n" +
+                    "GROUP BY SESSAO.CODIGO";
+        try {  
+            conectar(sql);
+            
+            ResultSet resultado = comando.executeQuery();
+            
+            while (resultado.next()) {
+               String datas = resultado.getString("horario");
+               int qtdIng = resultado.getInt("ingressos");
 
-    public List<String> vendasPorSalas() {
+               listaVendasPorHorario.add("Ingressos vendidos: " + qtdIng +" Data:: "+ 
+                       DateUtil.stringToDateHour(datas));
+
+            }
+            
+            
+        } catch( SQLException ex) {
+            
+            System.err.println("Erro de Sistema - Problema ao remover sala no Banco de Dados!");
+            throw new BDException(ex);
+        } catch (ParseException ex) {
+            
+        } finally {
+            fecharConexao();
+        }
         
+       return listaVendasPorHorario;
     }
 
+    @Override
+    public List<String> vendasSalas() {
+         List<String> listaVendasPorSalas = new ArrayList<>();
+            
+            String sql = "SELECT SALA.NUMERO AS NUMERO, COUNT(VENDA.CODIGO) AS INGRESSOS \n" +
+            "FROM SESSAO, VENDA,SALA WHERE SESSAO.NUMERO_SALA = SALA.NUMERO AND"
+                    + " VENDA.CODIGO_SESSAO = SESSAO.CODIGO GROUP BY SALA.NUMERO;";
+        try {  
+            conectar(sql);
+            
+            ResultSet resultado = comando.executeQuery();
+            
+            while (resultado.next()) {
+              int numero = resultado.getInt("numero");
+              int qtdIng = resultado.getInt("ingressos");
+
+               listaVendasPorSalas.add("Sala: " + qtdIng +" Ingressos vendidos: "+ qtdIng);
+
+            }
+            
+            
+        } catch( SQLException ex) {
+            
+            System.err.println("Erro de Sistema - Problema ao remover sala no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+        
+       return listaVendasPorSalas;
+    }
+
+    @Override
     public List<String> vendasPorSessoes() {
+         List<String> listaVendasPorSessoes = new ArrayList<>();
+            
+            String sql = "SELECT SESSAO.CODIGO AS CODIGO, SESSAO.HORARIO AS HORARIO, "
+                    + "COUNT(VENDA.CODIGO) AS INGRESSOS\n" +
+            "FROM SESSAO, VENDA WHERE SESSAO.CODIGO = VENDA.CODIGO_SESSAO \n" +
+            "GROUP BY SESSAO.CODIGO; ";
+        try {  
+            conectar(sql);
+            
+            ResultSet resultado = comando.executeQuery();
+            
+            while (resultado.next()) {
+              int codigo = resultado.getInt("codigo");
+              String horario = resultado.getString("horario");
+              int qtdIng = resultado.getInt("ingressos");
+
+               listaVendasPorSessoes.add(codigo + " - " + DateUtil.stringToDateHour(horario) + " - "
+               + "Ingressos vendidos: "+qtdIng);
+
+            }
+            
+            
+        } catch( SQLException ex) {
+            
+            System.err.println("Erro de Sistema - Problema ao remover sala no Banco de Dados!");
+            throw new BDException(ex);
+        } catch (ParseException ex) {
+            
+        } finally {
+            fecharConexao();
+        }
         
+       return listaVendasPorSessoes;
     }
-*/
+
+    @Override
+    public String filmeMaisSessoes() {
+                  
+            String sql = "SELECT FILME.CODIGO AS CODIGO, FILME.TITULO "
+                    + "AS TITULO, GENERO.NOME AS NOME FROM FILME, GENERO, SESSAO \n" +
+                "WHERE GENERO.CODIGO = FILME.CODIGO_GENERO AND FILME.CODIGO = SESSAO.CODIGO_FILME ";
+        try {  
+            conectar(sql);
+            
+            ResultSet resultado = comando.executeQuery();
+            
+            while (resultado.next()) {
+              int codigo = resultado.getInt("codigo");
+              String titulo = resultado.getString("titulo");
+              String genero = resultado.getString("nome");
+
+               return "Código: "+codigo+" - "+titulo+" - "+genero;
+
+            }
+            
+            
+        } catch( SQLException ex) {
+            
+            System.err.println("Erro de Sistema - Problema ao remover sala no Banco de Dados!");
+            throw new BDException(ex);
+        } finally {
+            fecharConexao();
+        }
+        
+       return null;
+    
+    }
+
 }

@@ -49,7 +49,7 @@ import javax.swing.JOptionPane;
  * @author Renata-Samsung
  */
 public class FilmePainelController implements Initializable {
-
+    
     
     @FXML
     private TextField tfTitulo;
@@ -57,11 +57,9 @@ public class FilmePainelController implements Initializable {
     
     @FXML
     private TextField tfCodigoGenero;
-  
-    
-    
-     @FXML
-     private AnchorPane painelCadastro;
+      
+    @FXML
+    private AnchorPane painelCadastro;
     
     @FXML
     private TextArea taSinopse;
@@ -204,43 +202,59 @@ public class FilmePainelController implements Initializable {
         
         if(filmeSelecionado == null) //Se for cadastrar
         {
-            try {
-              filmeDAOBD.cadastrar(new Filme(
-                        tfTitulo.getText(), 
-                        generoDAOBD.buscarPorCodigo(Integer.parseInt(tfCodigoGenero.getText())), 
-                       taSinopse.getText()));                
-                stage.close();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Sucesso!");
-                alert.setContentText("Filme "+tfTitulo.getText()+" cadastrado com sucesso!");
-                alert.showAndWait();
-            } catch (BDException ex) {
-                System.out.println(ex.getMessage());
-            }
+           
+                if(tfTitulo.getText().equals("") || tfCodigoGenero.getText().equals("") ||
+                      taSinopse.getText().equals("")) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Campos vazios!");
+                        alert.setContentText("Preencha todos os campos");
+                        alert.showAndWait();
+                } else {
+                    try {
+                        filmeDAOBD.cadastrar(new Filme(
+                                  tfTitulo.getText(), 
+                                  generoDAOBD.buscarPorCodigo(Integer.parseInt(tfCodigoGenero.getText())), 
+                                 taSinopse.getText()));                
+                          stage.close();
+                          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                          alert.setTitle("Sucesso!");
+                          alert.setContentText("Filme "+tfTitulo.getText()+" cadastrado com sucesso!");
+                          alert.showAndWait();
+                    } catch (BDException ex) {
+                            System.out.println(ex.getMessage());
+                    }
+                }
+           
             
         }
         else //Se for editar
         {
-            
-                try {
-                    
-                filmeSelecionado.setTitulo(tfTitulo.getText());
-                filmeSelecionado.setGenero(generoDAOBD.buscarPorCodigo(Integer.parseInt(tfCodigoGenero.getText())));
-                filmeSelecionado.setSinopse(taSinopse.getText());
-               
-                       
-                filmeDAOBD.alterar(filmeSelecionado);
-                stage.close();
-                      
-                stage.close();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Sucesso!");
-                alert.setContentText("Filme "+tfTitulo.getText()+" alterado com sucesso!");
-                alert.showAndWait();
-            } catch (BDException ex) {
-                System.out.println(ex.getMessage());
-            }
+               if(tfTitulo.getText().equals("") || tfCodigoGenero.getText().equals("") ||
+                      taSinopse.getText().equals("")) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Campos vazios!");
+                        alert.setContentText("Preencha todos os campos");
+                        alert.showAndWait();
+                } else {
+                        try {
 
+                            filmeSelecionado.setTitulo(tfTitulo.getText());
+                            filmeSelecionado.setGenero(generoDAOBD.buscarPorCodigo(Integer.parseInt(tfCodigoGenero.getText())));
+                            filmeSelecionado.setSinopse(taSinopse.getText());
+
+
+                            filmeDAOBD.alterar(filmeSelecionado);
+                            stage.close();
+
+                            stage.close();
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Sucesso!");
+                            alert.setContentText("Filme "+tfTitulo.getText()+" alterado com sucesso!");
+                            alert.showAndWait();
+                        } catch (BDException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+               }
             
         
       }

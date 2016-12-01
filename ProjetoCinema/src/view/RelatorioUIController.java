@@ -10,6 +10,7 @@ import dominio.Venda;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,28 +46,53 @@ public class RelatorioUIController implements Initializable {
     
     private VendaDAOBD vendaDAOBD;
     
-    private List<Venda> listaVenda;
-    private ObservableList<Venda> observableListVenda;
+    private List<String> listaVenda;
+    private ObservableList<String> observableListVenda;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        vendaDAOBD = new VendaDAOBD();
-       listaVenda = vendaDAOBD.listar();
-       
-       
-       
+                    
        cbBusca.setEditable(true);
        cbBusca.getItems().addAll("VENDAS POR FILME","VENDAS POR HORÁRIO",
-               "VENDAS POR SALA", "VENDAS POR SESSÃO","FILME QUE ESTEVE EM MAIS SESSÕES",
-               "SALA MAIS UTILIZADA");
+               "VENDAS POR SALA", "VENDAS POR SESSÃO","FILME QUE ESTEVE EM MAIS SESSÕES");
     } 
     
+       
     @FXML
     private void tratarBuscaDoCombo(ActionEvent event) {
         if(cbBusca.getValue().equals("VENDAS POR FILME")) {
-            listViewBusca.getItems().add(vendaDAOBD.vendasPorFilme());
-        }
-        
+            listaVenda = vendaDAOBD.vendasPorFilmes();
+            observableListVenda = FXCollections.observableArrayList(listaVenda);
+            listViewBusca.setItems(observableListVenda);
+            
+        } else {
+            if(cbBusca.getValue().equals("VENDAS POR HORÁRIO")) {
+                listaVenda = vendaDAOBD.vendasPorHorario();
+                observableListVenda = FXCollections.observableArrayList(listaVenda);
+                listViewBusca.setItems(observableListVenda);
+            } else {
+                if(cbBusca.getValue().equals("VENDAS POR SALA")) {
+                    listaVenda = vendaDAOBD.vendasSalas();
+                    observableListVenda = FXCollections.observableArrayList(listaVenda);
+                    listViewBusca.setItems(observableListVenda);
+                } else {
+                    if(cbBusca.getValue().equals("VENDAS POR SESSÃO")) {
+                        listaVenda = vendaDAOBD.vendasPorSessoes();
+                        observableListVenda = FXCollections.observableArrayList(listaVenda);
+                        listViewBusca.setItems(observableListVenda);
+                        
+                    } else {
+                        if(cbBusca.getValue().equals("FILME QUE ESTEVE EM MAIS SESSÕES")) {
+                            listViewBusca.getItems().add(vendaDAOBD.filmeMaisSessoes());                        
+                        } 
+                    }
+                }
+            }
     }
     
 }
+
+
+}
+

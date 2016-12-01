@@ -194,24 +194,30 @@ public class VendaUIController implements Initializable {
         Stage stage = (Stage) painelEfetuarVenda.getScene().getWindow();
         
         if(vendaSelecionada == null) {
-        
-            try {
-                vendaDAOBD.venderIngresso(Integer.parseInt(tfSessao.getText()),
-                        sessaoDAOBD.buscarPorCodigo(Integer.parseInt(tfSessao.getText())));                   
-                vendaDAOBD.cadastrar(new Venda(sessaoDAOBD.buscarPorCodigo(Integer.parseInt(tfSessao.getText()))));
-                
-                
-                stage.close();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Sucesso!");
-                alert.setContentText("Venda efetuada com sucesso!");
-                alert.showAndWait();
-                
-            } catch (BDException ex) {
-               Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("ERRO");
-                alert.setContentText("Erro ao inserir sessão.");
-                alert.showAndWait();
+            if(tfSessao.getText().equals("")) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Campos vazios!");
+                    alert.setContentText("Preencha todos os campos");
+                    alert.showAndWait();
+            } else { 
+                try {
+                    vendaDAOBD.venderIngresso(Integer.parseInt(tfSessao.getText()),
+                            sessaoDAOBD.buscarPorCodigo(Integer.parseInt(tfSessao.getText())));                   
+                    vendaDAOBD.cadastrar(new Venda(sessaoDAOBD.buscarPorCodigo(Integer.parseInt(tfSessao.getText()))));
+
+
+                    stage.close();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Sucesso!");
+                    alert.setContentText("Venda efetuada com sucesso!");
+                    alert.showAndWait();
+
+                } catch (BDException ex) {
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("ERRO");
+                    alert.setContentText("Erro ao inserir sessão.");
+                    alert.showAndWait();
+                }
             }
             
         }

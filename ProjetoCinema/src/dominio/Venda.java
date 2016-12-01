@@ -20,13 +20,15 @@ public class Venda {
         
     }
     
-    public Venda(Sessao sessao) {
-        this.sessao = sessao;
-    }
+    
 
     public Venda(int codigo, String titulo) {
        this.codigo = codigo;
-       sessao.setFilme(new Filme(titulo));
+       
+    }
+
+    public Venda(Sessao sessao) {
+        this.sessao = sessao;
     }
 
     public void setCodigo(int codigo) {

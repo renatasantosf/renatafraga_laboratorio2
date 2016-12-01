@@ -19,10 +19,11 @@ public interface VendaDAO {
     public void venderIngresso(int codigo, Sessao sessao);
     public List<Venda> listar();
     public Venda buscarPorCodigo(int codigo);
-    public String vendasPorFilme();
-  /*  public List<String> vendasPorHorario();
+    public List<String> vendasPorFilmes();
+    public List<String> vendasPorHorario();
     public List<String> vendasSalas();
-    public List<String> vendasPorSessoes();*/
+    public List<String> vendasPorSessoes();
+    public String filmeMaisSessoes();
             
    
     
